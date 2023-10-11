@@ -282,7 +282,7 @@ zoom = Vector2(2, 2)
 position = Vector2(64, 32)
 
 [node name="Sprite2D" type="Sprite2D" parent="Node2D"]
-position = Vector2(16, 16)
+position = Vector2(16, 14)
 scale = Vector2(2, 2)
 texture = ExtResource("2_xqht1")
 hframes = 4
