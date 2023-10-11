@@ -1,69 +1,105 @@
-[gd_scene load_steps=10 format=3 uid="uid://5dax5q76o5yk"]
+[gd_scene load_steps=9 format=3 uid="uid://5dax5q76o5yk"]
 
 [ext_resource type="Script" path="res://Player/player.cs" id="1_buj4y"]
 [ext_resource type="Texture2D" uid="uid://sr5a1kk2dwq" path="res://Assets/Characters/Wario.png" id="1_jbwpo"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g21b6"]
-atlas = ExtResource("1_jbwpo")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="Animation" id="Animation_0dqvk"]
+resource_name = "idle"
+length = 0.0166683
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_108a7"]
-atlas = ExtResource("1_jbwpo")
-region = Rect2(32, 0, 32, 32)
+[sub_resource type="Animation" id="Animation_xw2ch"]
+resource_name = "walking"
+length = 0.200002
+loop_mode = 1
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1, 0.15),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y7yk6"]
-atlas = ExtResource("1_jbwpo")
-region = Rect2(64, 0, 32, 32)
+[sub_resource type="Animation" id="Animation_ww3y7"]
+resource_name = "rising"
+length = 0.0166683
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hkgq2"]
-atlas = ExtResource("1_jbwpo")
-region = Rect2(96, 0, 32, 32)
+[sub_resource type="Animation" id="Animation_bc53r"]
+resource_name = "falling"
+length = 0.0166683
+step = 0.0166667
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6tq5p"]
-atlas = ExtResource("1_jbwpo")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_0eaii"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_g21b6")
-}],
-"loop": true,
-"name": &"idle",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_108a7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_y7yk6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_hkgq2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6tq5p")
-}],
-"loop": true,
-"name": &"walk",
-"speed": 12.0
-}]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r33y0"]
+_data = {
+"falling": SubResource("Animation_bc53r"),
+"idle": SubResource("Animation_0dqvk"),
+"rising": SubResource("Animation_ww3y7"),
+"walking": SubResource("Animation_xw2ch")
+}
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w6ymf"]
 size = Vector2(24, 48)
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("_spriteAnimator", "_sprite")]
 script = ExtResource("1_buj4y")
+_spriteAnimator = NodePath("SpriteAnimator")
+_sprite = NodePath("Sprite2D")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -32)
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_0eaii")
-animation = &"idle"
+texture = ExtResource("1_jbwpo")
+hframes = 8
+vframes = 8
+
+[node name="SpriteAnimator" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-frame_progress = 0.764122
+libraries = {
+"": SubResource("AnimationLibrary_r33y0")
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -24)

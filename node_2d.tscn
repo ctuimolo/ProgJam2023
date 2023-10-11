@@ -18,4 +18,4 @@ layer_0/tile_data = PackedInt32Array(589806, 720898, 0, 589807, 917506, 0, 58980
 zoom = Vector2(2, 2)
 
 [node name="Player" parent="." instance=ExtResource("3_arnbh")]
-position = Vector2(0, 24)
+position = Vector2(-120, 32)
