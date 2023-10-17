@@ -15,7 +15,7 @@ public partial class WorldManager : Node
         Busy,
     }
 
-	public static Room CurrentRoom { get; private set; }
+    public static Room CurrentRoom { get; private set; }
 	public static Player CurrentPlayer { get; private set; }
     public static State CurrentState { get; private set; }
 
