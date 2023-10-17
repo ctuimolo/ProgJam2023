@@ -16,7 +16,7 @@ public partial class WorldManager : Node
     }
 
     public static Room CurrentRoom { get; private set; }
-	public static Player CurrentPlayer { get; private set; }
+    public static Player CurrentPlayer { get; private set; }
     public static State CurrentState { get; private set; }
 
     private static int StepCoolDown = 18;
