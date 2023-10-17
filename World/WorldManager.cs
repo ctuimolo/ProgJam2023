@@ -24,7 +24,7 @@ public partial class WorldManager : Node
 
     public static void SetCurrentRoom(Room room)
     {
-	    CurrentRoom = room;
+        CurrentRoom = room;
     }
 
     public static void SetCurrentPlayer(Player player) 
