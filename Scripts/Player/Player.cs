@@ -1,7 +1,9 @@
 using Godot;
 using System;
 
-public partial class node_2d : Node2D
+namespace ProgJam2023.Scripts.Player;
+
+public partial class Player : Node2D
 {
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
