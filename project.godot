@@ -13,8 +13,13 @@ config_version=5
 config/name="GameJam"
 run/main_scene="res://Rooms/Demo/Demo.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
+run/max_fps=60
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
+
+[autoload]
+
+WorldManager="*res://World/WorldManager.cs"
 
 [display]
 

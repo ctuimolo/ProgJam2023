@@ -19,8 +19,61 @@ public partial class Player : GridActor
 		InitPlayer();
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void AnimateState()
 	{
+        switch (Direction)
+        {
+            case Direction.Up:
+                _animationPlayer.Play("idle_up");
+                break;
+            case Direction.Down:
+                _animationPlayer.Play("idle_down");
+                break;
+            case Direction.Left:
+                _animationPlayer.Play("idle_left");
+                break;
+            case Direction.Right:
+                _animationPlayer.Play("idle_right");
+                break;
+        }
+	}
+
+    private void AnimateStep(Direction direciton)
+    {
+        //switch (direciton)
+        //{
+        //    case Direction.Up:
+        //        _animationPlayer.Play("idle_up");
+        //        break;
+        //    case Direction.Down:
+        //        _animationPlayer.Play("walk_down");
+        //        break;
+        //    case Direction.Left:
+        //        _animationPlayer.Play("idle_left");
+        //        break;
+        //    case Direction.Right:
+        //        _animationPlayer.Play("idle_right");
+        //        break;
+        //}
+    }
+
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+	{
+		AnimateState();
+
+		if (WorldManager.CurrentState == WorldManager.State.Open)
+		{
+			Direction direction = Utils.VectorToDirection(Input.GetVector("ui_left", "ui_right", "ui_up", "ui_down").Round());
+
+			if (direction != Direction.None)
+			{
+                Direction = direction;
+                AnimateState();
+                WorldManager.MakeBusy();
+				SingleStep(direction);
+                AnimateStep(direction);
+			}
+		}
 	}
 }

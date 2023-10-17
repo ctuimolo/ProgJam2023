@@ -83,13 +83,16 @@ _data = {
 "idle_up": SubResource("Animation_p5pm1")
 }
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("_animationPlayer")]
+position = Vector2(0, -32)
 script = ExtResource("1_qpdbg")
+_animationPlayer = NodePath("AnimationPlayer")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
 texture = ExtResource("2_ok8l7")
 centered = false
+offset = Vector2(0, -4)
 hframes = 4
 vframes = 4
 
