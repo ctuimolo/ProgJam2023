@@ -1,9 +1,10 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 using ProgJam2023.Rooms;
 using ProgJam2023.Actors.Player;
-
+using ProgJam2023.Actors;
 
 namespace ProgJam2023.World;
 
@@ -19,8 +20,7 @@ public partial class WorldManager : Node
     public static Player CurrentPlayer { get; private set; }
     public static State CurrentState { get; private set; }
 
-    private static int StepCoolDown = 18;
-    private static int currStep     = 0;
+    static List<GridActor> _worldActors;
 
     public static void SetCurrentRoom(Room room)
     {
@@ -30,6 +30,17 @@ public partial class WorldManager : Node
     public static void SetCurrentPlayer(Player player) 
     {
         CurrentPlayer = player;
+        AddActorToWorld(player);
+    }
+
+    public static void AddActorToWorld(GridActor actor)
+    {
+        if (_worldActors.Contains(actor)) 
+        {
+            return;
+        }
+
+        _worldActors.Add(actor);
     }
 
     public static void SpawnPlayer()
@@ -37,32 +48,32 @@ public partial class WorldManager : Node
         CurrentRoom.PutOnTile(CurrentRoom.StartingCell, CurrentPlayer);
     }
 
-    public static void MakeBusy()
+    public static void InitWorld()
     {
-        currStep = StepCoolDown;
-        CurrentState = State.Busy;
+        _worldActors = new List<GridActor>();
+        CurrentState = State.Open;
+    }
+
+    public static void MoveActor(GridActor actor, Direction direction)
+    {
+        if (actor.State != GridActor.ActorState.Idle) return;
+
+        Vector2I toTile = actor.CurrentCell + Utils.DirectionToVector(direction);
+
+        if (!CurrentRoom.TileMap.GetUsedCells(0).Contains(toTile)) return;
+
+        actor.SingleStep(direction);
     }
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        CurrentState = State.Open;
+        InitWorld();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
-        if (CurrentState == State.Busy)
-        {
-            if (currStep <= 0) 
-            {
-                currStep = 0;
-                CurrentState = State.Open;
-            } else
-            {
-                currStep--;
-            }
-        }
     }
 }
 
