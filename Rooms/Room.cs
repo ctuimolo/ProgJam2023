@@ -22,11 +22,12 @@ public partial class Room : Node2D
         WorldManager.SpawnPlayer();
     }
 
-    public void PutOnTile(Vector2I tile, GridActor actor)
+    public void PutOnCell(Vector2I cell, GridActor actor)
     {
-        if (!TileMap.GetUsedCells(0).Contains(tile)) return;
+        if (!TileMap.GetUsedCells(0).Contains(cell)) return;
 
-        actor.CurrentCell = tile;
-        actor.Position = TileMap.ToGlobal(TileMap.MapToLocal(tile) - TileMap.TileSet.TileSize/2);
+        actor.CurrentCell = cell;
+        actor.NextCell = cell;
+        actor.Position = TileMap.ToGlobal(TileMap.MapToLocal(cell) - TileMap.TileSet.TileSize/2);
     }
 }

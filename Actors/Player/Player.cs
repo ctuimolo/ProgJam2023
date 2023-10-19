@@ -13,6 +13,8 @@ public partial class Player : GridActor
     // Probably to be called in Godot scene room's _Ready function
     protected void InitPlayer()
 	{
+        _animationWalker.SpeedScale = 1.5f;
+
 		WorldManager.SetCurrentPlayer(this);
 	}
 
@@ -22,33 +24,10 @@ public partial class Player : GridActor
 		InitPlayer();
 	}
 
-	private void AnimateState()
-	{
-        if (State == ActorState.Idle)
-        {
-            switch (Direction)
-            {
-                case Direction.Up:
-                    _animationPlayer.Play("idle_up");
-                    break;
-                case Direction.Down:
-                    _animationPlayer.Play("idle_down");
-                    break;
-                case Direction.Left:
-                    _animationPlayer.Play("idle_left");
-                    break;
-                case Direction.Right:
-                    _animationPlayer.Play("idle_right");
-                    break;
-            }
-        }
-    }
-
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+    public override async void _Process(double delta)
 	{
         ProcessInput();
-		AnimateState();
 	}
 
     private void ProcessInput()

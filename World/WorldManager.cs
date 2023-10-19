@@ -45,7 +45,7 @@ public partial class WorldManager : Node
 
     public static void SpawnPlayer()
     {
-        CurrentRoom.PutOnTile(CurrentRoom.StartingCell, CurrentPlayer);
+        CurrentRoom.PutOnCell(CurrentRoom.StartingCell, CurrentPlayer);
     }
 
     public static void InitWorld()
@@ -58,11 +58,13 @@ public partial class WorldManager : Node
     {
         if (actor.State != GridActor.ActorState.Idle) return;
 
-        Vector2I toTile = actor.CurrentCell + Utils.DirectionToVector(direction);
+        Vector2I toCell = actor.CurrentCell + Utils.DirectionToVector(direction);
 
-        if (!CurrentRoom.TileMap.GetUsedCells(0).Contains(toTile)) return;
+        if (!CurrentRoom.TileMap.GetUsedCells(0).Contains(toCell)) return;
 
-        actor.SingleStep(direction);
+        actor.State = GridActor.ActorState.Busy;
+        actor.StepAnimation(direction);
+        actor.NextCell = toCell;
     }
 
     // Called when the node enters the scene tree for the first time.
@@ -74,6 +76,18 @@ public partial class WorldManager : Node
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        foreach(GridActor actor in _worldActors)
+        {
+            if (actor.State == GridActor.ActorState.NeedsUpdate)
+            {
+                if (actor.CurrentCell != actor.NextCell)
+                {
+                    CurrentRoom.PutOnCell(actor.NextCell, actor);
+                }
+                actor.State = GridActor.ActorState.Idle;
+                actor.IdleAnimation();
+            }
+        }
     }
 }
 
