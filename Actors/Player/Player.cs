@@ -38,7 +38,7 @@ public partial class Player : GridActor
 
             if (direction != Direction.None)
             {
-                WorldManager.MoveActor(this, direction);
+                WorldManager.TryMoveActor(this, direction);
             }
         }
     }
