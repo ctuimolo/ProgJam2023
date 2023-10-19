@@ -31,6 +31,10 @@ window/stretch/mode="viewport"
 
 project/assembly_name="ProgJam2023"
 
+[filesystem]
+
+import/blender/enabled=false
+
 [physics]
 
 2d/default_gravity=2000.0

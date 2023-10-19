@@ -10,84 +10,84 @@ namespace ProgJam2023.World;
 
 public partial class WorldManager : Node
 {
-    public enum State
+  public enum State
+  {
+    Open,
+    Busy,
+  }
+
+  public static Room CurrentRoom { get; private set; }
+  public static Player CurrentPlayer { get; private set; }
+  public static State CurrentState { get; private set; }
+
+  static List<GridActor> _worldActors;
+
+  public static void SetCurrentRoom(Room room)
+  {
+    CurrentRoom = room;
+  }
+
+  public static void SetCurrentPlayer(Player player)
+  {
+    CurrentPlayer = player;
+    AddActorToWorld(player);
+  }
+
+  public static void AddActorToWorld(GridActor actor)
+  {
+    if (_worldActors.Contains(actor))
     {
-        Open,
-        Busy,
+      return;
     }
 
-    public static Room CurrentRoom { get; private set; }
-    public static Player CurrentPlayer { get; private set; }
-    public static State CurrentState { get; private set; }
+    _worldActors.Add(actor);
+  }
 
-    static List<GridActor> _worldActors;
+  public static void SpawnPlayer()
+  {
+    CurrentRoom.PutOnCell(CurrentRoom.StartingCell, CurrentPlayer);
+  }
 
-    public static void SetCurrentRoom(Room room)
+  public static void InitWorld()
+  {
+    _worldActors = new List<GridActor>();
+    CurrentState = State.Open;
+  }
+
+  public static void TryMoveActor(GridActor actor, Direction direction)
+  {
+    if (actor.State != GridActor.ActorState.Idle) return;
+
+    Vector2I toCell = actor.CurrentCell + Utils.DirectionToVector(direction);
+
+    if (!CurrentRoom.TileMap.GetUsedCells(0).Contains(toCell)) return;
+
+    actor.State = GridActor.ActorState.Busy;
+    actor.StepAnimation(direction);
+    actor.NextCell = toCell;
+  }
+
+  // Called when the node enters the scene tree for the first time.
+  public override void _Ready()
+  {
+    InitWorld();
+  }
+
+  // Called every frame. 'delta' is the elapsed time since the previous frame.
+  public override void _Process(double delta)
+  {
+    foreach (GridActor actor in _worldActors)
     {
-        CurrentRoom = room;
-    }
-
-    public static void SetCurrentPlayer(Player player) 
-    {
-        CurrentPlayer = player;
-        AddActorToWorld(player);
-    }
-
-    public static void AddActorToWorld(GridActor actor)
-    {
-        if (_worldActors.Contains(actor)) 
+      if (actor.State == GridActor.ActorState.NeedsUpdate)
+      {
+        if (actor.CurrentCell != actor.NextCell)
         {
-            return;
+          CurrentRoom.PutOnCell(actor.NextCell, actor);
         }
-
-        _worldActors.Add(actor);
+        actor.State = GridActor.ActorState.Idle;
+        actor.IdleAnimation();
+      }
     }
-
-    public static void SpawnPlayer()
-    {
-        CurrentRoom.PutOnCell(CurrentRoom.StartingCell, CurrentPlayer);
-    }
-
-    public static void InitWorld()
-    {
-        _worldActors = new List<GridActor>();
-        CurrentState = State.Open;
-    }
-
-    public static void TryMoveActor(GridActor actor, Direction direction)
-    {
-        if (actor.State != GridActor.ActorState.Idle) return;
-
-        Vector2I toCell = actor.CurrentCell + Utils.DirectionToVector(direction);
-
-        if (!CurrentRoom.TileMap.GetUsedCells(0).Contains(toCell)) return;
-
-        actor.State = GridActor.ActorState.Busy;
-        actor.StepAnimation(direction);
-        actor.NextCell = toCell;
-    }
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
-    {
-        InitWorld();
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
-    {
-        foreach(GridActor actor in _worldActors)
-        {
-            if (actor.State == GridActor.ActorState.NeedsUpdate)
-            {
-                if (actor.CurrentCell != actor.NextCell)
-                {
-                    CurrentRoom.PutOnCell(actor.NextCell, actor);
-                }
-                actor.State = GridActor.ActorState.Idle;
-                actor.IdleAnimation();
-            }
-        }
-    }
+  }
 }
 
