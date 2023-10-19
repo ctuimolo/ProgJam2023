@@ -6,4 +6,10 @@
   <ItemGroup>
     <None Include="README.md" />
   </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Projects\ProgJam2023\.editorconfig" />
+  </ItemGroup>
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Projects\ProgJam2023\.editorconfig" />
+  </ItemGroup>
 </Project>
