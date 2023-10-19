@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://sr5a1kk2dwq"
-path="res://.godot/imported/Wario.png-f751ae704b20ad4e83d1a3097c611150.ctex"
+path="res://.godot/imported/Wario.png-6e633c14d3099e36703b4cd9b24a4702.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Characters/Wario.png"
-dest_files=["res://.godot/imported/Wario.png-f751ae704b20ad4e83d1a3097c611150.ctex"]
+source_file="res://Assets/Textures/Characters/Wario.png"
+dest_files=["res://.godot/imported/Wario.png-6e633c14d3099e36703b4cd9b24a4702.ctex"]
 
 [params]
 

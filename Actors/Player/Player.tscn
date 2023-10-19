@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://d1sqmqpy5ad7m"]
 
 [ext_resource type="Script" path="res://Actors/Player/Player.cs" id="1_qpdbg"]
-[ext_resource type="Texture2D" uid="uid://bjil7d5vyayf3" path="res://Assets/Characters/Link.png" id="2_ok8l7"]
+[ext_resource type="Texture2D" uid="uid://bjil7d5vyayf3" path="res://Assets/Textures/Characters/Link.png" id="2_8gmas"]
 
 [sub_resource type="Animation" id="Animation_bxiig"]
 resource_name = "idle_down"
@@ -320,7 +320,7 @@ _animationWalker = NodePath("AnimationWalker")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(2, 2)
-texture = ExtResource("2_ok8l7")
+texture = ExtResource("2_8gmas")
 centered = false
 offset = Vector2(0, -4)
 hframes = 4
