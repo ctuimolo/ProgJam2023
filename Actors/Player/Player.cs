@@ -14,7 +14,7 @@ public partial class Player : GridActor
    private GridDirection _lastDirection = GridDirection.None;
    private GridDirection _direction     = GridDirection.None;
    private int _directionHoldCount  = 0;
-   private int _directionHoldTime   = 6;
+   private int _directionHoldTime   = 5;
 
    // Probably to be called in Godot scene room's _Ready function
    protected void InitPlayer()
