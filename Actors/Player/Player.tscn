@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://d1sqmqpy5ad7m"]
+[gd_scene load_steps=19 format=3 uid="uid://d1sqmqpy5ad7m"]
 
 [ext_resource type="Script" path="res://Actors/Player/Player.cs" id="1_qpdbg"]
 [ext_resource type="Texture2D" uid="uid://bjil7d5vyayf3" path="res://Assets/Textures/Characters/Link.png" id="2_8gmas"]
+[ext_resource type="Script" path="res://Dynamics/FrameTimer.cs" id="3_8c62w"]
 
 [sub_resource type="Animation" id="Animation_bxiig"]
 resource_name = "idle_down"
@@ -199,10 +200,10 @@ tracks/0/path = NodePath("Sprite2D:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.400001),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -4), Vector2(0, 12), Vector2(0, 12)]
+"values": [Vector2(0, -4), Vector2(0, 12)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -228,10 +229,10 @@ tracks/0/path = NodePath("Sprite2D:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.400001),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.400001),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -4), Vector2(-16, -4), Vector2(-16, -4)]
+"values": [Vector2(0, -4), Vector2(-16, -4)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -257,10 +258,10 @@ tracks/0/path = NodePath("Sprite2D:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.4008),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.400001),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -4), Vector2(16, -4), Vector2(16, -4)]
+"values": [Vector2(0, -4), Vector2(16, -4)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -286,10 +287,10 @@ tracks/0/path = NodePath("Sprite2D:offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.366667, 0.4),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.400001),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector2(0, -4), Vector2(0, -20), Vector2(0, -20)]
+"values": [Vector2(0, -4), Vector2(0, -20)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -313,8 +314,9 @@ _data = {
 "walk_up": SubResource("Animation_qfpww")
 }
 
-[node name="Player" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationWalker")]
+[node name="Player" type="Node2D" node_paths=PackedStringArray("_directionalInputTimer", "_animationPlayer", "_animationWalker")]
 script = ExtResource("1_qpdbg")
+_directionalInputTimer = NodePath("FrameTimer")
 _animationPlayer = NodePath("AnimationPlayer")
 _animationWalker = NodePath("AnimationWalker")
 
@@ -337,3 +339,6 @@ autoplay = "idle"
 libraries = {
 "": SubResource("AnimationLibrary_et402")
 }
+
+[node name="FrameTimer" type="Node" parent="."]
+script = ExtResource("3_8c62w")

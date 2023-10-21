@@ -3,7 +3,7 @@ using System;
 
 namespace ProgJam2023;
 
-public enum Direction
+public enum GridDirection
 {
    None,
    Up,
@@ -14,80 +14,80 @@ public enum Direction
 
 public static class Utils
 {
-   public static Vector2I DirectionToVector(Direction direction)
+   public static Vector2I DirectionToVector(GridDirection direction)
    {
       switch (direction)
       {
-         case Direction.Up:
+         case GridDirection.Up:
             return new Vector2I(0, -1);
-         case Direction.Down:
+         case GridDirection.Down:
             return new Vector2I(0, 1);
-         case Direction.Left:
+         case GridDirection.Left:
             return new Vector2I(-1, 0);
-         case Direction.Right:
+         case GridDirection.Right:
             return new Vector2I(1, 0);
       }
 
       return new Vector2I(0, 0);
    }
 
-   public static Direction VectorToDirection(Vector2 vector)
+   public static GridDirection VectorToDirection(Vector2 vector)
    {
       if (vector.X != 0 && vector.Y != 0)
       {
-         return Direction.None;
+         return GridDirection.None;
       }
 
       if (vector.X > 0)
       {
-         return Direction.Right;
+         return GridDirection.Right;
       }
 
       if (vector.X < 0)
       {
-         return Direction.Left;
+         return GridDirection.Left;
       }
 
       if (vector.Y > 0)
       {
-         return Direction.Down;
+         return GridDirection.Down;
       }
 
       if (vector.Y < 0)
       {
-         return Direction.Up;
+         return GridDirection.Up;
       }
 
-      return Direction.None;
+      return GridDirection.None;
    }
 
-   public static Direction VectorToDirection(Vector2I vector)
+   public static GridDirection VectorToDirection(Vector2I vector)
    {
       if (vector.X != 0 && vector.Y != 0)
       {
-         return Direction.None;
+         return GridDirection.None;
       }
 
       if (vector.X > 0)
       {
-         return Direction.Right;
+         return GridDirection.Right;
       }
 
       if (vector.X < 0)
       {
-         return Direction.Left;
+         return GridDirection.Left;
       }
 
       if (vector.Y > 0)
       {
-         return Direction.Down;
+         return GridDirection.Down;
       }
 
       if (vector.Y < 0)
       {
-         return Direction.Up;
+         return GridDirection.Up;
       }
 
-      return Direction.None;
+      return GridDirection.None;
    }
 }

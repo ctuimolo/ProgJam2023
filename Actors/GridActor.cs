@@ -25,7 +25,7 @@ public partial class GridActor : Node2D
    [Export]
    protected int _stepSpeed = 18; // Speed is framecount of total animation, not velocity (smaller=faster)
 
-   public Direction Direction = Direction.Down;
+   public GridDirection Direction = GridDirection.Down;
 
    public Vector2I CurrentCell = Vector2I.Zero;
    public Vector2I NextCell = Vector2I.Zero;
@@ -36,16 +36,16 @@ public partial class GridActor : Node2D
       {
          switch (Direction)
          {
-            case Direction.Up:
+            case GridDirection.Up:
                _animationPlayer.Play("idle_up");
                break;
-            case Direction.Down:
+            case GridDirection.Down:
                _animationPlayer.Play("idle_down");
                break;
-            case Direction.Left:
+            case GridDirection.Left:
                _animationPlayer.Play("idle_left");
                break;
-            case Direction.Right:
+            case GridDirection.Right:
                _animationPlayer.Play("idle_right");
                break;
          }
@@ -53,25 +53,25 @@ public partial class GridActor : Node2D
       }
    }
 
-   public void StepAnimation(Direction direction)
+   public void StepAnimation(GridDirection direction)
    {
       Direction = direction;
 
       switch (Direction)
       {
-         case Direction.Up:
+         case GridDirection.Up:
             _animationPlayer.Play("walk_up");
             _animationWalker.Play("walk_up");
             break;
-         case Direction.Down:
+         case GridDirection.Down:
             _animationPlayer.Play("walk_down");
             _animationWalker.Play("walk_down");
             break;
-         case Direction.Left:
+         case GridDirection.Left:
             _animationPlayer.Play("walk_left");
             _animationWalker.Play("walk_left");
             break;
-         case Direction.Right:
+         case GridDirection.Right:
             _animationPlayer.Play("walk_right");
             _animationWalker.Play("walk_right");
             break;

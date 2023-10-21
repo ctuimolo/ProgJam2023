@@ -54,7 +54,7 @@ public partial class WorldManager : Node
       CurrentState = State.Open;
    }
 
-   public static void TryMoveActor(GridActor actor, Direction direction)
+   public static void TryMoveActor(GridActor actor, GridDirection direction)
    {
       if (actor.State != GridActor.ActorState.Idle) return;
 
