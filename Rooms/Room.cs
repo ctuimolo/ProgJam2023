@@ -15,10 +15,20 @@ public partial class Room : Node2D
    [Export]
    public TileMap TileMap { get; private set; }
 
-   // Probably to be called in Godot scene room's _Ready function
-   protected void InitRoom()
+   public void PauseAndHideRoom()
    {
-      WorldManager.SetCurrentRoom(this);
+      // Do something here
+   }
+
+   public void ActivateRoom()
+   {
+      // Do something here
+   }
+
+   // Probably to be called in Godot scene room's _Ready function
+   public void InitRoom()
+   {
+      Visible = true;
       WorldManager.SpawnPlayer();
    }
 

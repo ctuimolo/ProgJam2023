@@ -22,6 +22,16 @@ public partial class WorldManager : Node
 
    static List<GridActor> _worldActors;
 
+   public static void ChangeRoom(Room toRoom)
+   {
+      if (CurrentRoom != null)
+      {
+         CurrentRoom.PauseAndHideRoom();
+      }
+      SetCurrentRoom(toRoom);
+      CurrentRoom.InitRoom();
+   }
+
    public static void SetCurrentRoom(Room room)
    {
       CurrentRoom = room;
