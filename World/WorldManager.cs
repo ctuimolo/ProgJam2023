@@ -1,6 +1,5 @@
 using Godot;
-using System;
-using System.Collections.Generic;
+using Godot.Collections;
 
 using ProgJam2023.Rooms;
 using ProgJam2023.Actors.Player;
@@ -20,14 +19,17 @@ public partial class WorldManager : Node
    public static Player CurrentPlayer { get; private set; }
    public static State CurrentState { get; private set; }
 
-   static List<GridActor> _worldActors;
+   static Array<GridActor> _worldActors;
 
    public static void ChangeRoom(Room toRoom)
    {
-      if (CurrentRoom != null)
+      CurrentRoom?.PauseAndHideRoom();
+      
+      if (toRoom == null)
       {
-         CurrentRoom.PauseAndHideRoom();
+         return;
       }
+
       SetCurrentRoom(toRoom);
       CurrentRoom.InitRoom();
    }
@@ -53,14 +55,14 @@ public partial class WorldManager : Node
       _worldActors.Add(actor);
    }
 
-   public static void SpawnPlayer()
+   public static void SpawnPlayer(Vector2I cell, GridDirection walkIn)
    {
-      CurrentRoom.PutOnCell(CurrentRoom.StartingCell, CurrentPlayer);
+      CurrentRoom.PutOnCell(cell, CurrentPlayer);
    }
 
    public static void InitWorld()
    {
-      _worldActors = new List<GridActor>();
+      _worldActors = new Array<GridActor>();
       CurrentState = State.Open;
    }
 

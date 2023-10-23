@@ -315,6 +315,7 @@ _data = {
 }
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_directionalInputTimer", "_animationPlayer", "_animationWalker")]
+z_index = 1
 script = ExtResource("1_qpdbg")
 _directionalInputTimer = NodePath("FrameTimer")
 State = 1

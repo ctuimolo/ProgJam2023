@@ -1,8 +1,8 @@
 using Godot;
+using Godot.Collections;
+
 using ProgJam2023.Actors;
 using ProgJam2023.World;
-using System;
-using System.Linq;
 
 namespace ProgJam2023.Rooms;
 
@@ -15,21 +15,23 @@ public partial class Room : Node2D
    [Export]
    public TileMap TileMap { get; private set; }
 
+   [Export]
+   Array<Door> _doors = new Array<Door>();
+
    public void PauseAndHideRoom()
    {
-      // Do something here
+      Visible = false;
    }
 
    public void ActivateRoom()
    {
-      // Do something here
+      Visible = true;
    }
 
-   // Probably to be called in Godot scene room's _Ready function
    public void InitRoom()
    {
       Visible = true;
-      WorldManager.SpawnPlayer();
+      WorldManager.SpawnPlayer(StartingCell, GridDirection.None);
    }
 
    public void PutOnCell(Vector2I cell, GridActor actor)

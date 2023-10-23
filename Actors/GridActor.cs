@@ -1,6 +1,4 @@
 using Godot;
-using ProgJam2023.World;
-using System;
 
 namespace ProgJam2023.Actors;
 
