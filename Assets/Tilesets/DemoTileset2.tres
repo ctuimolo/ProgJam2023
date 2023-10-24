@@ -1,9 +1,9 @@
 [gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bqwolbpfeeybb"]
 
-[ext_resource type="Texture2D" uid="uid://27krsyf14hra" path="res://Assets/Textures/TileMaps/Tilemap03.png" id="1_81cjm"]
+[ext_resource type="Texture2D" uid="uid://bxe2egdq54aeu" path="res://Assets/Textures/TileMaps/Tilemap04.png" id="1_kdp8q"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2lblf"]
-texture = ExtResource("1_81cjm")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5hvt"]
+texture = ExtResource("1_kdp8q")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -70,4 +70,4 @@ texture = ExtResource("1_81cjm")
 7:7/0 = 0
 
 [resource]
-sources/0 = SubResource("TileSetAtlasSource_2lblf")
+sources/1 = SubResource("TileSetAtlasSource_u5hvt")

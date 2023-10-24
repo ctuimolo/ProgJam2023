@@ -20,26 +20,26 @@ public partial class Room : Node2D
 
    public void PauseAndHideRoom()
    {
-      Visible = false;
+	  Visible = false;
    }
 
    public void ActivateRoom()
    {
-      Visible = true;
+	  Visible = true;
    }
 
    public void InitRoom()
    {
-      Visible = true;
-      WorldManager.SpawnPlayer(StartingCell, GridDirection.None);
+	  Visible = true;
+	  WorldManager.SpawnPlayer(StartingCell, GridDirection.None);
    }
 
    public void PutOnCell(Vector2I cell, GridActor actor)
    {
-      if (!TileMap.GetUsedCells(0).Contains(cell)) return;
+	  if (!TileMap.GetUsedCells(0).Contains(cell)) return;
 
-      actor.CurrentCell = cell;
-      actor.NextCell = cell;
-      actor.Position = TileMap.ToGlobal(TileMap.MapToLocal(cell) - TileMap.TileSet.TileSize / 2);
+	  actor.CurrentCell = cell;
+	  actor.NextCell = cell;
+	  actor.Position = TileMap.ToGlobal(TileMap.MapToLocal(cell) - TileMap.TileSet.TileSize / 2);
    }
 }

@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 using Godot.Collections;
 
 using ProgJam2023.Actors.Player;
@@ -20,35 +20,35 @@ public partial class RoomManager : Node
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
    {
-      foreach (Room room in Rooms)
-      {
-         room.PauseAndHideRoom();
-      }
+	  foreach (Room room in Rooms)
+	  {
+		 room.PauseAndHideRoom();
+	  }
 
-      WorldManager.ChangeRoom(CurrentRoom);
+	  WorldManager.ChangeRoom(CurrentRoom);
    }
 
    // Called every frame. 'delta' is the elapsed time since the previous frame.
    public override void _Process(double delta)
    {
-      if (Input.IsActionJustPressed("debug1"))
-      {
-         WorldManager.ChangeRoom(Rooms[1]);
-      }
+	  if (Input.IsActionJustPressed("debug1"))
+	  {
+		 WorldManager.ChangeRoom(Rooms[1]);
+	  }
 
-      if (Input.IsActionJustPressed("debug2"))
-      {
-         WorldManager.ChangeRoom(Rooms[2]);
-      }
+	  if (Input.IsActionJustPressed("debug2"))
+	  {
+		 WorldManager.ChangeRoom(Rooms[2]);
+	  }
 
-      if (Input.IsActionJustPressed("debug3"))
-      {
-         WorldManager.ChangeRoom(Rooms[3]);
-      }
+	  if (Input.IsActionJustPressed("debug3"))
+	  {
+		 WorldManager.ChangeRoom(Rooms[3]);
+	  }
 
-      if (Input.IsActionJustPressed("debug4"))
-      {
-         WorldManager.ChangeRoom(Rooms[4]);
-      }
+	  if (Input.IsActionJustPressed("debug4"))
+	  {
+		 WorldManager.ChangeRoom(Rooms[4]);
+	  }
    }
 }

@@ -10,15 +10,16 @@
 
 [node name="Demo" type="Node2D" node_paths=PackedStringArray("Rooms", "CurrentRoom", "Player")]
 script = ExtResource("1_5c1bk")
-Rooms = [NodePath("TestRoom1"), NodePath("TestRoom2"), NodePath("TestRoom3"), NodePath("TestRoom4"), NodePath("TestRoom5")]
+Rooms = []
 CurrentRoom = NodePath("TestRoom1")
 Player = NodePath("Player")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
 
-[node name="TestRoom1" parent="." instance=ExtResource("2_33onn")]
+[node name="TestRoom1" parent="." node_paths=PackedStringArray("_doors") instance=ExtResource("2_33onn")]
 visible = false
+_doors = []
 
 [node name="TestRoom2" parent="." instance=ExtResource("3_lrecc")]
 visible = false
