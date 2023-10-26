@@ -1,8 +1,7 @@
 using Godot;
-using Godot.Collections;
+using System.Collections.Generic;
 
 using ProgJam2023.Actors;
-using ProgJam2023.World;
 
 namespace ProgJam2023.Rooms;
 
@@ -10,36 +9,50 @@ namespace ProgJam2023.Rooms;
 public partial class Room : Node2D
 {
    [Export]
+   public StringName DebugName;
+
+   [Export]
    public Vector2I StartingCell = new Vector2I(0, 0);
 
    [Export]
    public TileMap TileMap { get; private set; }
 
-   [Export]
-   Array<Door> _doors = new Array<Door>();
+   public Dictionary<Vector2I, Cell> CellMap;
+
+   public void InitCells()
+   {
+      CellMap = new Dictionary<Vector2I, Cell>();
+
+      foreach (Vector2I cell in TileMap.GetUsedCells(0))
+      {
+         CellMap[cell] = new Cell(cell);
+      }
+   }
 
    public void PauseAndHideRoom()
    {
-	  Visible = false;
+      Visible = false;
    }
 
    public void ActivateRoom()
    {
-	  Visible = true;
+      Visible = true;
    }
 
-   public void InitRoom()
+   public void PutOnCell(Vector2I cellPosition, GridActor actor)
    {
-	  Visible = true;
-	  WorldManager.SpawnPlayer(StartingCell, GridDirection.None);
-   }
+      if (!CellMap.ContainsKey(cellPosition)) return;
 
-   public void PutOnCell(Vector2I cell, GridActor actor)
-   {
-	  if (!TileMap.GetUsedCells(0).Contains(cell)) return;
+      if (actor.CurrentCell != null)
+      {
+         actor.CurrentCell.RemoveActor(actor);
+      }
 
-	  actor.CurrentCell = cell;
-	  actor.NextCell = cell;
-	  actor.Position = TileMap.ToGlobal(TileMap.MapToLocal(cell) - TileMap.TileSet.TileSize / 2);
+      Cell cell = CellMap[cellPosition];
+      cell.PutActor(actor);
+
+      actor.CurrentCell = cell;
+      actor.NextCell    = cellPosition;
+      actor.Position    = TileMap.ToGlobal(TileMap.MapToLocal(cellPosition) - TileMap.TileSet.TileSize / 2);
    }
 }

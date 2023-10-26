@@ -21,22 +21,28 @@ public partial class WorldManager : Node
 
    static Array<GridActor> _worldActors;
 
-   public static void ChangeRoom(Room toRoom)
+   private static RoomManager _roomManager;
+
+   public static void ChangeRoom(StringName roomKey, GridDirection toDoor)
    {
       CurrentRoom?.PauseAndHideRoom();
-      
-      if (toRoom == null)
-      {
-         return;
-      }
-
-      SetCurrentRoom(toRoom);
-      CurrentRoom.InitRoom();
+      SetCurrentRoom(_roomManager.Rooms[roomKey], toDoor);
    }
 
-   public static void SetCurrentRoom(Room room)
+   public static void SetRoomManager(RoomManager roomManager)
+   {
+      _roomManager = roomManager;
+   }
+
+   public static void InitRooms()
+   {
+   }
+
+   public static void SetCurrentRoom(Room room, GridDirection toDoor)
    {
       CurrentRoom = room;
+      SpawnPlayer(room.StartingCell, toDoor);
+      CurrentRoom.ActivateRoom();
    }
 
    public static void SetCurrentPlayer(Player player)
@@ -70,7 +76,7 @@ public partial class WorldManager : Node
    {
       if (actor.State != GridActor.ActorState.Idle) return;
 
-      Vector2I toCell = actor.CurrentCell + Utils.DirectionToVector(direction);
+      Vector2I toCell = actor.CurrentCell.Position() + Utils.DirectionToVector(direction);
 
       if (!CurrentRoom.TileMap.GetUsedCells(0).Contains(toCell)) return;
 
@@ -92,7 +98,7 @@ public partial class WorldManager : Node
       {
          if (actor.State == GridActor.ActorState.NeedsUpdate)
          {
-            if (actor.CurrentCell != actor.NextCell)
+            if (actor.CurrentCell.Position() != actor.NextCell)
             {
                CurrentRoom.PutOnCell(actor.NextCell, actor);
             }

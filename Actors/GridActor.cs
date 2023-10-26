@@ -1,9 +1,17 @@
 using Godot;
 
+using ProgJam2023.Rooms;
+
 namespace ProgJam2023.Actors;
 
 public partial class GridActor : Node2D
 {
+   public enum ActorCollisionType
+   {
+      None,
+      Solid,
+   }
+
    public enum ActorState
    {
       Idle,
@@ -13,6 +21,9 @@ public partial class GridActor : Node2D
 
    [Export]
    public ActorState State;
+
+   [Export]
+   public ActorCollisionType CollisionType;
 
    [Export]
    protected AnimationPlayer _animationPlayer;
@@ -25,8 +36,8 @@ public partial class GridActor : Node2D
 
    public GridDirection Direction = GridDirection.Down;
 
-   public Vector2I CurrentCell = Vector2I.Zero;
-   public Vector2I NextCell = Vector2I.Zero;
+   public Cell CurrentCell    = null;
+   public Vector2I NextCell   = Vector2I.Zero;
 
    public void IdleAnimation()
    {

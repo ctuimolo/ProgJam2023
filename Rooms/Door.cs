@@ -7,10 +7,10 @@ namespace ProgJam2023.Rooms;
 public partial class Door : GridActor
 {
    [Export]
-   Room ToRoom;
+   public StringName ToRoom;
 
    [Export]
-   GridDirection ToDoor;
+   public GridDirection ToDoor;
 
    public override void _Ready()
    {

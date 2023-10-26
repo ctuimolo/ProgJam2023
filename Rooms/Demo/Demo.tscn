@@ -1,37 +1,24 @@
-[gd_scene load_steps=8 format=3 uid="uid://dvro0mqd0rfkv"]
+[gd_scene load_steps=9 format=3 uid="uid://dvro0mqd0rfkv"]
 
 [ext_resource type="Script" path="res://Rooms/RoomManager.cs" id="1_5c1bk"]
 [ext_resource type="PackedScene" uid="uid://mtop7xcqmegj" path="res://Rooms/Demo/TestRoom1.tscn" id="2_33onn"]
+[ext_resource type="PackedScene" uid="uid://mihd7q36yblh" path="res://Rooms/Room.tscn" id="2_204hd"]
 [ext_resource type="PackedScene" uid="uid://cv1lhspkuaf5g" path="res://Rooms/Demo/TestRoom2.tscn" id="3_lrecc"]
 [ext_resource type="PackedScene" uid="uid://d1sqmqpy5ad7m" path="res://Actors/Player/Player.tscn" id="4_1ya5o"]
 [ext_resource type="PackedScene" uid="uid://d0hctw7gpp8ni" path="res://Rooms/Demo/TestRoom3.tscn" id="4_7e8ps"]
 [ext_resource type="PackedScene" uid="uid://p0ecvqikpr1d" path="res://Rooms/Demo/TestRoom4.tscn" id="5_56s5j"]
 [ext_resource type="PackedScene" uid="uid://bwy6kqj4me61u" path="res://Rooms/Demo/TestRoom5.tscn" id="6_jfprq"]
 
-[node name="Demo" type="Node2D" node_paths=PackedStringArray("Rooms", "CurrentRoom", "Player")]
+[node name="Demo" type="Node2D" node_paths=PackedStringArray("CurrentRoom", "Player")]
 script = ExtResource("1_5c1bk")
-Rooms = []
-CurrentRoom = NodePath("TestRoom1")
+CurrentRoom = NodePath("")
+DebugStartRoom = &"Hub"
 Player = NodePath("Player")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-
-[node name="TestRoom1" parent="." node_paths=PackedStringArray("_doors") instance=ExtResource("2_33onn")]
-visible = false
-_doors = []
-
-[node name="TestRoom2" parent="." instance=ExtResource("3_lrecc")]
-visible = false
-
-[node name="TestRoom3" parent="." instance=ExtResource("4_7e8ps")]
-visible = false
-
-[node name="TestRoom4" parent="." instance=ExtResource("5_56s5j")]
-visible = false
-
-[node name="TestRoom5" parent="." instance=ExtResource("6_jfprq")]
-visible = false
+RoomScene = ExtResource("2_204hd")
+DebugRooms = Array[PackedScene]([ExtResource("2_33onn"), ExtResource("3_lrecc"), ExtResource("4_7e8ps"), ExtResource("5_56s5j"), ExtResource("6_jfprq")])
 
 [node name="Player" parent="." instance=ExtResource("4_1ya5o")]
 position = Vector2(-288, -160)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)

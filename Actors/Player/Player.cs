@@ -30,7 +30,7 @@ public partial class Player : GridActor
    }
 
    // Called every frame. 'delta' is the elapsed time since the previous frame.
-   public override async void _Process(double delta)
+   public override void _Process(double delta)
    {
 	  ProcessInput();
    }
