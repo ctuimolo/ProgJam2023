@@ -1,35 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://mtop7xcqmegj"]
 
-[ext_resource type="Script" path="res://Rooms/Room.cs" id="1_umtoi"]
+[ext_resource type="Script" path="res://Rooms/RoomTileMap.cs" id="2_qf1ol"]
 [ext_resource type="PackedScene" uid="uid://btlwq6lgxvwqi" path="res://Rooms/Door.tscn" id="3_8m6wc"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="3_lohvy"]
 
-[node name="TestRoom1" type="Node2D" node_paths=PackedStringArray("TileMap")]
-script = ExtResource("1_umtoi")
-DebugName = &"Hub"
-TileMap = NodePath("TileMap")
-
-[node name="Door" parent="." instance=ExtResource("3_8m6wc")]
-position = Vector2(64, -64)
-ToRoom = &"DebugNorth"
-ToDoor = 2
-
-[node name="Door2" parent="." instance=ExtResource("3_8m6wc")]
-position = Vector2(-288, 64)
-ToRoom = &"DebugWest"
-ToDoor = 4
-
-[node name="Door3" parent="." instance=ExtResource("3_8m6wc")]
-position = Vector2(32, 128)
-ToRoom = &"DebugSouth"
-ToDoor = 1
-
-[node name="Door4" parent="." instance=ExtResource("3_8m6wc")]
-position = Vector2(192, 0)
-ToRoom = &"DebugEast"
-ToDoor = 3
-
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TestRoom1" type="TileMap"]
 scale = Vector2(2, 2)
 tile_set = ExtResource("3_lohvy")
 format = 2
@@ -42,3 +17,29 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(-262144, 65537, 0, -196608, 65537, 1, -196609, 65537, 0, -131073, 65537, 1, -262148, 65537, 0, -196612, 65537, 1, -262149, 65537, 0, -196613, 65537, 1, -262150, 65537, 0, -196614, 65537, 1, 65530, 65537, 0, 131066, 65537, 1, -8, 65537, 0, 65528, 65537, 1, -262140, 65537, 0, -196604, 65537, 1, -262139, 65537, 0, -196603, 65537, 1, -196606, 65537, 6, 65529, 1, 5, 65531, 65537, 5, -196605, 65537, 5, -196607, 1, 5, -262143, 131073, 0, -262141, 1, 0, -262151, 1, 0, -9, 1, 0, -196610, 1, 0, -262138, 131073, 0, -262147, 131073, 0, -196611, 131073, 2, -131075, 131073, 1, -65539, 1, 5, -3, 65537, 1, -196602, 131073, 1, -131066, 131073, 2, -65530, 262145, 3, 65542, 262145, 5, 131077, 1, 4, 196613, 131073, 2, 262139, 1, 4, 327671, 1, 3, 327677, 1, 3, -65543, 1, 3, -2, 65537, 1, -65538, 65537, 5, 131065, 65537, 1, 131067, 65537, 1, -131071, 1, 7, -131069, 131073, 7, -131079, 1, 2, -196615, 1, 1, -65542, 65537, 3, -65541, 65537, 4, -5, 1, 2, 65527, 1, 1, 131063, 196609, 3, 262135, 196609, 5, 327672, 65537, 3, 327673, 65537, 3, 327674, 65537, 3, 327675, 131073, 3, 262141, 65537, 4, 262140, 65537, 3, 327678, 65537, 3, 327679, 65537, 3, 262144, 196609, 7, 262146, 327681, 7, 262147, 65537, 3, 262148, 65537, 3, 262149, 131073, 3, -131074, 1, 1, 131078, 131073, 3, -7, 131073, 0)
+script = ExtResource("2_qf1ol")
+DebugName = &"Hub"
+
+[node name="Door" parent="." instance=ExtResource("3_8m6wc")]
+position = Vector2(32, -32)
+scale = Vector2(0.5, 0.5)
+ToRoom = &"DebugNorth"
+ToDoor = 2
+
+[node name="Door2" parent="." instance=ExtResource("3_8m6wc")]
+position = Vector2(-144, 32)
+scale = Vector2(0.5, 0.5)
+ToRoom = &"DebugWest"
+ToDoor = 4
+
+[node name="Door4" parent="." instance=ExtResource("3_8m6wc")]
+position = Vector2(96, 0)
+scale = Vector2(0.5, 0.5)
+ToRoom = &"DebugEast"
+ToDoor = 3
+
+[node name="Door3" parent="." instance=ExtResource("3_8m6wc")]
+position = Vector2(16, 64)
+scale = Vector2(0.5, 0.5)
+ToRoom = &"DebugSouth"
+ToDoor = 1

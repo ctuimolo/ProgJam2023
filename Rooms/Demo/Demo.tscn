@@ -15,7 +15,7 @@ CurrentRoom = NodePath("")
 DebugStartRoom = &"Hub"
 Player = NodePath("Player")
 RoomScene = ExtResource("2_204hd")
-DebugRooms = Array[PackedScene]([ExtResource("2_33onn"), ExtResource("3_lrecc"), ExtResource("4_7e8ps"), ExtResource("5_56s5j"), ExtResource("6_jfprq")])
+DebugRoomTileMaps = Array[PackedScene]([ExtResource("2_33onn"), ExtResource("3_lrecc"), ExtResource("4_7e8ps"), ExtResource("5_56s5j"), ExtResource("6_jfprq")])
 
 [node name="Player" parent="." instance=ExtResource("4_1ya5o")]
 position = Vector2(-288, -160)

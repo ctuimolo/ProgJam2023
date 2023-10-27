@@ -1,14 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://bwy6kqj4me61u"]
 
-[ext_resource type="Script" path="res://Rooms/Room.cs" id="1_fjpy6"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="2_awg6x"]
+[ext_resource type="Script" path="res://Rooms/RoomTileMap.cs" id="2_xmk13"]
 
-[node name="TestRoom5" type="Node2D" node_paths=PackedStringArray("TileMap")]
-script = ExtResource("1_fjpy6")
-DebugName = &"East"
-TileMap = NodePath("TileMap")
-
-[node name="TileMap" type="TileMap" parent="."]
+[node name="TestRoom5" type="TileMap"]
 position = Vector2(-64, 0)
 scale = Vector2(2, 2)
 tile_set = ExtResource("2_awg6x")
@@ -22,3 +17,5 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 0
 layer_1/tile_data = PackedInt32Array(131067, 196609, 5, -5, 196609, 3, 196603, 1, 2, -65541, 1, 2, -131077, 1, 1, 262139, 1, 3, 262140, 65537, 3, 262141, 65537, 3, 262142, 65537, 3, 262143, 65537, 3, 196608, 65537, 3, 196609, 65537, 3, 196610, 65537, 3, 196611, 65537, 3, 196612, 65537, 3, 196613, 65537, 3, 196614, 65537, 3, 196615, 65537, 3, -196612, 65537, 0, -131076, 65537, 1, -196611, 65537, 0, -131075, 65537, 1, -196610, 65537, 0, -131074, 65537, 1, -196609, 65537, 0, -131073, 65537, 1, -262144, 65537, 0, -196608, 65537, 1, -262143, 65537, 0, -196607, 65537, 1, -262142, 65537, 0, -196606, 65537, 1, -262141, 65537, 0, -196605, 65537, 1, -262140, 65537, 0, -196604, 65537, 1, -262139, 65537, 0, -196603, 65537, 1, -262138, 65537, 0, -196602, 65537, 1, -262137, 65537, 0, -196601, 65537, 1, -196613, 1, 0, -262136, 131073, 0, -196600, 131073, 1, 131080, 131073, 2, 65544, 131073, 2, 8, 131073, 2, -65528, 131073, 2, -131064, 131073, 2, 196616, 131073, 3)
+script = ExtResource("2_xmk13")
+DebugName = &"East"

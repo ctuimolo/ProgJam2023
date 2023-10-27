@@ -23,7 +23,7 @@ public partial class RoomManager : Node
    private PackedScene RoomScene;
 
    [Export]
-   private Godot.Collections.Array<PackedScene> DebugRooms;
+   private Godot.Collections.Array<PackedScene> DebugRoomTileMaps;
 
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
@@ -32,11 +32,16 @@ public partial class RoomManager : Node
 
       ////////////////////////////////////////////////////////////
       // Init Debug Rooms
-      foreach (PackedScene roomScene in DebugRooms)
+      foreach (PackedScene tileMapScene in DebugRoomTileMaps)
       {
-         Room newRoom = roomScene.Instantiate<Room>();
+         Room newRoom         = RoomScene.Instantiate<Room>();
+         RoomTileMap tileMap  = tileMapScene.Instantiate<RoomTileMap>();
+
+         newRoom.AddChild(tileMap);
+         newRoom.TileMap = tileMap;
+
          AddChild(newRoom);
-         Rooms[newRoom.DebugName] = newRoom;
+         Rooms[tileMap.DebugName] = newRoom;
       }
       ////////////////////////////////////////////////////////////
 

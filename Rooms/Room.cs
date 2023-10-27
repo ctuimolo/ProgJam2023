@@ -9,13 +9,10 @@ namespace ProgJam2023.Rooms;
 public partial class Room : Node2D
 {
    [Export]
-   public StringName DebugName;
-
-   [Export]
    public Vector2I StartingCell = new Vector2I(0, 0);
 
    [Export]
-   public TileMap TileMap { get; private set; }
+   public TileMap TileMap { get; set; }
 
    public Dictionary<Vector2I, Cell> CellMap;
 
