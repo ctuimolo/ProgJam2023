@@ -20,6 +20,16 @@ namespace ProgJam2023.Rooms
          Actors = new List<GridActor>();
       }
 
+      public bool HasCollisions()
+      {
+         foreach (GridActor actor in Actors) 
+         {
+            if (actor.CollisionType == GridActor.ActorCollisionType.Solid)
+               return true;
+         }
+         return false;
+      }
+
       public void PutActor (GridActor actor)
       {
          Actors.Add(actor);

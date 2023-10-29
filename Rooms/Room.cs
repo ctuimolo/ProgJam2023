@@ -2,6 +2,8 @@ using Godot;
 using System.Collections.Generic;
 
 using ProgJam2023.Actors;
+using System.Security.Cryptography;
+using System.Linq;
 
 namespace ProgJam2023.Rooms;
 
@@ -12,15 +14,16 @@ public partial class Room : Node2D
    public Vector2I StartingCell = new Vector2I(0, 0);
 
    [Export]
-   public TileMap TileMap { get; set; }
+   public RoomTileMap Map { get; set; }
 
    public Dictionary<Vector2I, Cell> CellMap;
+   public Dictionary<StringName, GridActor> Actors;
 
    public void InitCells()
    {
       CellMap = new Dictionary<Vector2I, Cell>();
 
-      foreach (Vector2I cell in TileMap.GetUsedCells(0))
+      foreach (Vector2I cell in Map.GetUsedCells(0))
       {
          CellMap[cell] = new Cell(cell);
       }
@@ -50,6 +53,25 @@ public partial class Room : Node2D
 
       actor.CurrentCell = cell;
       actor.NextCell    = cellPosition;
-      actor.Position    = TileMap.ToGlobal(TileMap.MapToLocal(cellPosition) - TileMap.TileSet.TileSize / 2);
+      actor.Position    = Map.ToGlobal(Map.MapToLocal(cellPosition) - Map.TileSet.TileSize / 2);
+   }
+
+   public void FindAndAddActors(bool setGlobalToCell = false)
+   {
+      foreach (GridActor actor in GetChild(0).GetChildren().OfType<GridActor>())
+      {
+         Actors.Add(actor.Name, actor as GridActor);
+         if (setGlobalToCell)
+         {
+            Vector2I toCell = Map.LocalToMap(actor.Position);
+            PutOnCell(toCell, actor);
+         }
+      }
+   }
+
+
+   public override void _Ready()
+   {
+      Actors = new Dictionary<StringName, GridActor>();
    }
 }

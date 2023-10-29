@@ -317,12 +317,14 @@ _data = {
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationWalker")]
 z_index = 1
 script = ExtResource("1_qpdbg")
+ID = &"Player"
 State = 1
+CollisionType = 1
 _animationPlayer = NodePath("AnimationPlayer")
 _animationWalker = NodePath("AnimationWalker")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(2, 2)
+z_index = 1
 texture = ExtResource("2_8gmas")
 centered = false
 offset = Vector2(0, -4)

@@ -1,11 +1,15 @@
 using Godot;
 
 using ProgJam2023.Rooms;
+using ProgJam2023.World;
 
 namespace ProgJam2023.Actors;
 
 public partial class GridActor : Node2D
 {
+   [Export]
+   public StringName ID;
+
    public enum ActorCollisionType
    {
       None,
@@ -38,6 +42,26 @@ public partial class GridActor : Node2D
 
    public Cell CurrentCell    = null;
    public Vector2I NextCell   = Vector2I.Zero;
+
+   private Label _debugText;
+   private PackedScene _debugTextScene = ResourceLoader.Load<PackedScene>("res://Debug/DebugText.tscn");
+
+   public override void _Ready()
+   {
+      _debugText = _debugTextScene.Instantiate<Label>();
+      _debugText.Visible = false;
+      AddChild(_debugText);
+   }
+
+   public override void _Process(double delta)
+   {
+      _debugText.Visible = WorldManager.DrawDebugText;
+      if(_debugText.Visible)
+      {
+         _debugText.Text = 
+            $"{Name}\n({CurrentCell?.X},{CurrentCell?.Y})";
+      }
+   }
 
    public void IdleAnimation()
    {

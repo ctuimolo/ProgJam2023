@@ -15,6 +15,7 @@ public partial class WorldManager : Node
       Busy,
    }
 
+   public static bool DrawDebugText;
    public static Room CurrentRoom { get; private set; }
    public static Player CurrentPlayer { get; private set; }
    public static State CurrentState { get; private set; }
@@ -22,6 +23,7 @@ public partial class WorldManager : Node
    static Array<GridActor> _worldActors;
 
    private static RoomManager _roomManager;
+
 
    public static void ChangeRoom(StringName roomKey, GridDirection toDoor)
    {
@@ -78,7 +80,9 @@ public partial class WorldManager : Node
 
       Vector2I toCell = actor.CurrentCell.Position() + Utils.DirectionToVector(direction);
 
-      if (!CurrentRoom.TileMap.GetUsedCells(0).Contains(toCell)) return;
+      if (!CurrentRoom.Map.GetUsedCells(0).Contains(toCell)) return;
+
+      if (CurrentRoom.CellMap[toCell].HasCollisions()) return;
 
       actor.State = GridActor.ActorState.Busy;
       actor.StepAnimation(direction);
@@ -91,9 +95,19 @@ public partial class WorldManager : Node
       InitWorld();
    }
 
+   private void ProcessInput()
+   {
+      if (Input.IsActionJustPressed("debug11"))
+      {
+         DrawDebugText = !DrawDebugText;
+      }
+   }
+
    // Called every frame. 'delta' is the elapsed time since the previous frame.
    public override void _Process(double delta)
    {
+      ProcessInput();
+
       foreach (GridActor actor in _worldActors)
       {
          if (actor.State == GridActor.ActorState.NeedsUpdate)

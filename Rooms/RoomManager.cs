@@ -38,7 +38,7 @@ public partial class RoomManager : Node
          RoomTileMap tileMap  = tileMapScene.Instantiate<RoomTileMap>();
 
          newRoom.AddChild(tileMap);
-         newRoom.TileMap = tileMap;
+         newRoom.Map = tileMap;
 
          AddChild(newRoom);
          Rooms[tileMap.DebugName] = newRoom;
@@ -49,6 +49,7 @@ public partial class RoomManager : Node
       foreach (Room room in Rooms.Values)
       {
          room.InitCells();
+         room.FindAndAddActors(true);
          room.PauseAndHideRoom();
       }
 

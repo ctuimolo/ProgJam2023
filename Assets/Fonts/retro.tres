@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://d01v7cdg2xey0"]
+
+[ext_resource type="FontFile" uid="uid://wp7grirrm6b8" path="res://Assets/Fonts/retro.webp" id="1_14pa1"]
+
+[resource]
+font = ExtResource("1_14pa1")
+font_size = 17
+font_color = Color(1, 0.572549, 1, 1)
