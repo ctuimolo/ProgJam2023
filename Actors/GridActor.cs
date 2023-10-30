@@ -7,9 +7,6 @@ namespace ProgJam2023.Actors;
 
 public partial class GridActor : Node2D
 {
-   [Export]
-   public StringName ID;
-
    public enum ActorCollisionType
    {
       None,

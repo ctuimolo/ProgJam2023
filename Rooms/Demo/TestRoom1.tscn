@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://btlwq6lgxvwqi" path="res://Rooms/Door.tscn" id="3_8m6wc"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="3_lohvy"]
 
-[node name="TestRoom1" type="TileMap"]
+[node name="Hub" type="TileMap"]
 tile_set = ExtResource("3_lohvy")
 format = 2
 layer_0/name = "Floor"
@@ -19,22 +19,26 @@ layer_1/tile_data = PackedInt32Array(-262144, 65537, 0, -196608, 65537, 1, -1966
 script = ExtResource("2_qf1ol")
 DebugName = &"Hub"
 
-[node name="Door1" parent="." instance=ExtResource("3_8m6wc")]
+[node name="DoorN" parent="." instance=ExtResource("3_8m6wc")]
 position = Vector2(32, -32)
-ToRoom = &"DebugNorth"
-ToDoor = 2
+ToRoom = &"North"
+ToDoor = &"DoorS"
+ExitDirection = 2
 
-[node name="Door2" parent="." instance=ExtResource("3_8m6wc")]
+[node name="DoorW" parent="." instance=ExtResource("3_8m6wc")]
 position = Vector2(-144, 32)
-ToRoom = &"DebugWest"
-ToDoor = 4
+ToRoom = &"West"
+ToDoor = &"DoorE"
+ExitDirection = 4
 
-[node name="Door4" parent="." instance=ExtResource("3_8m6wc")]
+[node name="DoorE" parent="." instance=ExtResource("3_8m6wc")]
 position = Vector2(96, 0)
-ToRoom = &"DebugEast"
-ToDoor = 3
+ToRoom = &"East"
+ToDoor = &"DoorW"
+ExitDirection = 3
 
-[node name="Door3" parent="." instance=ExtResource("3_8m6wc")]
+[node name="DoorS" parent="." instance=ExtResource("3_8m6wc")]
 position = Vector2(16, 64)
-ToRoom = &"DebugSouth"
-ToDoor = 1
+ToRoom = &"South"
+ToDoor = &"DoorN"
+ExitDirection = 1

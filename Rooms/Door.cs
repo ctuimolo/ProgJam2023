@@ -1,7 +1,6 @@
 using Godot;
 
 using ProgJam2023.Actors;
-using ProgJam2023.Actors.Interfaces;
 
 namespace ProgJam2023.Rooms;
 
@@ -11,7 +10,10 @@ public partial class Door : GridActor
    public StringName ToRoom;
 
    [Export]
-   public GridDirection ToDoor;
+   public StringName ToDoor;
+
+   [Export]
+   public GridDirection ExitDirection;
 
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()

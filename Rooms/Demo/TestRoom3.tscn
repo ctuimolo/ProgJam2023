@@ -20,7 +20,8 @@ layer_1/tile_data = PackedInt32Array(-131069, 262145, 3, 3, 262145, 5, 65539, 13
 script = ExtResource("2_84x64")
 DebugName = &"West"
 
-[node name="Door1" parent="." instance=ExtResource("3_exm8m")]
+[node name="DoorE" parent="." instance=ExtResource("3_exm8m")]
 position = Vector2(48, -16)
-ToRoom = &"DebugNorth"
-ToDoor = 2
+ToRoom = &"Hub"
+ToDoor = &"DoorW"
+ExitDirection = 3

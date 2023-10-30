@@ -17,6 +17,7 @@ public partial class Room : Node2D
    public RoomTileMap Map { get; set; }
 
    public Dictionary<Vector2I, Cell> CellMap;
+   public Dictionary<StringName, Door> Doors;
    public Dictionary<StringName, GridActor> Actors;
 
    public void InitCells()
@@ -43,6 +44,11 @@ public partial class Room : Node2D
    {
       if (!CellMap.ContainsKey(cellPosition)) return;
 
+      if (actor.GetParent() != Map)
+      {
+         actor.Reparent(Map);
+      }
+
       if (actor.CurrentCell != null)
       {
          actor.CurrentCell.RemoveActor(actor);
@@ -53,14 +59,19 @@ public partial class Room : Node2D
 
       actor.CurrentCell = cell;
       actor.NextCell    = cellPosition;
-      actor.Position    = Map.ToGlobal(Map.MapToLocal(cellPosition) - Map.TileSet.TileSize / 2);
+      actor.Position    = Map.MapToLocal(cellPosition) - Map.TileSet.TileSize / 2;
    }
 
    public void FindAndAddActors(bool setGlobalToCell = false)
    {
       foreach (GridActor actor in GetChild(0).GetChildren().OfType<GridActor>())
       {
-         Actors.Add(actor.Name, actor as GridActor);
+         if (actor is Door)
+         {
+            Doors.Add(actor.Name, actor as Door);
+         }
+
+         Actors.Add(actor.Name, actor);
          if (setGlobalToCell)
          {
             Vector2I toCell = Map.LocalToMap(actor.Position);
@@ -73,5 +84,6 @@ public partial class Room : Node2D
    public override void _Ready()
    {
       Actors = new Dictionary<StringName, GridActor>();
+      Doors = new Dictionary<StringName, Door>();
    }
 }

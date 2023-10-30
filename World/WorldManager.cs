@@ -4,6 +4,7 @@ using Godot.Collections;
 using ProgJam2023.Rooms;
 using ProgJam2023.Actors.Players;
 using ProgJam2023.Actors;
+using System.Linq;
 
 namespace ProgJam2023.World;
 
@@ -25,7 +26,7 @@ public partial class WorldManager : Node
    private static RoomManager _roomManager;
 
 
-   public static void ChangeRoom(StringName roomKey, GridDirection toDoor)
+   public static void ChangeRoom(StringName roomKey, StringName toDoor = null)
    {
       CurrentRoom?.PauseAndHideRoom();
       SetCurrentRoom(_roomManager.Rooms[roomKey], toDoor);
@@ -40,10 +41,10 @@ public partial class WorldManager : Node
    {
    }
 
-   public static void SetCurrentRoom(Room room, GridDirection toDoor)
+   public static void SetCurrentRoom(Room room, StringName toDoor = null)
    {
       CurrentRoom = room;
-      SpawnPlayer(room.StartingCell, toDoor);
+      SpawnPlayer(toDoor);
       CurrentRoom.ActivateRoom();
    }
 
@@ -63,9 +64,22 @@ public partial class WorldManager : Node
       _worldActors.Add(actor);
    }
 
-   public static void SpawnPlayer(Vector2I cell, GridDirection walkIn)
+   public static void SpawnPlayer(StringName door)
    {
-      CurrentRoom.PutOnCell(cell, CurrentPlayer);
+      Vector2I toCell = CurrentRoom.StartingCell;
+
+      if (door != null)
+      {
+         if (CurrentRoom.Doors.Keys.Contains(door)) 
+         {
+            toCell = CurrentRoom.Doors[door].CurrentCell.Position();
+            CurrentRoom.PutOnCell(toCell, CurrentPlayer);
+            TryMoveActor(CurrentPlayer, CurrentRoom.Doors[door].ExitDirection);
+            return;
+         }
+      }
+
+      CurrentRoom.PutOnCell(toCell, CurrentPlayer);
    }
 
    public static void InitWorld()
@@ -103,10 +117,24 @@ public partial class WorldManager : Node
       }
    }
 
+   private void PlayerStep()
+   {
+      if (CurrentPlayer.State == GridActor.ActorState.Idle)
+      {
+         // Check for doors
+         foreach (Door door in CurrentPlayer.CurrentCell.Actors.OfType<Door>()) 
+         {
+            ChangeRoom(door.ToRoom, door.ToDoor);
+         }
+      }
+   }
+
    // Called every frame. 'delta' is the elapsed time since the previous frame.
    public override void _Process(double delta)
    {
       ProcessInput();
+
+      PlayerStep();
 
       foreach (GridActor actor in _worldActors)
       {

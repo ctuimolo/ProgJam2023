@@ -54,7 +54,7 @@ public partial class RoomManager : Node
       }
 
       WorldManager.SetRoomManager(this);
-      WorldManager.ChangeRoom(DebugStartRoom, GridDirection.None);
+      WorldManager.ChangeRoom(DebugStartRoom);
    }
 
    // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -62,27 +62,27 @@ public partial class RoomManager : Node
    {
       if (Input.IsActionJustPressed("debug1"))
       {
-         WorldManager.ChangeRoom("North", GridDirection.None);
+         WorldManager.ChangeRoom("North");
       }
 
       if (Input.IsActionJustPressed("debug2"))
       {
-         WorldManager.ChangeRoom("West", GridDirection.None);
+         WorldManager.ChangeRoom("West");
       }
 
       if (Input.IsActionJustPressed("debug3"))
       {
-         WorldManager.ChangeRoom("South", GridDirection.None);
+         WorldManager.ChangeRoom("South");
       }
 
       if (Input.IsActionJustPressed("debug4"))
       {
-         WorldManager.ChangeRoom("East", GridDirection.None);
+         WorldManager.ChangeRoom("East");
       }
 
       if (Input.IsActionJustPressed("debug5"))
       {
-         WorldManager.ChangeRoom("Hub", GridDirection.None);
+         WorldManager.ChangeRoom("Hub");
       }
    }
 }
