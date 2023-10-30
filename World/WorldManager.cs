@@ -137,7 +137,6 @@ public partial class WorldManager : Node
 
    private static void PlayerProcess_Open()
    {
-      CurrentPlayer.IdleAnimation();
       if (CurrentPlayer.ProcessInput())
       {
          _playerTurnProcessor = PlayerProcessEnd_Busy;
@@ -178,6 +177,7 @@ public partial class WorldManager : Node
                CurrentRoom.PutOnCell(actor.NextCell, actor);
             }
             actor.State = GridActor.ActorState.Idle;
+            actor.IdleAnimation();
          }
       }
    }
