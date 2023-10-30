@@ -2,7 +2,7 @@ using Godot;
 using Godot.Collections;
 
 using ProgJam2023.Rooms;
-using ProgJam2023.Actors.Player;
+using ProgJam2023.Actors.Players;
 using ProgJam2023.Actors;
 
 namespace ProgJam2023.World;

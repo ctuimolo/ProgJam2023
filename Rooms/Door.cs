@@ -1,6 +1,7 @@
 using Godot;
 
 using ProgJam2023.Actors;
+using ProgJam2023.Actors.Interfaces;
 
 namespace ProgJam2023.Rooms;
 

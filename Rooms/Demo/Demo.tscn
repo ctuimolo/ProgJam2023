@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://mtop7xcqmegj" path="res://Rooms/Demo/TestRoom1.tscn" id="2_33onn"]
 [ext_resource type="PackedScene" uid="uid://br00tplhetu2k" path="res://Rooms/Room.tscn" id="2_204hd"]
 [ext_resource type="PackedScene" uid="uid://cv1lhspkuaf5g" path="res://Rooms/Demo/TestRoom2.tscn" id="3_lrecc"]
-[ext_resource type="PackedScene" uid="uid://d1sqmqpy5ad7m" path="res://Actors/Player/Player.tscn" id="4_1ya5o"]
+[ext_resource type="PackedScene" uid="uid://d1sqmqpy5ad7m" path="res://Actors/Players/Player.tscn" id="4_1ya5o"]
 [ext_resource type="PackedScene" uid="uid://d0hctw7gpp8ni" path="res://Rooms/Demo/TestRoom3.tscn" id="4_7e8ps"]
 [ext_resource type="PackedScene" uid="uid://p0ecvqikpr1d" path="res://Rooms/Demo/TestRoom4.tscn" id="5_56s5j"]
 [ext_resource type="PackedScene" uid="uid://bwy6kqj4me61u" path="res://Rooms/Demo/TestRoom5.tscn" id="6_jfprq"]

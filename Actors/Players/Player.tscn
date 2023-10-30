@@ -1,8 +1,8 @@
 [gd_scene load_steps=19 format=3 uid="uid://d1sqmqpy5ad7m"]
 
-[ext_resource type="Script" path="res://Actors/Player/Player.cs" id="1_qpdbg"]
-[ext_resource type="Texture2D" uid="uid://bjil7d5vyayf3" path="res://Assets/Textures/Characters/Link.png" id="2_8gmas"]
-[ext_resource type="Script" path="res://Dynamics/FrameTimer.cs" id="3_8c62w"]
+[ext_resource type="Script" path="res://Actors/Players/Player.cs" id="1_brwy0"]
+[ext_resource type="Texture2D" uid="uid://bjil7d5vyayf3" path="res://Assets/Textures/Characters/Link.png" id="2_813ng"]
+[ext_resource type="Script" path="res://Dynamics/FrameTimer.cs" id="3_fuw8d"]
 
 [sub_resource type="Animation" id="Animation_bxiig"]
 resource_name = "idle_down"
@@ -316,16 +316,17 @@ _data = {
 
 [node name="Player" type="Node2D" node_paths=PackedStringArray("_animationPlayer", "_animationWalker")]
 z_index = 1
-script = ExtResource("1_qpdbg")
+script = ExtResource("1_brwy0")
 ID = &"Player"
 State = 1
 CollisionType = 1
 _animationPlayer = NodePath("AnimationPlayer")
 _animationWalker = NodePath("AnimationWalker")
+_stepSpeed = null
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 1
-texture = ExtResource("2_8gmas")
+texture = ExtResource("2_813ng")
 centered = false
 offset = Vector2(0, -4)
 hframes = 4
@@ -344,4 +345,4 @@ libraries = {
 }
 
 [node name="FrameTimer" type="Node" parent="."]
-script = ExtResource("3_8c62w")
+script = ExtResource("3_fuw8d")

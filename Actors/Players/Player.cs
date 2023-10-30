@@ -3,7 +3,7 @@ using Godot;
 using ProgJam2023.World;
 using ProgJam2023.Dynamics;
 
-namespace ProgJam2023.Actors.Player;
+namespace ProgJam2023.Actors.Players;
 
 public partial class Player : GridActor
 {
