@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://mtop7xcqmegj"]
+[gd_scene load_steps=5 format=3 uid="uid://mtop7xcqmegj"]
 
 [ext_resource type="Script" path="res://Rooms/RoomTileMap.cs" id="2_qf1ol"]
 [ext_resource type="PackedScene" uid="uid://btlwq6lgxvwqi" path="res://Rooms/Door.tscn" id="3_8m6wc"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="3_lohvy"]
+[ext_resource type="PackedScene" uid="uid://cokmysdsq0bym" path="res://Actors/Enemies/Slime/Slime.tscn" id="4_bisjb"]
 
 [node name="Hub" type="TileMap"]
+z_as_relative = false
 tile_set = ExtResource("3_lohvy")
 format = 2
 layer_0/name = "Floor"
@@ -42,3 +44,6 @@ position = Vector2(16, 64)
 ToRoom = &"South"
 ToDoor = &"DoorN"
 ExitDirection = 1
+
+[node name="Slime" parent="." instance=ExtResource("4_bisjb")]
+position = Vector2(-16, 16)

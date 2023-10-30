@@ -5,6 +5,7 @@ using ProgJam2023.Rooms;
 using ProgJam2023.Actors.Players;
 using ProgJam2023.Actors;
 using System.Linq;
+using Microsoft.VisualBasic;
 
 namespace ProgJam2023.World;
 
@@ -12,19 +13,24 @@ public partial class WorldManager : Node
 {
    public enum State
    {
-      Open,
       Busy,
+      Open,
    }
 
    public static bool DrawDebugText;
    public static Room CurrentRoom { get; private set; }
    public static Player CurrentPlayer { get; private set; }
-   public static State CurrentState { get; private set; }
+   public static State PlayerTurnState { get; private set; }
+   public static State EnemyTurnState { get; private set; }
 
    static Array<GridActor> _worldActors;
 
    private static RoomManager _roomManager;
 
+   private delegate void TurnProcessor();
+
+   private static TurnProcessor _playerTurnProcessor;
+   private static TurnProcessor _enemyTurnProcessor;
 
    public static void ChangeRoom(StringName roomKey, StringName toDoor = null)
    {
@@ -84,8 +90,12 @@ public partial class WorldManager : Node
 
    public static void InitWorld()
    {
-      _worldActors = new Array<GridActor>();
-      CurrentState = State.Open;
+      _worldActors      = new Array<GridActor>();
+      PlayerTurnState   = State.Open;
+      EnemyTurnState    = State.Open;
+
+      _playerTurnProcessor = PlayerProcess_Open;
+      _enemyTurnProcessor = EnemyProcess_Open;
    }
 
    public static void TryMoveActor(GridActor actor, GridDirection direction)
@@ -117,7 +127,25 @@ public partial class WorldManager : Node
       }
    }
 
-   private void PlayerStep()
+   private static void EnemyProcess_Open()
+   {
+   }
+
+   private static void EnemyProcess_Busy()
+   {
+   }
+
+   private static void PlayerProcess_Open()
+   {
+      CurrentPlayer.IdleAnimation();
+      if (CurrentPlayer.ProcessInput())
+      {
+         _playerTurnProcessor = PlayerProcessEnd_Busy;
+         PlayerTurnState = State.Busy;
+      }
+   }
+
+   private static void PlayerProcessEnd_Busy()
    {
       if (CurrentPlayer.State == GridActor.ActorState.Idle)
       {
@@ -125,7 +153,11 @@ public partial class WorldManager : Node
          foreach (Door door in CurrentPlayer.CurrentCell.Actors.OfType<Door>()) 
          {
             ChangeRoom(door.ToRoom, door.ToDoor);
+            break;
          }
+
+         _playerTurnProcessor = PlayerProcess_Open;
+         PlayerTurnState = State.Open;
       }
    }
 
@@ -134,7 +166,8 @@ public partial class WorldManager : Node
    {
       ProcessInput();
 
-      PlayerStep();
+      _playerTurnProcessor.Invoke();
+      _enemyTurnProcessor.Invoke();
 
       foreach (GridActor actor in _worldActors)
       {
@@ -145,7 +178,6 @@ public partial class WorldManager : Node
                CurrentRoom.PutOnCell(actor.NextCell, actor);
             }
             actor.State = GridActor.ActorState.Idle;
-            actor.IdleAnimation();
          }
       }
    }

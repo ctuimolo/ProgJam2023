@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://btlwq6lgxvwqi" path="res://Rooms/Door.tscn" id="3_1u4rl"]
 
 [node name="TestRoom5" type="TileMap"]
+z_as_relative = false
 tile_set = ExtResource("2_awg6x")
 format = 2
 layer_0/name = "Floor"
@@ -20,6 +21,7 @@ script = ExtResource("2_xmk13")
 DebugName = &"East"
 
 [node name="DoorW" parent="." instance=ExtResource("3_1u4rl")]
+z_as_relative = false
 position = Vector2(-80, 0)
 ToRoom = &"Hub"
 ToDoor = &"DoorE"

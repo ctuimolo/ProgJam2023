@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://Rooms/Room.cs" id="1_yacuo"]
 
 [node name="Room" type="Node2D"]
+z_as_relative = false
 script = ExtResource("1_yacuo")

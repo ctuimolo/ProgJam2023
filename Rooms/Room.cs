@@ -16,14 +16,12 @@ public partial class Room : Node2D
    [Export]
    public RoomTileMap Map { get; set; }
 
-   public Dictionary<Vector2I, Cell> CellMap;
-   public Dictionary<StringName, Door> Doors;
-   public Dictionary<StringName, GridActor> Actors;
+   public Dictionary<Vector2I, Cell> CellMap = new Dictionary<Vector2I, Cell>();
+   public Dictionary<StringName, Door> Doors = new Dictionary<StringName, Door>();
+   public Dictionary<StringName, GridActor> Actors = new Dictionary<StringName, GridActor>();
 
    public void InitCells()
    {
-      CellMap = new Dictionary<Vector2I, Cell>();
-
       foreach (Vector2I cell in Map.GetUsedCells(0))
       {
          CellMap[cell] = new Cell(cell);
@@ -83,7 +81,5 @@ public partial class Room : Node2D
 
    public override void _Ready()
    {
-      Actors = new Dictionary<StringName, GridActor>();
-      Doors = new Dictionary<StringName, Door>();
    }
 }

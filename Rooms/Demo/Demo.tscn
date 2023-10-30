@@ -10,6 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bwy6kqj4me61u" path="res://Rooms/Demo/TestRoom5.tscn" id="6_jfprq"]
 
 [node name="Demo" type="Node2D" node_paths=PackedStringArray("Player")]
+z_as_relative = false
+y_sort_enabled = true
 script = ExtResource("1_5c1bk")
 DebugStartRoom = &"Hub"
 Player = NodePath("Player")
@@ -18,7 +20,6 @@ DebugRoomTileMaps = Array[PackedScene]([ExtResource("2_33onn"), ExtResource("3_l
 
 [node name="Player" parent="." instance=ExtResource("4_1ya5o")]
 position = Vector2(-128, -64)
-_stepSpeed = 18
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)

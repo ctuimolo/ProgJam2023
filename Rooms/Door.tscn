@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bxe2egdq54aeu" path="res://Assets/Textures/TileMaps/Tilemap04.png" id="2_0roc3"]
 
 [node name="Door" type="Node2D"]
+z_index = 1
+z_as_relative = false
 script = ExtResource("1_prmsw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
