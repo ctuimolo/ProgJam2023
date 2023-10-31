@@ -1,11 +1,13 @@
 using Godot;
 using Godot.Collections;
 
+using System.Linq;
+
 using ProgJam2023.Rooms;
 using ProgJam2023.Actors.Players;
 using ProgJam2023.Actors;
-using System.Linq;
-using Microsoft.VisualBasic;
+using ProgJam2023.UI;
+using System.Threading;
 
 namespace ProgJam2023.World;
 
@@ -32,9 +34,22 @@ public partial class WorldManager : Node
    private static TurnProcessor _playerTurnProcessor;
    private static TurnProcessor _enemyTurnProcessor;
 
-   public static void ChangeRoom(StringName roomKey, StringName toDoor = null)
+   public static ScreenTransitioner Transitioner = ResourceLoader.Load<PackedScene>("res://UI/ScreenTransitioner.tscn").Instantiate<ScreenTransitioner>();
+
+   public static async void ChangeRoom(StringName roomKey, StringName toDoor = null)
    {
+      if (CurrentRoom != null)
+      {
+         //Transitioner.FadeOut();
+         //await Transitioner.WaitOnAnimation();
+         //Transitioner.Clear();
+      }
+      
       CurrentRoom?.PauseAndHideRoom();
+
+      //Transitioner.FadeIn();
+      //await Transitioner.WaitOnAnimation();
+
       SetCurrentRoom(_roomManager.Rooms[roomKey], toDoor);
    }
 
@@ -88,6 +103,11 @@ public partial class WorldManager : Node
       CurrentRoom.PutOnCell(toCell, CurrentPlayer);
    }
 
+   public void InitUI()
+   {
+      AddChild(Transitioner);
+   }
+
    public static void InitWorld()
    {
       _worldActors      = new Array<GridActor>();
@@ -116,6 +136,7 @@ public partial class WorldManager : Node
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
    {
+      InitUI();
       InitWorld();
    }
 

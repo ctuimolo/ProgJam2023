@@ -19,7 +19,7 @@ RoomScene = ExtResource("2_204hd")
 DebugRoomTileMaps = Array[PackedScene]([ExtResource("2_33onn"), ExtResource("3_lrecc"), ExtResource("4_7e8ps"), ExtResource("5_56s5j"), ExtResource("6_jfprq")])
 
 [node name="Player" parent="." instance=ExtResource("4_1ya5o")]
-position = Vector2(-128, -64)
+position = Vector2(-64, -32)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)

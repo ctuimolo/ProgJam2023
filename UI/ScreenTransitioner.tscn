@@ -1,0 +1,112 @@
+[gd_scene load_steps=10 format=3 uid="uid://hnoerer60ymh"]
+
+[ext_resource type="Shader" path="res://Shaders/Transition/Transition.gdshader" id="1_0aydr"]
+[ext_resource type="Script" path="res://UI/ScreenTransitioner.cs" id="1_8gioo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vwkfn"]
+shader = ExtResource("1_0aydr")
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 32.0
+
+[sub_resource type="Animation" id="Animation_bjr6r"]
+resource_name = "fade_in"
+length = 0.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenFill:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_fbl5v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenFill:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_pj7s5"]
+resource_name = "fade_out"
+length = 0.40001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenFill:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_xi3n7"]
+resource_name = "clear"
+length = 0.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenFill:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_lckec"]
+resource_name = "fill"
+length = 0.10001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ScreenFill:material:shader_parameter/progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t01st"]
+_data = {
+"RESET": SubResource("Animation_fbl5v"),
+"clear": SubResource("Animation_xi3n7"),
+"fade_in": SubResource("Animation_bjr6r"),
+"fade_out": SubResource("Animation_pj7s5"),
+"fill": SubResource("Animation_lckec")
+}
+
+[node name="ScreenTransitioner" type="CanvasLayer" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("1_8gioo")
+_animationPlayer = NodePath("AnimationPlayer")
+
+[node name="ScreenFill" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_vwkfn")
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_t01st")
+}

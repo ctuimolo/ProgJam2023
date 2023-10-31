@@ -13,12 +13,12 @@ public partial class Player : GridActor
    private GridDirection _lastDirection = GridDirection.None;
    private GridDirection _direction = GridDirection.None;
    private int _directionHoldCount = 0;
-   private int _directionHoldTime = 5;
+   private int _directionHoldTime = 6;
 
    // Probably to be called in Godot scene room's _Ready function
    protected void InitPlayer()
    {
-      _animationWalker.SpeedScale = 1.7f;
+      _animationWalker.SpeedScale = 2.4f;
 
       WorldManager.SetCurrentPlayer(this);
    }
@@ -56,7 +56,7 @@ public partial class Player : GridActor
       }
 
       if (_direction != GridDirection.None &&
-            _direction == _lastDirection)
+          _direction == _lastDirection)
       {
          if (_directionHoldCount >= _directionHoldTime)
          {
