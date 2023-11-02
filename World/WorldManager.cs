@@ -163,6 +163,7 @@ public partial class WorldManager : Node
       actor.State = GridActor.ActorState.Busy;
       actor.StepAnimation(direction);
       actor.NextCell = toCell;
+      actor.LastStep = direction;
    }
 
    // Called when the node enters the scene tree for the first time.

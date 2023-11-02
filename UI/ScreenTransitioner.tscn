@@ -5,8 +5,11 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vwkfn"]
 shader = ExtResource("1_0aydr")
-shader_parameter/progress = 1.0
-shader_parameter/diamondPixelSize = 8.0
+shader_parameter/progress = 0.0
+shader_parameter/diamondPixelSize = 16.0
+shader_parameter/inverseDraw = false
+shader_parameter/directionX = false
+shader_parameter/directionY = false
 
 [sub_resource type="Animation" id="Animation_fbl5v"]
 length = 0.001
@@ -41,7 +44,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_bjr6r"]
 resource_name = "fade_in"
-length = 0.500002
+length = 0.666668
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -50,7 +53,7 @@ tracks/0/path = NodePath("ScreenFill:material:shader_parameter/progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [1.0, 0.0]
@@ -62,7 +65,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.666667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -72,7 +75,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_pj7s5"]
 resource_name = "fade_out"
-length = 0.500002
+length = 0.666668
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -81,7 +84,7 @@ tracks/0/path = NodePath("ScreenFill:material:shader_parameter/progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
+"times": PackedFloat32Array(0, 0.666667),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [0.0, 1.0]
@@ -93,7 +96,7 @@ tracks/1/path = NodePath(".")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.5),
+"times": PackedFloat32Array(0.666667),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -126,9 +129,10 @@ _data = {
 "fill": SubResource("Animation_lckec")
 }
 
-[node name="ScreenTransitioner" type="CanvasLayer" node_paths=PackedStringArray("_animationPlayer")]
+[node name="ScreenTransitioner" type="CanvasLayer" node_paths=PackedStringArray("_animationPlayer", "_fillColorRect")]
 script = ExtResource("1_8gioo")
 _animationPlayer = NodePath("AnimationPlayer")
+_fillColorRect = NodePath("ScreenFill")
 
 [node name="ScreenFill" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_vwkfn")
@@ -137,6 +141,7 @@ offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+speed_scale = 2.0
 libraries = {
 "": SubResource("AnimationLibrary_t01st")
 }

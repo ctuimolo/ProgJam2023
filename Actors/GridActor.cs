@@ -39,9 +39,10 @@ public partial class GridActor : Node2D
 
    public Cell CurrentCell    = null;
    public Vector2I NextCell   = Vector2I.Zero;
+   public GridDirection LastStep;
 
-   private Label _debugText;
-   private PackedScene _debugTextScene = ResourceLoader.Load<PackedScene>("res://Debug/DebugText.tscn");
+   Label _debugText;
+   PackedScene _debugTextScene = ResourceLoader.Load<PackedScene>("res://Debug/DebugText.tscn");
 
    public override void _Ready()
    {
