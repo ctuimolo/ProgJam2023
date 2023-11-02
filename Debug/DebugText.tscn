@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbjs8ufrs3kul"]
+
+[ext_resource type="LabelSettings" uid="uid://d01v7cdg2xey0" path="res://Assets/Fonts/retro.tres" id="1_l8uy2"]
+
+[node name="DebugText" type="Label"]
+scale = Vector2(0.25, 0.25)
+label_settings = ExtResource("1_l8uy2")

@@ -28,61 +28,61 @@ public partial class RoomManager : Node
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
    {
-      Rooms = new Dictionary<StringName, Room>();
+	  Rooms = new Dictionary<StringName, Room>();
 
-      ////////////////////////////////////////////////////////////
-      // Init Debug Rooms
-      foreach (PackedScene tileMapScene in DebugRoomTileMaps)
-      {
-         Room newRoom         = RoomScene.Instantiate<Room>();
-         RoomTileMap tileMap  = tileMapScene.Instantiate<RoomTileMap>();
+	  ////////////////////////////////////////////////////////////
+	  // Init Debug Rooms
+	  foreach (PackedScene tileMapScene in DebugRoomTileMaps)
+	  {
+		 Room newRoom         = RoomScene.Instantiate<Room>();
+		 RoomTileMap tileMap  = tileMapScene.Instantiate<RoomTileMap>();
 
-         newRoom.AddChild(tileMap);
-         newRoom.Map = tileMap;
+		 newRoom.AddChild(tileMap);
+		 newRoom.Map = tileMap;
 
-         AddChild(newRoom);
-         Rooms[tileMap.DebugName] = newRoom;
-      }
-      ////////////////////////////////////////////////////////////
+		 AddChild(newRoom);
+		 Rooms[tileMap.DebugName] = newRoom;
+	  }
+	  ////////////////////////////////////////////////////////////
 
-      // Actual rooms
-      foreach (Room room in Rooms.Values)
-      {
-         room.InitCells();
-         room.FindAndAddActors(true);
-         room.PauseAndHideRoom();
-      }
+	  // Actual rooms
+	  foreach (Room room in Rooms.Values)
+	  {
+		 room.InitCells();
+		 room.FindAndAddActors(true);
+		 room.PauseAndHideRoom();
+	  }
 
-      WorldManager.SetRoomManager(this);
-      WorldManager.ChangeRoom(DebugStartRoom);
+	  WorldManager.SetRoomManager(this);
+	  WorldManager.ChangeRoom(DebugStartRoom);
    }
 
    // Called every frame. 'delta' is the elapsed time since the previous frame.
    public override void _Process(double delta)
    {
-      if (Input.IsActionJustPressed("debug1"))
-      {
-         WorldManager.ChangeRoom("North");
-      }
+	  if (Input.IsActionJustPressed("debug1"))
+	  {
+		 WorldManager.ChangeRoom("North");
+	  }
 
-      if (Input.IsActionJustPressed("debug2"))
-      {
-         WorldManager.ChangeRoom("West");
-      }
+	  if (Input.IsActionJustPressed("debug2"))
+	  {
+		 WorldManager.ChangeRoom("West");
+	  }
 
-      if (Input.IsActionJustPressed("debug3"))
-      {
-         WorldManager.ChangeRoom("South");
-      }
+	  if (Input.IsActionJustPressed("debug3"))
+	  {
+		 WorldManager.ChangeRoom("South");
+	  }
 
-      if (Input.IsActionJustPressed("debug4"))
-      {
-         WorldManager.ChangeRoom("East");
-      }
+	  if (Input.IsActionJustPressed("debug4"))
+	  {
+		 WorldManager.ChangeRoom("East");
+	  }
 
-      if (Input.IsActionJustPressed("debug5"))
-      {
-         WorldManager.ChangeRoom("Hub");
-      }
+	  if (Input.IsActionJustPressed("debug5"))
+	  {
+		 WorldManager.ChangeRoom("Hub");
+	  }
    }
 }

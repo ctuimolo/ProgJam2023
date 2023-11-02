@@ -22,60 +22,60 @@ public partial class Room : Node2D
 
    public void InitCells()
    {
-      foreach (Vector2I cell in Map.GetUsedCells(0))
-      {
-         CellMap[cell] = new Cell(cell);
-      }
+	  foreach (Vector2I cell in Map.GetUsedCells(0))
+	  {
+		 CellMap[cell] = new Cell(cell);
+	  }
    }
 
    public void PauseAndHideRoom()
    {
-      Visible = false;
+	  Visible = false;
    }
 
    public void ActivateRoom()
    {
-      Visible = true;
+	  Visible = true;
    }
 
    public void PutOnCell(Vector2I cellPosition, GridActor actor)
    {
-      if (!CellMap.ContainsKey(cellPosition)) return;
+	  if (!CellMap.ContainsKey(cellPosition)) return;
 
-      if (actor.GetParent() != Map)
-      {
-         actor.Reparent(Map);
-      }
+	  if (actor.GetParent() != Map)
+	  {
+		 actor.Reparent(Map);
+	  }
 
-      if (actor.CurrentCell != null)
-      {
-         actor.CurrentCell.RemoveActor(actor);
-      }
+	  if (actor.CurrentCell != null)
+	  {
+		 actor.CurrentCell.RemoveActor(actor);
+	  }
 
-      Cell cell = CellMap[cellPosition];
-      cell.PutActor(actor);
+	  Cell cell = CellMap[cellPosition];
+	  cell.PutActor(actor);
 
-      actor.CurrentCell = cell;
-      actor.NextCell    = cellPosition;
-      actor.Position    = Map.MapToLocal(cellPosition) - Map.TileSet.TileSize / 2;
+	  actor.CurrentCell = cell;
+	  actor.NextCell    = cellPosition;
+	  actor.Position    = Map.MapToLocal(cellPosition) - Map.TileSet.TileSize / 2;
    }
 
    public void FindAndAddActors(bool setGlobalToCell = false)
    {
-      foreach (GridActor actor in GetChild(0).GetChildren().OfType<GridActor>())
-      {
-         if (actor is Door)
-         {
-            Doors.Add(actor.Name, actor as Door);
-         }
+	  foreach (GridActor actor in GetChild(0).GetChildren().OfType<GridActor>())
+	  {
+		 if (actor is Door)
+		 {
+			Doors.Add(actor.Name, actor as Door);
+		 }
 
-         Actors.Add(actor.Name, actor);
-         if (setGlobalToCell)
-         {
-            Vector2I toCell = Map.LocalToMap(actor.Position);
-            PutOnCell(toCell, actor);
-         }
-      }
+		 Actors.Add(actor.Name, actor);
+		 if (setGlobalToCell)
+		 {
+			Vector2I toCell = Map.LocalToMap(actor.Position);
+			PutOnCell(toCell, actor);
+		 }
+	  }
    }
 
 

@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vwkfn"]
 shader = ExtResource("1_0aydr")
-shader_parameter/progress = 0.675
+shader_parameter/progress = 0.0
 shader_parameter/diamondPixelSize = 16.0
 shader_parameter/inverseDraw = false
 shader_parameter/directionX = false
@@ -44,7 +44,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_bjr6r"]
 resource_name = "fade_in"
-length = 1.0
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -75,7 +74,6 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_pj7s5"]
 resource_name = "fade_out"
-length = 1.0
 step = 0.0166667
 tracks/0/type = "value"
 tracks/0/imported = false
