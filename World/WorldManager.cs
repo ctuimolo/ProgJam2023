@@ -13,44 +13,72 @@ namespace ProgJam2023.World;
 
 public partial class WorldManager : Node
 {
+   //===========================================================
+   // World enums
+   //===========================================================
+
    public enum State
    {
       Busy,
       Open,
    }
 
+   //===========================================================
+   // Debug Values
+   //===========================================================
+
    public static bool DrawDebugText;
+
+   //===========================================================
+   // Room/PlayerState tracking
+   //===========================================================
+
    public static Room CurrentRoom { get; private set; }
-   public static Player CurrentPlayer { get; private set; }
+   public static StringName NextRoomKey;
+   public static StringName NextRoomDoor;
+
+   public static Player CurrentPlayer  { get; private set; }
+   public static State WorldState      { get; private set; }
    public static State PlayerTurnState { get; private set; }
-   public static State EnemyTurnState { get; private set; }
+   public static State EnemyTurnState  { get; private set; }
+
+   //===========================================================
+   // World Collections
+   //===========================================================
 
    static Array<GridActor> _worldActors;
+   static RoomManager _roomManager;
 
-   private static RoomManager _roomManager;
+   //===========================================================
+   // Turn Dynamics
+   //===========================================================
 
-   private delegate void TurnProcessor();
+   delegate void TurnProcessor();
 
-   private static TurnProcessor _playerTurnProcessor;
-   private static TurnProcessor _enemyTurnProcessor;
+   static TurnProcessor _playerTurnProcessor;
+   static TurnProcessor _enemyTurnProcessor;
+
+   //===========================================================
+   // World transitions and UI
+   //===========================================================
 
    public static ScreenTransitioner Transitioner = ResourceLoader.Load<PackedScene>("res://UI/ScreenTransitioner.tscn").Instantiate<ScreenTransitioner>();
 
-   public static async void ChangeRoom(StringName roomKey, StringName toDoor = null)
+   public static void ChangeRoom(StringName roomKey, StringName toDoor = null)
    {
+      NextRoomKey = roomKey;
+      NextRoomDoor = toDoor;
+
       if (CurrentRoom != null)
       {
-         //Transitioner.FadeOut();
-         //await Transitioner.WaitOnAnimation();
-         //Transitioner.Clear();
+         Transitioner.ChangeRoom_StartAnimation();
+      } else
+      {
+         Transitioner.ChangeRoom_MovePlayer();
       }
-      
-      CurrentRoom?.PauseAndHideRoom();
 
-      //Transitioner.FadeIn();
-      //await Transitioner.WaitOnAnimation();
-
-      SetCurrentRoom(_roomManager.Rooms[roomKey], toDoor);
+      _playerTurnProcessor = PlayerProcess_Open;
+      PlayerTurnState = State.Open;
    }
 
    public static void SetRoomManager(RoomManager roomManager)
@@ -62,11 +90,32 @@ public partial class WorldManager : Node
    {
    }
 
-   public static void SetCurrentRoom(Room room, StringName toDoor = null)
+   public static void SpawnPlayer(StringName room, StringName toDoor = null)
    {
-      CurrentRoom = room;
-      SpawnPlayer(toDoor);
-      CurrentRoom.ActivateRoom();
+      Vector2I toCell = _roomManager.Rooms[room].StartingCell;
+
+      if (toDoor != null)
+      {
+         toCell = _roomManager.Rooms[room].Doors[toDoor].CurrentCell.Position();
+      }
+
+      SpawnPlayer(room, toCell);
+   }
+
+   public static void SpawnPlayer(StringName room, Vector2I toCell)
+   {
+      CurrentRoom = _roomManager.Rooms[room];
+      CurrentRoom.PutOnCell(toCell, CurrentPlayer);
+   }
+
+   public static void SpawnPlayer_DoorAnimation(StringName door)
+   {
+      if (door == null) return;
+
+      if (CurrentRoom.Doors.Keys.Contains(door))
+      {
+         TryMoveActor(CurrentPlayer, CurrentRoom.Doors[door].ExitDirection);
+      }
    }
 
    public static void SetCurrentPlayer(Player player)
@@ -85,24 +134,6 @@ public partial class WorldManager : Node
       _worldActors.Add(actor);
    }
 
-   public static void SpawnPlayer(StringName door)
-   {
-      Vector2I toCell = CurrentRoom.StartingCell;
-
-      if (door != null)
-      {
-         if (CurrentRoom.Doors.Keys.Contains(door)) 
-         {
-            toCell = CurrentRoom.Doors[door].CurrentCell.Position();
-            CurrentRoom.PutOnCell(toCell, CurrentPlayer);
-            TryMoveActor(CurrentPlayer, CurrentRoom.Doors[door].ExitDirection);
-            return;
-         }
-      }
-
-      CurrentRoom.PutOnCell(toCell, CurrentPlayer);
-   }
-
    public void InitUI()
    {
       AddChild(Transitioner);
@@ -111,6 +142,7 @@ public partial class WorldManager : Node
    public static void InitWorld()
    {
       _worldActors      = new Array<GridActor>();
+      WorldState        = State.Open;
       PlayerTurnState   = State.Open;
       EnemyTurnState    = State.Open;
 
@@ -146,6 +178,17 @@ public partial class WorldManager : Node
       {
          DrawDebugText = !DrawDebugText;
       }
+
+      if (Input.IsActionJustPressed("debug10"))
+      {
+         if (WorldState == State.Open)
+         {
+            PauseWorld();
+         } else
+         {
+            ResumeWorld();
+         }
+      }
    }
 
    private static void EnemyProcess_Open()
@@ -173,7 +216,7 @@ public partial class WorldManager : Node
          foreach (Door door in CurrentPlayer.CurrentCell.Actors.OfType<Door>()) 
          {
             ChangeRoom(door.ToRoom, door.ToDoor);
-            break;
+            return;
          }
 
          _playerTurnProcessor = PlayerProcess_Open;
@@ -181,24 +224,37 @@ public partial class WorldManager : Node
       }
    }
 
+   public static void PauseWorld()
+   {
+      WorldState = State.Busy;
+   } 
+
+   public static void ResumeWorld()
+   {
+      WorldState = State.Open;
+   }
+
    // Called every frame. 'delta' is the elapsed time since the previous frame.
    public override void _Process(double delta)
    {
       ProcessInput();
 
-      _playerTurnProcessor.Invoke();
-      _enemyTurnProcessor.Invoke();
-
-      foreach (GridActor actor in _worldActors)
+      if (WorldState == State.Open)
       {
-         if (actor.State == GridActor.ActorState.NeedsUpdate)
+         _playerTurnProcessor.Invoke();
+         _enemyTurnProcessor.Invoke();
+
+         foreach (GridActor actor in _worldActors)
          {
-            if (actor.CurrentCell.Position() != actor.NextCell)
+            if (actor.State == GridActor.ActorState.NeedsUpdate)
             {
-               CurrentRoom.PutOnCell(actor.NextCell, actor);
+               if (actor.CurrentCell.Position() != actor.NextCell)
+               {
+                  CurrentRoom.PutOnCell(actor.NextCell, actor);
+               }
+               actor.State = GridActor.ActorState.Idle;
+               actor.IdleAnimation();
             }
-            actor.State = GridActor.ActorState.Idle;
-            actor.IdleAnimation();
          }
       }
    }
