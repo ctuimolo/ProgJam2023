@@ -39,6 +39,12 @@ func _init(problem_: WFCProblem, settings_: WFCSolverSettings = WFCSolverSetting
 
 	problem.populate_initial_state(current_state)
 
+############################################################### start
+	# Propagate constraints after defining the initial state
+	# I'm not sure if this needs to be added
+	if _propagate_constraints():
+		print("Error with initial constraints!")
+############################################################### end
 
 func _propagate_constraints() -> bool:
 	"""

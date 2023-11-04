@@ -2,6 +2,10 @@ extends WFCProblem
 
 class_name WFC2DProblem
 
+############################################################### start
+var tile_constraint_mapper: TileConstraintMapper
+############################################################### end
+
 class WFC2DProblemSettings extends Resource:
 	@export
 	var rules: WFCRules2D
@@ -60,6 +64,12 @@ func populate_initial_state(state: WFCSolverState):
 			
 			if cell >= 0:
 				state.set_solution(coord_to_id(pos), cell)
+############################################################### start
+			# Add extra constraints for the cell
+			elif tile_constraint_mapper != null:
+				var domain: WFCBitSet = tile_constraint_mapper.read_tile_constraints(pos + rect.position)
+				state.set_domain(coord_to_id(pos), domain)
+############################################################### end
 
 func compute_cell_domain(state: WFCSolverState, cell_id: int) -> WFCBitSet:
 	var res: WFCBitSet = state.cell_domains[cell_id].copy()
@@ -78,6 +88,12 @@ func compute_cell_domain(state: WFCSolverState, cell_id: int) -> WFCBitSet:
 
 		var other_domain: WFCBitSet = state.cell_domains[other_id]
 		res.intersect_in_place(axis_matrices[i].transform(other_domain))
+############################################################### start
+	# Add extra constraints for the cell
+	if tile_constraint_mapper != null:
+		var extra_constraint_domain: WFCBitSet = tile_constraint_mapper.read_tile_constraints(id_to_coord(cell_id))
+		res.intersect_in_place(extra_constraint_domain)
+############################################################### end
 
 	return res
 
@@ -224,6 +240,10 @@ func split(concurrency_limit: int) -> Array[SubProblem]:
 
 		var sub_problem: WFC2DProblem = WFC2DProblem.new(sub_settings, map)
 		sub_problem.renderable_rect = sub_renderable_rect
+############################################################### start
+		# Make sure SubProblem gets the tile constraint mapper
+		sub_problem.tile_constraint_mapper = tile_constraint_mapper
+############################################################### end
 		
 		var dependencies: PackedInt64Array = []
 

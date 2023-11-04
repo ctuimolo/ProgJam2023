@@ -19,6 +19,13 @@ var positive_sample: NodePath
 @export_node_path("TileMap", "GridMap")
 var negative_sample: NodePath
 
+############################################################### start
+@export var positive_tile_map_set: Array[TileMap]
+@export var negative_tile_map_set: Array[TileMap]
+
+@export var tile_constraint_mapper: TileConstraintMapper = null
+############################################################### end
+
 @export
 var solver_settings: WFCSolverSettings = WFCSolverSettings.new()
 
@@ -113,14 +120,31 @@ func start():
 
 		if not rules.mapper.is_ready():
 			rules.mapper.learn_from(positive_sample_node)
+############################################################### start
+			# Add TileSets from additional positive TileMaps
+			for tile_map in positive_tile_map_set:
+				rules.mapper.learn_from(tile_map)
+############################################################### end
 		
 		rules.learn_from(positive_sample_node)
 		
+############################################################### start
+		# Learn from additional positive TileMaps
+		for tile_map in positive_tile_map_set:
+			rules.learn_from(tile_map)
+############################################################### end
+
 		if rules.complete_matrices and negative_sample != null and not negative_sample.is_empty():
 			var negative_sample_node: Node = get_node(negative_sample)
 			
 			if negative_sample_node != null:
 				rules.learn_negative_from(negative_sample_node)
+
+############################################################### start
+		# Learn from additional negative TileMaps
+		for tile_map in negative_tile_map_set:
+			rules.learn_negative_from(tile_map)
+############################################################### end
 
 		if print_rules and OS.is_debug_build():
 			print_debug('Rules learned:\n', rules.format())
@@ -133,6 +157,13 @@ func start():
 	problem_settings.rect = rect
 
 	var problem: WFC2DProblem = _create_problem(problem_settings, target_node)
+	
+############################################################### start
+	# Add contraint mapper if provided
+	problem.tile_constraint_mapper = tile_constraint_mapper
+	if tile_constraint_mapper != null:
+		tile_constraint_mapper.problem = problem
+############################################################### end
 
 	_runner = _create_runner()
 	
