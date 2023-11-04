@@ -22,6 +22,8 @@ func _init(p_constraint_tag: String = "", p_domain_tag: String = ""):
 func initialize(p_tile_constraint_mapper: TileConstraintMapper, p_instruction_tile_set: TileSet, p_target_tile_set: TileSet, p_custom_data_layer: String):
 	assert(!_initialized)
 	_initialized = true
+	assert(p_instruction_tile_set != null)
+	assert(p_target_tile_set != null)
 	tile_constraint_mapper = p_tile_constraint_mapper
 	instruction_tile_set = p_instruction_tile_set
 	target_tile_set = p_target_tile_set
@@ -36,7 +38,7 @@ func get_domain_bitset()->WFCBitSet:
 	if _domain_bitset != null:
 		return _domain_bitset
 	# Create a new bitset and set the bits of all tiles in the domain set
-	var _domain_bitset = tile_constraint_mapper.get_empty_bitset()
+	_domain_bitset = tile_constraint_mapper.get_empty_bitset()
 	for tile in domain_set.get_tiles():
 		var tile_id = tile_constraint_mapper.get_tile_id(tile.attributes)
 		if tile_id > 0:

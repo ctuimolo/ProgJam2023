@@ -4,7 +4,8 @@ func get_all_tiles_in_set(tile_set: TileSet)->Array:
 	var result: Array[Tile] = []
 	for i in range(tile_set.get_source_count()):
 		# Each source in the TileSet
-		for source_id in tile_set.get_source_count():
+		for source in tile_set.get_source_count():
+			var source_id: int = tile_set.get_source_id(source)
 			var tiles: Array[Tile] = get_all_tiles_in_source(tile_set, source_id)
 			result.append_array(tiles)
 	return result

@@ -91,7 +91,7 @@ func compute_cell_domain(state: WFCSolverState, cell_id: int) -> WFCBitSet:
 ############################################################### start
 	# Add extra constraints for the cell
 	if tile_constraint_mapper != null:
-		var extra_constraint_domain: WFCBitSet = tile_constraint_mapper.read_tile_constraints(id_to_coord(cell_id))
+		var extra_constraint_domain: WFCBitSet = tile_constraint_mapper.read_tile_constraints(id_to_coord(cell_id) + rect.position)
 		res.intersect_in_place(extra_constraint_domain)
 ############################################################### end
 
