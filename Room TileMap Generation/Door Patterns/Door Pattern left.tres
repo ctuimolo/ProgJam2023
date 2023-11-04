@@ -1,0 +1,4 @@
+[gd_resource type="TileMapPattern" format=3 uid="uid://bakxdba1852id"]
+
+[resource]
+tile_data = PackedInt32Array(0, 196609, 3, 65536, 196609, 2, 131072, 196609, 5)

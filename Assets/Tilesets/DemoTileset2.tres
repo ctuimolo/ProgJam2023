@@ -1,6 +1,18 @@
-[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://bqwolbpfeeybb"]
+[gd_resource type="TileSet" load_steps=7 format=3 uid="uid://bqwolbpfeeybb"]
 
 [ext_resource type="Texture2D" uid="uid://bxe2egdq54aeu" path="res://Assets/Textures/TileMaps/Tilemap04.png" id="1_kdp8q"]
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_o5eq2"]
+tile_data = PackedInt32Array(0, 1, 6, 65536, 1, 7, 1, 65537, 6, 65537, 196609, 2, 2, 131073, 6, 65538, 131073, 7)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_cq0pf"]
+tile_data = PackedInt32Array(0, 196609, 3, 65536, 196609, 2, 131072, 196609, 5)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_48nnu"]
+tile_data = PackedInt32Array(0, 262145, 3, 65536, 196609, 2, 131072, 262145, 5)
+
+[sub_resource type="TileMapPattern" id="TileMapPattern_elcte"]
+tile_data = PackedInt32Array(0, 196609, 7, 1, 196609, 2, 2, 327681, 7)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5hvt"]
 texture = ExtResource("1_kdp8q")
@@ -119,3 +131,7 @@ custom_data_layer_0/type = 4
 custom_data_layer_1/name = "cannot_generate"
 custom_data_layer_1/type = 1
 sources/1 = SubResource("TileSetAtlasSource_u5hvt")
+pattern_0 = SubResource("TileMapPattern_o5eq2")
+pattern_1 = SubResource("TileMapPattern_cq0pf")
+pattern_2 = SubResource("TileMapPattern_48nnu")
+pattern_3 = SubResource("TileMapPattern_elcte")
