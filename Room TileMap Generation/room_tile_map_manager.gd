@@ -32,3 +32,4 @@ func _on_wfc_done():
 	assert(_started && !_finished)
 	_finished = true
 	tiles_finished.emit()
+	print("finished")

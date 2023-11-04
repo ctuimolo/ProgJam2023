@@ -22,7 +22,7 @@ func _ready():
 	# Draw instructions
 	_draw_outer_walls()
 	_initialize_doors()
-	_draw_doors()
+	#_draw_doors()
 	_draw_paths_between_doors()
 	# Generate room
 	tile_map_manager.set_rect(rect)
@@ -30,12 +30,12 @@ func _ready():
 
 func _draw_outer_walls():
 	for x in range(min.x, max.x):
-		drawer.draw_instruction("wall", Vector2i(x, min.y))
-		drawer.draw_instruction("wall", Vector2i(x, max.y))
+		drawer.draw_instruction("black", Vector2i(x, min.y))
+		drawer.draw_instruction("black", Vector2i(x, max.y))
 	for y in range(min.y, max.y):
-		drawer.draw_instruction("wall", Vector2i(min.x, y))
-		drawer.draw_instruction("wall", Vector2i(max.x, y))
-	drawer.draw_instruction("wall", Vector2i(max.x, max.y))
+		drawer.draw_instruction("black", Vector2i(min.x, y))
+		drawer.draw_instruction("black", Vector2i(max.x, y))
+	drawer.draw_instruction("black", Vector2i(max.x, max.y))
 
 func _draw_doors():
 	drawer.draw_instruction("door", _up_door)
@@ -72,8 +72,8 @@ func _get_path_between(a: Vector2i, b: Vector2i)->Array:
 	return result
 
 func _initialize_doors():
-	_up_door = Vector2i(rng.randi_range(min.x + 1, max.x - 1), min.y)
-	_down_door = Vector2i(rng.randi_range(min.x + 1, max.x - 1), max.y)
-	_left_door = Vector2i(min.x, rng.randi_range(min.y + 1, max.y - 1))
-	_right_door = Vector2i(max.x, rng.randi_range(min.y + 1, max.y - 1))
+	_up_door = Vector2i(rng.randi_range(min.x + 3, max.x - 3), min.y + 2)
+	_down_door = Vector2i(rng.randi_range(min.x + 3, max.x - 3), max.y - 2)
+	_left_door = Vector2i(min.x + 2, rng.randi_range(min.y + 3, max.y - 3))
+	_right_door = Vector2i(max.x - 2, rng.randi_range(min.y + 3, max.y - 3))
 

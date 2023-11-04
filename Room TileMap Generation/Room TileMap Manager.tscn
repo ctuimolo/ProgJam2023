@@ -1,13 +1,21 @@
-[gd_scene load_steps=12 format=3 uid="uid://bmwpkfnbtcpji"]
+[gd_scene load_steps=16 format=3 uid="uid://bmwpkfnbtcpji"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/room_tile_map_manager.gd" id="1_o2pr2"]
 [ext_resource type="Script" path="res://addons/wfc/nodes/generator_2d.gd" id="2_8qbpq"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Tile Constraint Mapper/tile_constraint_mapper.gd" id="3_b8kcd"]
+[ext_resource type="Script" path="res://addons/wfc/solver/solver_settings.gd" id="3_j3kx2"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Tile Constraint Mapper/tile_constraint_mapper_constraint.gd" id="4_lhbqy"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="5_0q6vp"]
 [ext_resource type="TileSet" uid="uid://dlhwxor1hslbs" path="res://Assets/Tilesets/Instruction_TileSet.tres" id="5_qmfe7"]
+[ext_resource type="Script" path="res://Room TileMap Generation/prohibited_tile_collection.gd" id="6_8do4y"]
 [ext_resource type="PackedScene" uid="uid://cecsurlqb2rmc" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 positive.tscn" id="6_m371x"]
 [ext_resource type="PackedScene" uid="uid://bll5wel2w85bu" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 negative.tscn" id="8_pxk34"]
+
+[sub_resource type="Resource" id="Resource_vfcab"]
+script = ExtResource("3_j3kx2")
+allow_backtracking = true
+require_backtracking = false
+backtracking_limit = -1
 
 [sub_resource type="Resource" id="Resource_42s41"]
 script = ExtResource("4_lhbqy")
@@ -24,37 +32,49 @@ script = ExtResource("4_lhbqy")
 constraint_tag = "door"
 domain_tag = "door"
 
+[sub_resource type="Resource" id="Resource_peqbs"]
+script = ExtResource("4_lhbqy")
+constraint_tag = "black"
+domain_tag = "black"
+
 [node name="Room TileMap Manager" type="Node2D" node_paths=PackedStringArray("target_tile_map", "instruction_tile_map", "wfc_generator")]
 script = ExtResource("1_o2pr2")
 target_tile_map = NodePath("Target TileMap")
 instruction_tile_map = NodePath("Instruction TileMap")
 wfc_generator = NodePath("WFC Generator")
 
-[node name="WFC Generator" type="Node" parent="." node_paths=PackedStringArray("tile_constraint_mapper")]
+[node name="WFC Generator" type="Node" parent="." node_paths=PackedStringArray("tile_constraint_mapper", "prohibited_tile_collection")]
 script = ExtResource("2_8qbpq")
 target = NodePath("../Target TileMap")
 rect = Rect2i(0, 0, 100, 50)
 positive_sample = NodePath("../Samples/DemoTileset2 positive")
 negative_sample = NodePath("../Samples/DemoTileset2 positive2")
+solver_settings = SubResource("Resource_vfcab")
 tile_constraint_mapper = NodePath("../Tile Constraint Mapper")
+prohibited_tile_collection = NodePath("../Prohibited Tiles")
 render_intermediate_results = true
 
 [node name="Tile Constraint Mapper" type="Node" parent="." node_paths=PackedStringArray("instruction_tile_map")]
 script = ExtResource("3_b8kcd")
 target_tile_set = ExtResource("5_0q6vp")
 instruction_tile_map = NodePath("../Instruction TileMap")
-constraints = Array[ExtResource("4_lhbqy")]([SubResource("Resource_42s41"), SubResource("Resource_v55ul"), SubResource("Resource_s4dh2")])
+constraints = Array[ExtResource("4_lhbqy")]([SubResource("Resource_42s41"), SubResource("Resource_v55ul"), SubResource("Resource_s4dh2"), SubResource("Resource_peqbs")])
+
+[node name="Prohibited Tiles" type="Node" parent="."]
+script = ExtResource("6_8do4y")
+custom_data_layer_name = "cannot_generate"
+target_tile_set = ExtResource("5_0q6vp")
 
 [node name="Target TileMap" type="TileMap" parent="."]
+position = Vector2(0, -1)
 tile_set = ExtResource("5_0q6vp")
 format = 2
-layer_0/tile_data = PackedInt32Array(327690, 65537, 0, 393226, 65537, 1)
 
 [node name="Instruction TileMap" type="TileMap" parent="."]
 modulate = Color(1, 1, 1, 0.266667)
 tile_set = ExtResource("5_qmfe7")
 format = 2
-layer_0/tile_data = PackedInt32Array(458766, 196608, 0, 524302, 196608, 0, 589838, 196608, 0, 655374, 196608, 0, 720910, 196608, 0, 786446, 196608, 0, 851982, 196608, 0, 917518, 196608, 0, 983054, 196608, 0, 1048590, 196608, 0, 1114126, 196608, 0, 458767, 196608, 0, 524303, 196608, 0, 589839, 196608, 0, 655375, 196608, 0, 720911, 196608, 0, 786447, 196608, 0, 851983, 196608, 0, 917519, 196608, 0, 983055, 196608, 0, 1048591, 196608, 0, 1114127, 196608, 0, 458768, 196608, 0, 524304, 196608, 0, 589840, 196608, 0, 655376, 196608, 0, 720912, 196608, 0, 786448, 196608, 0, 851984, 196608, 0, 917520, 196608, 0, 983056, 196608, 0, 1048592, 196608, 0, 1114128, 196608, 0, 458769, 196608, 0, 524305, 196608, 0, 589841, 196608, 0, 655377, 196608, 0, 720913, 196608, 0, 786449, 196608, 0, 851985, 196608, 0, 917521, 196608, 0, 983057, 196608, 0, 1048593, 196608, 0, 1114129, 196608, 0, 458770, 196608, 0, 524306, 196608, 0, 589842, 196608, 0, 655378, 196608, 0, 720914, 196608, 0, 786450, 196608, 0, 851986, 196608, 0, 917522, 196608, 0, 983058, 196608, 0, 1048594, 196608, 0, 1114130, 196608, 0, 458771, 196608, 0, 524307, 196608, 0, 589843, 196608, 0, 655379, 196608, 0, 720915, 196608, 0, 786451, 196608, 0, 851987, 196608, 0, 917523, 196608, 0, 983059, 196608, 0, 1048595, 196608, 0, 1114131, 196608, 0, 458772, 196608, 0, 524308, 196608, 0, 589844, 196608, 0, 655380, 196608, 0, 720916, 196608, 0, 786452, 196608, 0, 851988, 196608, 0, 917524, 196608, 0, 983060, 196608, 0, 1048596, 196608, 0, 1114132, 196608, 0, 458773, 196608, 0, 524309, 196608, 0, 589845, 196608, 0, 655381, 196608, 0, 720917, 196608, 0, 786453, 196608, 0, 851989, 196608, 0, 917525, 196608, 0, 983061, 196608, 0, 1048597, 196608, 0, 1114133, 196608, 0, 458774, 196608, 0, 524310, 196608, 0, 589846, 196608, 0, 655382, 196608, 0, 720918, 196608, 0, 786454, 196608, 0, 851990, 196608, 0, 917526, 196608, 0, 983062, 196608, 0, 1048598, 196608, 0, 1114134, 196608, 0, 458775, 196608, 0, 524311, 196608, 0, 589847, 196608, 0, 655383, 196608, 0, 720919, 196608, 0, 786455, 196608, 0, 851991, 196608, 0, 917527, 196608, 0, 983063, 196608, 0, 1048599, 196608, 0, 1114135, 196608, 0, 458776, 196608, 0, 524312, 196608, 0, 589848, 196608, 0, 655384, 196608, 0, 720920, 196608, 0, 786456, 196608, 0, 851992, 196608, 0, 917528, 196608, 0, 983064, 196608, 0, 1048600, 196608, 0, 1114136, 196608, 0, 458777, 196608, 0, 524313, 196608, 0, 589849, 196608, 0, 655385, 196608, 0, 720921, 196608, 0, 786457, 196608, 0, 851993, 196608, 0, 917529, 196608, 0, 983065, 196608, 0, 1048601, 196608, 0, 1114137, 196608, 0)
+layer_0/tile_data = PackedInt32Array(720911, 196608, 0, 786447, 196608, 0, 851983, 196608, 0, 917519, 196608, 0, 589840, 196608, 0, 655376, 196608, 0, 720912, 196608, 0, 786448, 196608, 0, 851984, 196608, 0, 917520, 196608, 0, 983056, 196608, 0, 589841, 196608, 0, 655377, 196608, 0, 720913, 196608, 0, 786449, 196608, 0, 851985, 196608, 0, 917521, 196608, 0, 983057, 196608, 0, 1048593, 196608, 0, 589842, 196608, 0, 655378, 196608, 0, 720914, 196608, 0, 786450, 196608, 0, 851986, 196608, 0, 917522, 196608, 0, 983058, 196608, 0, 1048594, 196608, 0, 1114130, 196608, 0, 589843, 196608, 0, 655379, 196608, 0, 720915, 196608, 0, 786451, 196608, 0, 851987, 196608, 0, 917523, 196608, 0, 983059, 196608, 0, 1048595, 196608, 0, 1114131, 196608, 0, 589844, 196608, 0, 655380, 196608, 0, 720916, 196608, 0, 786452, 196608, 0, 851988, 196608, 0, 917524, 196608, 0, 983060, 196608, 0, 1048596, 196608, 0, 1114132, 196608, 0, 655381, 196608, 0, 720917, 196608, 0, 786453, 196608, 0, 851989, 196608, 0, 917525, 196608, 0, 983061, 196608, 0, 1048597, 196608, 0, 1114133, 196608, 0, 655382, 196608, 0, 720918, 196608, 0, 786454, 196608, 0, 851990, 196608, 0, 917526, 196608, 0, 983062, 196608, 0, 1048598, 196608, 0, 1114134, 196608, 0, 720919, 196608, 0, 786455, 196608, 0, 851991, 196608, 0, 917527, 196608, 0, 983063, 196608, 0, 1048599, 196608, 0, 786456, 196608, 0, 851992, 196608, 0, 917528, 196608, 0)
 
 [node name="Samples" type="Node" parent="."]
 
@@ -63,3 +83,8 @@ visible = false
 
 [node name="DemoTileset2 positive2" parent="Samples" instance=ExtResource("8_pxk34")]
 visible = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1000
+offset_right = 1307.0
+offset_bottom = 742.0

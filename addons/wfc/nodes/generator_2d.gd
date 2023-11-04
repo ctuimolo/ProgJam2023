@@ -19,15 +19,17 @@ var positive_sample: NodePath
 @export_node_path("TileMap", "GridMap")
 var negative_sample: NodePath
 
+@export
+var solver_settings: WFCSolverSettings = WFCSolverSettings.new()
+
 ############################################################### start
 @export var positive_tile_map_set: Array[TileMap]
 @export var negative_tile_map_set: Array[TileMap]
 
+@export_category("Extras")
 @export var tile_constraint_mapper: TileConstraintMapper = null
+@export var prohibited_tile_collection: ProhibitedTileCollection = null
 ############################################################### end
-
-@export
-var solver_settings: WFCSolverSettings = WFCSolverSettings.new()
 
 @export
 @export_category("Runner")
@@ -163,6 +165,10 @@ func start():
 	problem.tile_constraint_mapper = tile_constraint_mapper
 	if tile_constraint_mapper != null:
 		tile_constraint_mapper.problem = problem
+	# Add prohibited tiles if defined
+	problem.prohibited_tile_collection = prohibited_tile_collection
+	if prohibited_tile_collection != null:
+		prohibited_tile_collection.problem = problem
 ############################################################### end
 
 	_runner = _create_runner()

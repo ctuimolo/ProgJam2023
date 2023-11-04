@@ -1,32 +1,38 @@
-[gd_scene load_steps=13 format=3 uid="uid://bs2ox78k7hebf"]
+[gd_scene load_steps=15 format=3 uid="uid://bs2ox78k7hebf"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/test_room_generator.gd" id="1_sd4ww"]
 [ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/Room TileMap Manager.tscn" id="1_waprl"]
 [ext_resource type="Script" path="res://Room TileMap Generation/room_tile_map_drawer.gd" id="2_uygsy"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Instruction Tile Mapping/tile_dictionary_pair.gd" id="4_6bkc5"]
-[ext_resource type="Resource" uid="uid://dbqmdu0lwyo5y" path="res://Room TileMap Generation/Instruction Tile Mapping/Instruction TileAttributes/Wall Instruction.tres" id="5_qeae8"]
-[ext_resource type="Resource" uid="uid://c4aio2aqtopgt" path="res://Room TileMap Generation/Instruction Tile Mapping/Instruction TileAttributes/Navigable Instruction.tres" id="6_gsowm"]
-[ext_resource type="Resource" uid="uid://dslb6uc02ui5y" path="res://Room TileMap Generation/Instruction Tile Mapping/Instruction TileAttributes/Door Instruction.tres" id="7_2e4f3"]
+[ext_resource type="Resource" uid="uid://dbqmdu0lwyo5y" path="res://Room TileMap Generation/Instruction TileAttributes/Wall Instruction.tres" id="5_netef"]
+[ext_resource type="Resource" uid="uid://c4aio2aqtopgt" path="res://Room TileMap Generation/Instruction TileAttributes/Navigable Instruction.tres" id="6_4s6cb"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Instruction Tile Mapping/tile_dictionary.gd" id="7_34utn"]
+[ext_resource type="Resource" uid="uid://dslb6uc02ui5y" path="res://Room TileMap Generation/Instruction TileAttributes/Door Instruction.tres" id="7_gb0is"]
+[ext_resource type="Resource" uid="uid://ds0s38q72wmrb" path="res://Room TileMap Generation/Instruction TileAttributes/Black Instruction.tres" id="8_f2f83"]
 
 [sub_resource type="Resource" id="Resource_r8x6y"]
 script = ExtResource("4_6bkc5")
 key = "wall"
-value = ExtResource("5_qeae8")
+value = ExtResource("5_netef")
 
 [sub_resource type="Resource" id="Resource_os1se"]
 script = ExtResource("4_6bkc5")
 key = "floor"
-value = ExtResource("6_gsowm")
+value = ExtResource("6_4s6cb")
 
 [sub_resource type="Resource" id="Resource_xysna"]
 script = ExtResource("4_6bkc5")
 key = "door"
-value = ExtResource("7_2e4f3")
+value = ExtResource("7_gb0is")
+
+[sub_resource type="Resource" id="Resource_8fohb"]
+script = ExtResource("4_6bkc5")
+key = "black"
+value = ExtResource("8_f2f83")
 
 [sub_resource type="Resource" id="Resource_wy2or"]
 script = ExtResource("7_34utn")
-pairs = Array[ExtResource("4_6bkc5")]([SubResource("Resource_r8x6y"), SubResource("Resource_os1se"), SubResource("Resource_xysna")])
+pairs = Array[ExtResource("4_6bkc5")]([SubResource("Resource_r8x6y"), SubResource("Resource_os1se"), SubResource("Resource_xysna"), SubResource("Resource_8fohb")])
 
 [node name="Test Room" type="Node2D" node_paths=PackedStringArray("tile_map_manager", "drawer")]
 script = ExtResource("1_sd4ww")

@@ -47,8 +47,5 @@ func get_empty_bitset()->WFCBitSet:
 # Get the id of a tile.
 # The id can be used to add or remove it from a WFCBitSet
 func get_tile_id(attributes: TileAttributes)->int:
-	var mapper: WFCTileMapMapper2D = problem.rules.mapper
 	var tile_attrs: Vector4i = attributes.to_Vector4i()
-	if !mapper.attrs_to_id.has(tile_attrs):
-		return -1
-	return mapper.attrs_to_id[tile_attrs]
+	return problem.get_tile_id(tile_attrs)

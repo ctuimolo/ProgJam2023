@@ -4,6 +4,7 @@ class_name WFC2DProblem
 
 ############################################################### start
 var tile_constraint_mapper: TileConstraintMapper
+var prohibited_tile_collection: ProhibitedTileCollection
 ############################################################### end
 
 class WFC2DProblemSettings extends Resource:
@@ -48,6 +49,13 @@ func id_to_coord(id: int) -> Vector2i:
 	@warning_ignore("integer_division")
 	return Vector2i(id % szx, id / szx)
 
+############################################################### start
+func get_tile_id(tile_attrs: Vector4i)->int:
+	if !rules.mapper.attrs_to_id.has(tile_attrs):
+		return -1
+	return rules.mapper.attrs_to_id[tile_attrs]
+############################################################### end
+
 func get_cell_count() -> int:
 	return rect.get_area()
 
@@ -66,8 +74,16 @@ func populate_initial_state(state: WFCSolverState):
 				state.set_solution(coord_to_id(pos), cell)
 ############################################################### start
 			# Add extra constraints for the cell
-			elif tile_constraint_mapper != null:
-				var domain: WFCBitSet = tile_constraint_mapper.read_tile_constraints(pos + rect.position)
+			else:
+				var domain: WFCBitSet = get_default_domain()
+				# Constraints from instruction tiles
+				if tile_constraint_mapper != null:
+					var constrained_domain: WFCBitSet = tile_constraint_mapper.read_tile_constraints(pos + rect.position)
+					domain.intersect_in_place(constrained_domain)
+				# Disallow choosing certain tiles
+				if prohibited_tile_collection != null:
+					var constrained_domain: WFCBitSet = prohibited_tile_collection.get_bitset()
+					domain.intersect_in_place(constrained_domain)
 				state.set_domain(coord_to_id(pos), domain)
 ############################################################### end
 

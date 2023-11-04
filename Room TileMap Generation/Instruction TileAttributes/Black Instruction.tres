@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TileAttributes" load_steps=2 format=3 uid="uid://ds0s38q72wmrb"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile_attributes.gd" id="1_nimlh"]
+
+[resource]
+script = ExtResource("1_nimlh")
+source_id = 0
+atlas_coords = Vector2i(3, 3)
+alternative_tile = 0
