@@ -1,18 +1,20 @@
 class_name TileConstraintMapper extends Node
 
 @export var custom_data_layer: String = "tags"
-@export var target_tile_set: TileSet
 @export var instruction_tile_map: TileMap
 @export var constraints: Array[TileConstraintMapperConstraint]
 
 var problem: WFC2DProblem
+var tile_set: TileSet:
+	get:
+		return problem.rules.mapper.tile_set
 
 var _initialized: bool = false
 func initialize():
 	assert(!_initialized)
 	_initialized = true
 	for constraint in constraints:
-		constraint.initialize(self, instruction_tile_map.tile_set, target_tile_set, custom_data_layer)
+		constraint.initialize(self, instruction_tile_map.tile_set, tile_set, custom_data_layer)
 
 func read_tile_constraints(coords: Vector2i)->WFCBitSet:
 	if !_initialized:

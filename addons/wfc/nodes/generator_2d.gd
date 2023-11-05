@@ -33,6 +33,7 @@ var solver_settings: WFCSolverSettings = WFCSolverSettings.new()
 @export_category("Extras")
 @export var tile_constraint_mapper: TileConstraintMapper = null
 @export var prohibited_tile_collection: ProhibitedTileCollection = null
+@export var interchangeable_tiles_rules_sharer: InterchangeableTileRulesSharer = null
 ############################################################### end
 
 @export
@@ -142,6 +143,11 @@ func start():
 		# Learn from additional positive TileMaps
 		for tile_map in positive_tile_map_set:
 			rules.learn_from(tile_map)
+		
+		# Share rules between interchangeable tiles
+		if interchangeable_tiles_rules_sharer != null:
+			interchangeable_tiles_rules_sharer.wfc_rules = rules
+			interchangeable_tiles_rules_sharer.share_interchangeable_tile_rules(true)
 ############################################################### end
 
 		if rules.complete_matrices and negative_sample != null and not negative_sample.is_empty():
@@ -154,6 +160,10 @@ func start():
 		# Learn from additional negative TileMaps
 		for tile_map in negative_tile_map_set:
 			rules.learn_negative_from(tile_map)
+		
+		# Share rules between interchangeable tiles
+		if interchangeable_tiles_rules_sharer != null:
+			interchangeable_tiles_rules_sharer.share_interchangeable_tile_rules(false)
 ############################################################### end
 
 		if print_rules and OS.is_debug_build():

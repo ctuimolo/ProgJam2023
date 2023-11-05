@@ -2,7 +2,9 @@ class_name ProhibitedTileCollection extends Node
 
 # Custom data layer with boolean value to determine if tile CANNOT be placed
 @export var custom_data_layer_name: String
-@export var target_tile_set: TileSet
+var tile_set: TileSet:
+	get:
+		return problem.rules.mapper.tile_set
 
 var problem: WFC2DProblem
 
@@ -21,7 +23,7 @@ func get_bitset()->WFCBitSet:
 
 func get_prohibited_tiles()->Array:
 	var result: Array[Tile] = []
-	var tiles: Array[Tile] = TileSetHelper.new().get_all_tiles_in_set(target_tile_set)
+	var tiles: Array[Tile] = TileSetHelper.new().get_all_tiles_in_set(tile_set)
 	for tile in tiles:
 		var cannot_place: bool = tile.data.get_custom_data(custom_data_layer_name)
 		if cannot_place:

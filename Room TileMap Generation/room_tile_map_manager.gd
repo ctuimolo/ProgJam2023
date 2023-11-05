@@ -6,6 +6,7 @@ var target_tile_set: TileSet
 @export var wfc_generator: WFC2DGenerator
 @export var constraint_mapper: TileConstraintMapper
 @export var prohibited_tiles: ProhibitedTileCollection
+@export var interchangeable_tile_rules_sharer: InterchangeableTileRulesSharer
 
 var _started: bool
 var _finished: bool
@@ -28,8 +29,6 @@ func set_target(p_target_tile_map: TileMap):
 
 func _set_target_tile_set(p_target_tile_set: TileSet):
 	target_tile_set = p_target_tile_set
-	constraint_mapper.target_tile_set = target_tile_set
-	prohibited_tiles.target_tile_set = target_tile_set
 
 func set_instruction_tile_map(p_instruction_tile_map: InstructionTileMap):
 	instruction_tile_map = p_instruction_tile_map
