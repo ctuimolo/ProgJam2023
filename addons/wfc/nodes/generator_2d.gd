@@ -5,6 +5,10 @@ extends Node
 
 @export_node_path("TileMap", "GridMap")
 var target: NodePath
+############################################################### start
+# Optionally set target from script instead of through inspector
+var target_node: Node
+############################################################### end
 
 @export
 var rect: Rect2i
@@ -97,12 +101,16 @@ func _exit_tree():
 		_runner = null
 
 func start():
+############################################################### start
 	assert(_runner == null)
-	assert(target != null)
+	assert(target != null || target_node != null)
 	assert(rect.has_area())
-
-	var target_node: Node = get_node(target)
+	
+	# Get node from path if target_node is not already assigned
+	if target_node == null:
+		target_node = get_node(target)
 	assert(target_node != null)
+############################################################### end
 
 	if not rules.is_ready():
 		assert(positive_sample != null)

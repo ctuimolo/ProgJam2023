@@ -7,7 +7,7 @@ var max: Vector2i:
 	get: return rect.end - Vector2i(1, 1)
 
 @export var tile_map_manager: RoomTileMapManager
-@export var drawer: RoomTileMapDrawer
+@export var instructions: InstructionTileMap
 
 @export var up_door_pattern: TileMapPattern
 @export var down_door_pattern: TileMapPattern
@@ -32,25 +32,26 @@ func _ready():
 	# Generate room
 	tile_map_manager.set_rect(rect)
 	tile_map_manager.collapse()
+	
 
 func _draw_outer_walls():
 	for x in range(min.x, max.x):
-		drawer.draw_instruction("black", Vector2i(x, min.y))
-		drawer.draw_instruction("black", Vector2i(x, max.y))
+		instructions.draw("black", Vector2i(x, min.y))
+		instructions.draw("black", Vector2i(x, max.y))
 	for y in range(min.y, max.y):
-		drawer.draw_instruction("black", Vector2i(min.x, y))
-		drawer.draw_instruction("black", Vector2i(max.x, y))
-	drawer.draw_instruction("black", Vector2i(max.x, max.y))
+		instructions.draw("black", Vector2i(min.x, y))
+		instructions.draw("black", Vector2i(max.x, y))
+	instructions.draw("black", Vector2i(max.x, max.y))
 
 func _draw_doors():
 	tile_map_manager.target_tile_map.set_pattern(0, _up_door + Vector2i(-1, -1), up_door_pattern)
 	tile_map_manager.target_tile_map.set_pattern(0, _down_door + Vector2i(-1, 1), down_door_pattern)
 	tile_map_manager.target_tile_map.set_pattern(0, _left_door + Vector2i(-1, -1), left_door_pattern)
 	tile_map_manager.target_tile_map.set_pattern(0, _right_door + Vector2i(1, -1), right_door_pattern)
-	#drawer.draw_instruction("door", _up_door)
-	#drawer.draw_instruction("door", _down_door)
-	#drawer.draw_instruction("door", _left_door)
-	#drawer.draw_instruction("door", _right_door)
+	#instructions.draw("door", _up_door)
+	#instructions.draw("door", _down_door)
+	#instructions.draw("door", _left_door)
+	#instructions.draw("door", _right_door)
 
 func _draw_paths_between_doors():
 	_draw_path(_up_door + Vector2i(0, 1), _down_door + Vector2i(0, -1))
@@ -59,7 +60,7 @@ func _draw_paths_between_doors():
 func _draw_path(a: Vector2i, b: Vector2i):
 	var path = _get_path_between(a, b)
 	for coords in path:
-		drawer.draw_instruction("floor", coords)
+		instructions.draw("floor", coords)
 
 func _get_path_between(a: Vector2i, b: Vector2i)->Array:
 	var difference = b - a

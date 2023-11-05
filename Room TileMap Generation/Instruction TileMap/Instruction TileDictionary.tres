@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="TileDictionary" load_steps=11 format=3 uid="uid://dgiehd8kvjgdi"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Dictionary/tile_dictionary_pair.gd" id="1_4lf7c"]
+[ext_resource type="Resource" uid="uid://dbqmdu0lwyo5y" path="res://Room TileMap Generation/Instruction TileAttributes/Wall Instruction.tres" id="2_35n2n"]
+[ext_resource type="Resource" uid="uid://c4aio2aqtopgt" path="res://Room TileMap Generation/Instruction TileAttributes/Navigable Instruction.tres" id="3_gl3nw"]
+[ext_resource type="Resource" uid="uid://dslb6uc02ui5y" path="res://Room TileMap Generation/Instruction TileAttributes/Door Instruction.tres" id="4_3qpec"]
+[ext_resource type="Resource" uid="uid://ds0s38q72wmrb" path="res://Room TileMap Generation/Instruction TileAttributes/Black Instruction.tres" id="5_8577i"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Dictionary/tile_dictionary.gd" id="6_s7kp3"]
+
+[sub_resource type="Resource" id="Resource_r8x6y"]
+script = ExtResource("1_4lf7c")
+key = "wall"
+value = ExtResource("2_35n2n")
+
+[sub_resource type="Resource" id="Resource_os1se"]
+script = ExtResource("1_4lf7c")
+key = "floor"
+value = ExtResource("3_gl3nw")
+
+[sub_resource type="Resource" id="Resource_xysna"]
+script = ExtResource("1_4lf7c")
+key = "door"
+value = ExtResource("4_3qpec")
+
+[sub_resource type="Resource" id="Resource_8fohb"]
+script = ExtResource("1_4lf7c")
+key = "black"
+value = ExtResource("5_8577i")
+
+[resource]
+script = ExtResource("6_s7kp3")
+pairs = Array[ExtResource("1_4lf7c")]([SubResource("Resource_r8x6y"), SubResource("Resource_os1se"), SubResource("Resource_xysna"), SubResource("Resource_8fohb")])
