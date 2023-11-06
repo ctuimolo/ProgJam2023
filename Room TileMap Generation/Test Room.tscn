@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bs2ox78k7hebf"]
+[gd_scene load_steps=10 format=3 uid="uid://bs2ox78k7hebf"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/test_room_generator.gd" id="1_sd4ww"]
 [ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/Room TileMap Manager.tscn" id="1_waprl"]
@@ -8,8 +8,9 @@
 [ext_resource type="Resource" uid="uid://cv26dsgq4we" path="res://Room TileMap Generation/Door Patterns/DoorPattern east.tres" id="5_3gi1s"]
 [ext_resource type="PackedScene" uid="uid://fvboup4gn4on" path="res://Room TileMap Generation/Instruction TileMap/Instruction TileMap.tscn" id="7_2xykj"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="8_461t3"]
+[ext_resource type="Script" path="res://Room TileMap Generation/tile_map_unflattener.gd" id="9_1yerq"]
 
-[node name="Test Room" type="Node2D" node_paths=PackedStringArray("tile_map_manager", "instructions")]
+[node name="Test Room" type="Node2D" node_paths=PackedStringArray("tile_map_manager", "instructions", "unflattener")]
 script = ExtResource("1_sd4ww")
 rect = Rect2i(5, 5, 50, 30)
 tile_map_manager = NodePath("Room TileMap Manager")
@@ -18,6 +19,7 @@ north_door_pattern = ExtResource("2_8pu17")
 south_door_pattern = ExtResource("3_ejw3b")
 east_door_pattern = ExtResource("5_3gi1s")
 west_door_pattern = ExtResource("4_erixa")
+unflattener = NodePath("Unflattener")
 
 [node name="Room TileMap Manager" parent="." node_paths=PackedStringArray("target_tile_map", "instruction_tile_map") instance=ExtResource("1_waprl")]
 target_tile_map = NodePath("../Target TileMap")
@@ -29,3 +31,21 @@ tile_set = ExtResource("8_461t3")
 format = 2
 
 [node name="Instruction TileMap" parent="." instance=ExtResource("7_2xykj")]
+
+[node name="Unflattener" type="Node" parent="." node_paths=PackedStringArray("flat_tile_map", "final_tile_map")]
+script = ExtResource("9_1yerq")
+flat_tile_map = NodePath("../Target TileMap")
+final_tile_map = NodePath("../Final TileMap")
+
+[node name="Final TileMap" type="TileMap" parent="."]
+position = Vector2(0, -1)
+tile_set = ExtResource("8_461t3")
+format = 2
+layer_0/name = "Floor"
+layer_1/name = "Wall"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()

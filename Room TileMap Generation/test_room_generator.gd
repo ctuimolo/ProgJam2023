@@ -14,12 +14,16 @@ var max: Vector2i:
 @export var east_door_pattern: DoorPattern
 @export var west_door_pattern: DoorPattern
 
+@export var unflattener: TileMapUnflattener
+
 var north_door: Door
 var south_door: Door
 var east_door: Door
 var west_door: Door
 
 var rng: RandomNumberGenerator
+
+signal room_finished()
 
 class Door:
 	var pattern: DoorPattern
@@ -43,8 +47,14 @@ func _ready():
 	_draw_doors()
 	_draw_door_paths()
 	# Generate room
+	tile_map_manager.tiles_finished.connect(_on_tiles_finished)
 	tile_map_manager.set_rect(rect)
 	tile_map_manager.collapse()
+
+func _on_tiles_finished():
+	unflattener.unflatten()
+	tile_map_manager.target_tile_map.hide()
+	room_finished.emit()
 
 func _draw_outer_walls():
 	for x in range(min.x, max.x):
