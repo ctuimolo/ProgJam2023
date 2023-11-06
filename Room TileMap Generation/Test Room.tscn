@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" path="res://Room TileMap Generation/test_room_generator.gd" id="1_sd4ww"]
 [ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/Room TileMap Manager.tscn" id="1_waprl"]
-[ext_resource type="TileMapPattern" uid="uid://btv61htiutece" path="res://Room TileMap Generation/Door Patterns/Door Pattern up.tres" id="2_j5pqs"]
-[ext_resource type="TileMapPattern" uid="uid://bh27yfip454t3" path="res://Room TileMap Generation/Door Patterns/Door Pattern down.tres" id="3_5b26x"]
-[ext_resource type="TileMapPattern" uid="uid://bakxdba1852id" path="res://Room TileMap Generation/Door Patterns/Door Pattern left.tres" id="4_n3as6"]
-[ext_resource type="TileMapPattern" uid="uid://cyq6spwmr87mf" path="res://Room TileMap Generation/Door Patterns/Door Pattern right.tres" id="5_vbeca"]
+[ext_resource type="Resource" uid="uid://bnqggplsom1wq" path="res://Room TileMap Generation/Door Patterns/DoorPattern north.tres" id="2_8pu17"]
+[ext_resource type="Resource" uid="uid://bfpe1xrpubu3j" path="res://Room TileMap Generation/Door Patterns/DoorPattern south.tres" id="3_ejw3b"]
+[ext_resource type="Resource" uid="uid://cp081cy65vqfh" path="res://Room TileMap Generation/Door Patterns/DoorPattern west.tres" id="4_erixa"]
+[ext_resource type="Resource" uid="uid://cv26dsgq4we" path="res://Room TileMap Generation/Door Patterns/DoorPattern east.tres" id="5_3gi1s"]
 [ext_resource type="PackedScene" uid="uid://fvboup4gn4on" path="res://Room TileMap Generation/Instruction TileMap/Instruction TileMap.tscn" id="7_2xykj"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="8_461t3"]
 
@@ -14,10 +14,10 @@ script = ExtResource("1_sd4ww")
 rect = Rect2i(5, 5, 50, 30)
 tile_map_manager = NodePath("Room TileMap Manager")
 instructions = NodePath("Instruction TileMap")
-up_door_pattern = ExtResource("2_j5pqs")
-down_door_pattern = ExtResource("3_5b26x")
-left_door_pattern = ExtResource("4_n3as6")
-right_door_pattern = ExtResource("5_vbeca")
+north_door_pattern = ExtResource("2_8pu17")
+south_door_pattern = ExtResource("3_ejw3b")
+east_door_pattern = ExtResource("5_3gi1s")
+west_door_pattern = ExtResource("4_erixa")
 
 [node name="Room TileMap Manager" parent="." node_paths=PackedStringArray("target_tile_map", "instruction_tile_map") instance=ExtResource("1_waprl")]
 target_tile_map = NodePath("../Target TileMap")

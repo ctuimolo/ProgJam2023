@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DoorPattern" load_steps=3 format=3 uid="uid://bnqggplsom1wq"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/door_pattern.gd" id="1_x6bh5"]
+[ext_resource type="TileMapPattern" uid="uid://btv61htiutece" path="res://Room TileMap Generation/Door Patterns/TileMapPattern north door.tres" id="2_bm4w1"]
+
+[resource]
+script = ExtResource("1_x6bh5")
+tile_map_pattern = ExtResource("2_bm4w1")
+center = Vector2i(1, 1)
+enter_direction = Vector2i(0, -1)

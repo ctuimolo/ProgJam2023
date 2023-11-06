@@ -9,30 +9,42 @@ var max: Vector2i:
 @export var tile_map_manager: RoomTileMapManager
 @export var instructions: InstructionTileMap
 
-@export var up_door_pattern: TileMapPattern
-@export var down_door_pattern: TileMapPattern
-@export var left_door_pattern: TileMapPattern
-@export var right_door_pattern: TileMapPattern
+@export var north_door_pattern: DoorPattern
+@export var south_door_pattern: DoorPattern
+@export var east_door_pattern: DoorPattern
+@export var west_door_pattern: DoorPattern
 
-var _up_door: Vector2i
-var _down_door: Vector2i
-var _left_door: Vector2i
-var _right_door: Vector2i
+var north_door: Door
+var south_door: Door
+var east_door: Door
+var west_door: Door
 
 var rng: RandomNumberGenerator
+
+class Door:
+	var pattern: DoorPattern
+	var position: Vector2i
+	var enter_direction: Vector2i:
+		get:
+			return pattern.enter_direction
+	var enter_tile: Vector2i:
+		get:
+			return position - pattern.enter_direction
+	func _init(p_pattern: DoorPattern, p_position: Vector2i = Vector2i(0, 0)):
+		pattern = p_pattern
+		position = p_position
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng = RandomNumberGenerator.new()
-	# Draw instructions
+	# Draw instructions and doors
 	_draw_outer_walls()
 	_initialize_doors()
 	_draw_doors()
-	_draw_paths_between_doors()
+	_draw_door_paths()
 	# Generate room
 	tile_map_manager.set_rect(rect)
 	tile_map_manager.collapse()
-	
 
 func _draw_outer_walls():
 	for x in range(min.x, max.x):
@@ -43,47 +55,44 @@ func _draw_outer_walls():
 		instructions.draw("black", Vector2i(max.x, y))
 	instructions.draw("black", Vector2i(max.x, max.y))
 
-func _draw_doors():
-	tile_map_manager.target_tile_map.set_pattern(0, _up_door + Vector2i(-1, -1), up_door_pattern)
-	tile_map_manager.target_tile_map.set_pattern(0, _down_door + Vector2i(-1, 1), down_door_pattern)
-	tile_map_manager.target_tile_map.set_pattern(0, _left_door + Vector2i(-1, -1), left_door_pattern)
-	tile_map_manager.target_tile_map.set_pattern(0, _right_door + Vector2i(1, -1), right_door_pattern)
-	#instructions.draw("door", _up_door)
-	#instructions.draw("door", _down_door)
-	#instructions.draw("door", _left_door)
-	#instructions.draw("door", _right_door)
+# Draw door tiles on target TileMap
+func _draw_door(door: Door):
+	tile_map_manager.target_tile_map.set_pattern(0, door.position - door.pattern.center, door.pattern.tile_map_pattern)
 
-func _draw_paths_between_doors():
-	_draw_path(_up_door + Vector2i(0, 1), _down_door + Vector2i(0, -1))
-	_draw_path(_left_door + Vector2i(1, 0), _right_door + Vector2i(-1, 0))
+func _draw_doors():
+	_draw_door(north_door)
+	_draw_door(south_door)
+	_draw_door(east_door)
+	_draw_door(west_door)
+
+func _draw_door_paths():
+	_draw_path_between_doors(north_door, south_door)
+	_draw_path_between_doors(east_door, west_door)
+
+func _draw_path_between_doors(door_a: Door, door_b: Door):
+	var a = door_a.enter_tile
+	instructions.draw("floor", a)
+	a -= door_a.enter_direction
+	var b = door_b.enter_tile
+	instructions.draw("floor", b)
+	b -= door_b.enter_direction
+	_draw_path(a, b)
 
 func _draw_path(a: Vector2i, b: Vector2i):
-	var path = _get_path_between(a, b)
+	var path = SimplePathBuilder.new().get_path_between_bidirectional(a, b)
 	for coords in path:
 		instructions.draw("floor", coords)
 
-func _get_path_between(a: Vector2i, b: Vector2i)->Array:
-	var difference = b - a
-	var step_x = Vector2i(1 if difference.x > 0 else -1, 0)
-	var step_y = Vector2i(0, 1 if difference.y > 0 else -1)
-	var coords = a
-	var result: Array[Vector2i] = []
-	while coords != b:
-		result.append(coords)
-		if coords.x == b.x:
-			coords += step_y
-		elif coords.y == b.y:
-			coords += step_x
-		elif randi_range(0, 1) == 0:
-			coords += step_y
-		else:
-			coords += step_x
-	result.append(b)
-	return result
-
 func _initialize_doors():
-	_up_door = Vector2i(rng.randi_range(min.x + 3, max.x - 3), min.y + 2)
-	_down_door = Vector2i(rng.randi_range(min.x + 3, max.x - 3), max.y - 2)
-	_left_door = Vector2i(min.x + 2, rng.randi_range(min.y + 3, max.y - 3))
-	_right_door = Vector2i(max.x - 2, rng.randi_range(min.y + 3, max.y - 3))
+	north_door = Door.new(north_door_pattern)
+	north_door.position = Vector2i(rng.randi_range(min.x + 3, max.x - 3), min.y + 2)
+	
+	south_door = Door.new(south_door_pattern)
+	south_door.position = Vector2i(rng.randi_range(min.x + 3, max.x - 3), max.y - 1)
+	
+	east_door = Door.new(east_door_pattern)
+	east_door.position = Vector2i(max.x - 1, rng.randi_range(min.y + 3, max.y - 3))
+	
+	west_door = Door.new(west_door_pattern)
+	west_door.position = Vector2i(min.x + 1, rng.randi_range(min.y + 3, max.y - 3))
 
