@@ -6,7 +6,7 @@ var min: Vector2i:
 var max: Vector2i:
 	get: return rect.end - Vector2i(1, 1)
 
-@export var tile_map_manager: RoomTileMapManager
+@export var tile_map_generator: RoomTileMapGenerator
 @export var instructions: InstructionTileMap
 
 @export var north_door_pattern: DoorPattern
@@ -47,13 +47,13 @@ func _ready():
 	_draw_doors()
 	_draw_door_paths()
 	# Generate room
-	tile_map_manager.tiles_finished.connect(_on_tiles_finished)
-	tile_map_manager.set_rect(rect)
-	tile_map_manager.collapse()
+	tile_map_generator.tiles_finished.connect(_on_tiles_finished)
+	tile_map_generator.set_rect(rect)
+	tile_map_generator.collapse()
 
 func _on_tiles_finished():
 	unflattener.unflatten()
-	tile_map_manager.target_tile_map.hide()
+	tile_map_generator.target_tile_map.hide()
 	room_finished.emit()
 
 func _draw_outer_walls():
@@ -67,7 +67,7 @@ func _draw_outer_walls():
 
 # Draw door tiles on target TileMap
 func _draw_door(door: Door):
-	tile_map_manager.target_tile_map.set_pattern(0, door.position - door.pattern.center, door.pattern.tile_map_pattern)
+	tile_map_generator.target_tile_map.set_pattern(0, door.position - door.pattern.center, door.pattern.tile_map_pattern)
 
 func _draw_doors():
 	_draw_door(north_door)

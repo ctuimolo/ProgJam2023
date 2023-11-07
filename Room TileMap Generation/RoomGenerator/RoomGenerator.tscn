@@ -1,0 +1,64 @@
+[gd_scene load_steps=15 format=3 uid="uid://cjr8dyyjiwu4q"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomGenerator/RoomGenerator.cs" id="1_4xnqt"]
+[ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="2_27apc"]
+[ext_resource type="PackedScene" uid="uid://fvboup4gn4on" path="res://Room TileMap Generation/Instruction TileMap/Instruction TileMap.tscn" id="3_7ennr"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomDesigner/RoomDesigner.cs" id="4_mbdix"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomDesigner/room_designer.gd" id="5_lrjjw"]
+[ext_resource type="Resource" uid="uid://bnqggplsom1wq" path="res://Room TileMap Generation/Door Patterns/DoorPattern north.tres" id="6_48pu0"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomTileMapGenerator/RoomTileMapGenerator.cs" id="6_xpc2e"]
+[ext_resource type="Resource" uid="uid://bfpe1xrpubu3j" path="res://Room TileMap Generation/Door Patterns/DoorPattern south.tres" id="7_36jyu"]
+[ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/RoomTileMapGenerator/GDRoomTileMapGenerator.tscn" id="7_nh6rm"]
+[ext_resource type="Resource" uid="uid://cv26dsgq4we" path="res://Room TileMap Generation/Door Patterns/DoorPattern east.tres" id="8_42rjt"]
+[ext_resource type="Resource" uid="uid://cp081cy65vqfh" path="res://Room TileMap Generation/Door Patterns/DoorPattern west.tres" id="9_8mwqq"]
+[ext_resource type="Script" path="res://Room TileMap Generation/tile_map_unflattener.gd" id="12_ohyy4"]
+[ext_resource type="PackedScene" uid="uid://br00tplhetu2k" path="res://Rooms/Room.tscn" id="13_6kmgf"]
+[ext_resource type="PackedScene" uid="uid://dbteu7tmpiv3f" path="res://Rooms/RoomTileMap.tscn" id="14_jbdv3"]
+
+[node name="RoomGenerator" type="Node2D" node_paths=PackedStringArray("Room", "RoomDesigner", "RoomTileMapGenerator", "TileMapUnflattener")]
+script = ExtResource("1_4xnqt")
+Room = NodePath("Room")
+RoomDesigner = NodePath("RoomDesigner")
+RoomTileMapGenerator = NodePath("RoomTileMapGenerator")
+TileMapUnflattener = NodePath("TileMapUnflattener")
+
+[node name="Target TileMap" type="TileMap" parent="."]
+position = Vector2(0, -1)
+tile_set = ExtResource("2_27apc")
+format = 2
+
+[node name="Instruction TileMap" parent="." instance=ExtResource("3_7ennr")]
+
+[node name="RoomDesigner" type="Node2D" parent="." node_paths=PackedStringArray("GDRoomDesigner")]
+script = ExtResource("4_mbdix")
+GDRoomDesigner = NodePath("GDRoomDesigner")
+
+[node name="GDRoomDesigner" type="Node2D" parent="RoomDesigner" node_paths=PackedStringArray("target_tile_map", "instructions")]
+script = ExtResource("5_lrjjw")
+rect = Rect2i(5, 5, 50, 30)
+target_tile_map = NodePath("../../Target TileMap")
+instructions = NodePath("../../Instruction TileMap")
+north_door_pattern = ExtResource("6_48pu0")
+south_door_pattern = ExtResource("7_36jyu")
+east_door_pattern = ExtResource("8_42rjt")
+west_door_pattern = ExtResource("9_8mwqq")
+
+[node name="RoomTileMapGenerator" type="Node2D" parent="." node_paths=PackedStringArray("GDRoomTileMapGenerator")]
+script = ExtResource("6_xpc2e")
+GDRoomTileMapGenerator = NodePath("GDRoomTileMapGenerator")
+
+[node name="GDRoomTileMapGenerator" parent="RoomTileMapGenerator" node_paths=PackedStringArray("target_tile_map", "instruction_tile_map") instance=ExtResource("7_nh6rm")]
+target_tile_map = NodePath("../../Target TileMap")
+instruction_tile_map = NodePath("../../Instruction TileMap")
+
+[node name="TileMapUnflattener" type="Node" parent="." node_paths=PackedStringArray("flat_tile_map", "final_tile_map")]
+script = ExtResource("12_ohyy4")
+flat_tile_map = NodePath("../Target TileMap")
+final_tile_map = NodePath("../Room/RoomTileMap")
+
+[node name="Room" parent="." node_paths=PackedStringArray("Map") instance=ExtResource("13_6kmgf")]
+Map = NodePath("RoomTileMap")
+
+[node name="RoomTileMap" parent="Room" instance=ExtResource("14_jbdv3")]
+
+[connection signal="tiles_finished" from="RoomTileMapGenerator/GDRoomTileMapGenerator" to="RoomTileMapGenerator" method="OnTilesFinished"]

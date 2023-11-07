@@ -24,42 +24,78 @@ public partial class RoomManager : Node
 
    [Export]
    private Godot.Collections.Array<PackedScene> DebugRoomTileMaps;
+	
+	private bool Initialized = false;
+	[Export]
+	private bool InitializeOnReady = true;
 
    // Called when the node enters the scene tree for the first time.
    public override void _Ready()
    {
-	  Rooms = new Dictionary<StringName, Room>();
-
-	  ////////////////////////////////////////////////////////////
-	  // Init Debug Rooms
-	  foreach (PackedScene tileMapScene in DebugRoomTileMaps)
-	  {
-		 Room newRoom         = RoomScene.Instantiate<Room>();
-		 RoomTileMap tileMap  = tileMapScene.Instantiate<RoomTileMap>();
-
-		 newRoom.AddChild(tileMap);
-		 newRoom.Map = tileMap;
-
-		 AddChild(newRoom);
-		 Rooms[tileMap.DebugName] = newRoom;
-	  }
-	  ////////////////////////////////////////////////////////////
-
-	  // Actual rooms
-	  foreach (Room room in Rooms.Values)
-	  {
-		 room.InitCells();
-		 room.FindAndAddActors(true);
-		 room.PauseAndHideRoom();
-	  }
-
-	  WorldManager.SetRoomManager(this);
-	  WorldManager.ChangeRoom(DebugStartRoom);
+		Rooms = new Dictionary<StringName, Room>();
+		if(InitializeOnReady)
+		{
+			Initialize();
+		}
    }
+	
+	public void Initialize()
+	{
+		if(Initialized)
+		{
+			throw new System.InvalidOperationException();
+		}
+		Initialized = true;
+		
+		////////////////////////////////////////////////////////////
+		// Init Debug Rooms
+		foreach (PackedScene tileMapScene in DebugRoomTileMaps)
+		{
+			Room newRoom         = RoomScene.Instantiate<Room>();
+			RoomTileMap tileMap  = tileMapScene.Instantiate<RoomTileMap>();
+
+			newRoom.AddChild(tileMap);
+			newRoom.Map = tileMap;
+
+			AddChild(newRoom);
+			Rooms[tileMap.DebugName] = newRoom;
+		}
+		////////////////////////////////////////////////////////////
+
+		// Actual rooms
+		foreach (Room room in Rooms.Values)
+		{
+			room.InitCells();
+			room.FindAndAddActors(true);
+			room.PauseAndHideRoom();
+		}
+
+		WorldManager.SetRoomManager(this);
+		WorldManager.ChangeRoom(DebugStartRoom);
+	}
+	
+	public void AddRoom(string roomName, Room room)
+	{
+		if(Initialized)
+		{
+			throw new System.InvalidOperationException();
+		}
+		if(Rooms.ContainsKey(roomName))
+		{
+			throw new System.ArgumentException($"{this} already has room named {roomName}");
+		}
+		Rooms[roomName] = room;
+		AddChild(room);
+	}
 
    // Called every frame. 'delta' is the elapsed time since the previous frame.
    public override void _Process(double delta)
    {
+	  if(!Initialized)
+	  {
+		  return;
+	  }
+	
 	  if (Input.IsActionJustPressed("debug1"))
 	  {
 		 WorldManager.ChangeRoom("North");

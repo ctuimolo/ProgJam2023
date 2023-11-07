@@ -1,0 +1,79 @@
+[gd_scene load_steps=15 format=3 uid="uid://bmwpkfnbtcpji"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomTileMapGenerator/room_tile_map_generator.gd" id="1_3bu2q"]
+[ext_resource type="Script" path="res://addons/wfc/nodes/generator_2d.gd" id="2_13suy"]
+[ext_resource type="Script" path="res://addons/wfc/solver/solver_settings.gd" id="3_6c3f4"]
+[ext_resource type="Script" path="res://Room TileMap Generation/WFC Generator Modifiers/Tile Constraint Mapper/tile_constraint_mapper.gd" id="4_g0474"]
+[ext_resource type="Script" path="res://Room TileMap Generation/WFC Generator Modifiers/Tile Constraint Mapper/tile_constraint_mapper_constraint.gd" id="5_uxoup"]
+[ext_resource type="Script" path="res://Room TileMap Generation/WFC Generator Modifiers/prohibited_tile_collection.gd" id="6_vmgqr"]
+[ext_resource type="Script" path="res://Room TileMap Generation/WFC Generator Modifiers/interchangeable_tile_rules_sharer.gd" id="7_4j5qh"]
+[ext_resource type="PackedScene" uid="uid://cecsurlqb2rmc" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 positive.tscn" id="8_ew6nq"]
+[ext_resource type="PackedScene" uid="uid://bll5wel2w85bu" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 negative.tscn" id="9_5mls4"]
+
+[sub_resource type="Resource" id="Resource_vfcab"]
+script = ExtResource("3_6c3f4")
+allow_backtracking = true
+require_backtracking = false
+backtracking_limit = -1
+
+[sub_resource type="Resource" id="Resource_42s41"]
+script = ExtResource("5_uxoup")
+constraint_tag = "wall"
+domain_tag = "wall"
+
+[sub_resource type="Resource" id="Resource_v55ul"]
+script = ExtResource("5_uxoup")
+constraint_tag = "navigable"
+domain_tag = "navigable"
+
+[sub_resource type="Resource" id="Resource_s4dh2"]
+script = ExtResource("5_uxoup")
+constraint_tag = "door"
+domain_tag = "door"
+
+[sub_resource type="Resource" id="Resource_peqbs"]
+script = ExtResource("5_uxoup")
+constraint_tag = "black"
+domain_tag = "black"
+
+[node name="GDRoomTileMapGenerator" type="Node2D" node_paths=PackedStringArray("wfc_generator", "constraint_mapper", "prohibited_tiles", "interchangeable_tile_rules_sharer")]
+script = ExtResource("1_3bu2q")
+wfc_generator = NodePath("WFC Generator")
+constraint_mapper = NodePath("Tile Constraint Mapper")
+prohibited_tiles = NodePath("Prohibited Tiles")
+interchangeable_tile_rules_sharer = NodePath("Interchangeable Tile Rules Sharer")
+
+[node name="WFC Generator" type="Node" parent="." node_paths=PackedStringArray("tile_constraint_mapper", "prohibited_tile_collection", "interchangeable_tiles_rules_sharer")]
+script = ExtResource("2_13suy")
+rect = Rect2i(0, 0, 100, 50)
+positive_sample = NodePath("../Samples/DemoTileset2 positive")
+negative_sample = NodePath("../Samples/DemoTileset2 negative")
+solver_settings = SubResource("Resource_vfcab")
+tile_constraint_mapper = NodePath("../Tile Constraint Mapper")
+prohibited_tile_collection = NodePath("../Prohibited Tiles")
+interchangeable_tiles_rules_sharer = NodePath("../Interchangeable Tile Rules Sharer")
+render_intermediate_results = true
+
+[node name="Tile Constraint Mapper" type="Node" parent="."]
+script = ExtResource("4_g0474")
+constraints = Array[ExtResource("5_uxoup")]([SubResource("Resource_42s41"), SubResource("Resource_v55ul"), SubResource("Resource_s4dh2"), SubResource("Resource_peqbs")])
+
+[node name="Prohibited Tiles" type="Node" parent="."]
+script = ExtResource("6_vmgqr")
+custom_data_layer_name = "cannot_generate"
+
+[node name="Interchangeable Tile Rules Sharer" type="Node" parent="."]
+script = ExtResource("7_4j5qh")
+
+[node name="Samples" type="Node" parent="."]
+
+[node name="DemoTileset2 positive" parent="Samples" instance=ExtResource("8_ew6nq")]
+visible = false
+
+[node name="DemoTileset2 negative" parent="Samples" instance=ExtResource("9_5mls4")]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -1000
+offset_right = 1307.0
+offset_bottom = 742.0

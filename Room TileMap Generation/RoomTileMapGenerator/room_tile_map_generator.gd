@@ -1,4 +1,4 @@
-class_name RoomTileMapManager extends Node2D
+class_name RoomTileMapGenerator extends Node2D
 
 @export var target_tile_map: TileMap
 var target_tile_set: TileSet

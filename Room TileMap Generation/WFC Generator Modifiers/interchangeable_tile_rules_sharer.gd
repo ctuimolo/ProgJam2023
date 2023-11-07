@@ -109,9 +109,9 @@ func set_rules(tile: Tile, rules: Array[WFCBitSet]):
 		matrix.rows[id] = rule
 
 # Get dictionary mapping interchangeable tag to all tiles with that tag
-func _get_interchangeable_dictionary(tile_set: TileSet)->Dictionary:
+func _get_interchangeable_dictionary(p_tile_set: TileSet)->Dictionary:
 	var tag_to_tiles: Dictionary = { }
-	var tiles: Array[Tile] = TileSetHelper.new().get_all_tiles_in_set(tile_set)
+	var tiles: Array[Tile] = TileSetHelper.new().get_all_tiles_in_set(p_tile_set)
 	for tile in tiles:
 		var tag = tile.data.get_custom_data(custom_data_layer_name)
 		if tag == null || len(tag) == 0:

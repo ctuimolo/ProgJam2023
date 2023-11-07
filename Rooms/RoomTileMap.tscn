@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://dbteu7tmpiv3f"]
+
+[ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="1_nktra"]
+[ext_resource type="Script" path="res://Rooms/RoomTileMap.cs" id="2_g4xvu"]
+
+[node name="RoomTileMap" type="TileMap"]
+position = Vector2(0, -1)
+tile_set = ExtResource("1_nktra")
+format = 2
+layer_0/name = "Floor"
+layer_1/name = "Wall"
+layer_1/enabled = true
+layer_1/modulate = Color(1, 1, 1, 1)
+layer_1/y_sort_enabled = false
+layer_1/y_sort_origin = 0
+layer_1/z_index = 0
+layer_1/tile_data = PackedInt32Array()
+script = ExtResource("2_g4xvu")

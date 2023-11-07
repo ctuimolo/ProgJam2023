@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://bs2ox78k7hebf"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/test_room_generator.gd" id="1_sd4ww"]
-[ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/Room TileMap Manager.tscn" id="1_waprl"]
+[ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/RoomTileMapGenerator/GDRoomTileMapGenerator.tscn" id="1_waprl"]
 [ext_resource type="Resource" uid="uid://bnqggplsom1wq" path="res://Room TileMap Generation/Door Patterns/DoorPattern north.tres" id="2_8pu17"]
 [ext_resource type="Resource" uid="uid://bfpe1xrpubu3j" path="res://Room TileMap Generation/Door Patterns/DoorPattern south.tres" id="3_ejw3b"]
 [ext_resource type="Resource" uid="uid://cp081cy65vqfh" path="res://Room TileMap Generation/Door Patterns/DoorPattern west.tres" id="4_erixa"]
@@ -10,10 +10,10 @@
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="8_461t3"]
 [ext_resource type="Script" path="res://Room TileMap Generation/tile_map_unflattener.gd" id="9_1yerq"]
 
-[node name="Test Room" type="Node2D" node_paths=PackedStringArray("tile_map_manager", "instructions", "unflattener")]
+[node name="Test Room" type="Node2D" node_paths=PackedStringArray("tile_map_generator", "instructions", "unflattener")]
 script = ExtResource("1_sd4ww")
 rect = Rect2i(5, 5, 50, 30)
-tile_map_manager = NodePath("Room TileMap Manager")
+tile_map_generator = NodePath("Room TileMap Generator")
 instructions = NodePath("Instruction TileMap")
 north_door_pattern = ExtResource("2_8pu17")
 south_door_pattern = ExtResource("3_ejw3b")
@@ -21,7 +21,7 @@ east_door_pattern = ExtResource("5_3gi1s")
 west_door_pattern = ExtResource("4_erixa")
 unflattener = NodePath("Unflattener")
 
-[node name="Room TileMap Manager" parent="." node_paths=PackedStringArray("target_tile_map", "instruction_tile_map") instance=ExtResource("1_waprl")]
+[node name="Room TileMap Generator" parent="." node_paths=PackedStringArray("target_tile_map", "instruction_tile_map") instance=ExtResource("1_waprl")]
 target_tile_map = NodePath("../Target TileMap")
 instruction_tile_map = NodePath("../Instruction TileMap")
 
