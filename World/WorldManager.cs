@@ -5,9 +5,9 @@ using System.Linq;
 
 using ProgJam2023.Rooms;
 using ProgJam2023.Actors.Players;
+using ProgJam2023.Actors.Enemies;
 using ProgJam2023.Actors;
 using ProgJam2023.UI;
-using System.Threading;
 
 namespace ProgJam2023.World;
 
@@ -199,7 +199,15 @@ public partial class WorldManager : Node
 
    private static void EnemyProcess_Process()
    {
-      _enemyTurnProcessor = EnemyProcess_Await;
+      foreach (Enemy enemy in CurrentRoom.Actors.OfType<Enemy>())
+      {
+         if (enemy.State == GridActor.ActorState.Idle)
+         {
+            enemy.TakeTurn();
+         }
+      }
+
+      EnemyTurnState = State.Open;
    }
 
    private static void PlayerProcess_Await()
@@ -223,7 +231,6 @@ public partial class WorldManager : Node
             return;
          }
 
-         _playerTurnProcessor = PlayerProcess_Await;
          PlayerTurnState = State.Open;
       }
    }
@@ -247,6 +254,12 @@ public partial class WorldManager : Node
       {
          _playerTurnProcessor.Invoke();
          _enemyTurnProcessor.Invoke();
+
+         if (PlayerTurnState == State.Open && EnemyTurnState == State.Open) 
+         {
+            _playerTurnProcessor = PlayerProcess_Await;
+            _enemyTurnProcessor = EnemyProcess_Await;
+         }
 
          foreach (GridActor actor in _worldActors)
          {
