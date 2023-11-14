@@ -77,7 +77,7 @@ public partial class WorldManager : Node
          Transitioner.ChangeRoom_MovePlayer();
       }
 
-      _playerTurnProcessor = PlayerProcess_Open;
+      _playerTurnProcessor = PlayerProcess_Await;
       PlayerTurnState = State.Open;
    }
 
@@ -146,8 +146,8 @@ public partial class WorldManager : Node
       PlayerTurnState   = State.Open;
       EnemyTurnState    = State.Open;
 
-      _playerTurnProcessor = PlayerProcess_Open;
-      _enemyTurnProcessor = EnemyProcess_Open;
+      _playerTurnProcessor = PlayerProcess_Await;
+      _enemyTurnProcessor = EnemyProcess_Await;
    }
 
    public static void TryMoveActor(GridActor actor, GridDirection direction)
@@ -192,24 +192,27 @@ public partial class WorldManager : Node
       }
    }
 
-   private static void EnemyProcess_Open()
+   private static void EnemyProcess_Await()
    {
+      // ...
    }
 
-   private static void EnemyProcess_Busy()
+   private static void EnemyProcess_Process()
    {
+      _enemyTurnProcessor = EnemyProcess_Await;
    }
 
-   private static void PlayerProcess_Open()
+   private static void PlayerProcess_Await()
    {
       if (CurrentPlayer.ProcessInput())
       {
-         _playerTurnProcessor = PlayerProcessEnd_Busy;
+         _playerTurnProcessor    = PlayerProcess_Process;
+         _enemyTurnProcessor     = EnemyProcess_Process;
          PlayerTurnState = State.Busy;
       }
    }
 
-   private static void PlayerProcessEnd_Busy()
+   private static void PlayerProcess_Process()
    {
       if (CurrentPlayer.State == GridActor.ActorState.Idle)
       {
@@ -220,7 +223,7 @@ public partial class WorldManager : Node
             return;
          }
 
-         _playerTurnProcessor = PlayerProcess_Open;
+         _playerTurnProcessor = PlayerProcess_Await;
          PlayerTurnState = State.Open;
       }
    }

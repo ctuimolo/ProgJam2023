@@ -49,7 +49,7 @@ public partial class RoomManager : Node
 	  foreach (Room room in Rooms.Values)
 	  {
 		 room.InitCells();
-		 room.FindAndAddActors(true);
+		 room.FindAndAddActors();
 		 room.PauseAndHideRoom();
 	  }
 
