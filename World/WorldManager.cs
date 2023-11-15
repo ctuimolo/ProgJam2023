@@ -46,7 +46,6 @@ public partial class WorldManager : Node
    // World Collections
    //===========================================================
 
-   static Array<GridActor> _worldActors;
    static RoomManager _roomManager;
 
    //===========================================================
@@ -104,7 +103,12 @@ public partial class WorldManager : Node
 
    public static void SpawnPlayer(StringName room, Vector2I toCell)
    {
+      if (CurrentRoom != null)
+      {
+         CurrentRoom.Actors.Remove(CurrentPlayer.Name);
+      }
       CurrentRoom = _roomManager.Rooms[room];
+      CurrentRoom.Actors.Add(CurrentPlayer.Name, CurrentPlayer);
       CurrentRoom.PutOnCell(toCell, CurrentPlayer);
    }
 
@@ -121,17 +125,6 @@ public partial class WorldManager : Node
    public static void SetCurrentPlayer(Player player)
    {
       CurrentPlayer = player;
-      AddActorToWorld(player);
-   }
-
-   public static void AddActorToWorld(GridActor actor)
-   {
-      if (_worldActors.Contains(actor))
-      {
-         return;
-      }
-
-      _worldActors.Add(actor);
    }
 
    public void InitUI()
@@ -141,7 +134,6 @@ public partial class WorldManager : Node
 
    public static void InitWorld()
    {
-      _worldActors      = new Array<GridActor>();
       WorldState        = State.Open;
       PlayerTurnState   = State.Open;
       EnemyTurnState    = State.Open;
@@ -199,7 +191,7 @@ public partial class WorldManager : Node
 
    private static void EnemyProcess_Process()
    {
-      foreach (Enemy enemy in CurrentRoom.Actors.OfType<Enemy>())
+      foreach (Enemy enemy in CurrentRoom.Actors.Values.OfType<Enemy>())
       {
          if (enemy.State == GridActor.ActorState.Idle)
          {
@@ -261,7 +253,7 @@ public partial class WorldManager : Node
             _enemyTurnProcessor = EnemyProcess_Await;
          }
 
-         foreach (GridActor actor in _worldActors)
+         foreach (GridActor actor in CurrentRoom.Actors.Values)
          {
             if (actor.State == GridActor.ActorState.NeedsUpdate)
             {

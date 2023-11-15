@@ -53,6 +53,7 @@ public partial class RoomManager : Node
 		 room.PauseAndHideRoom();
 	  }
 
+     WorldManager.SetCurrentPlayer(Player);
 	  WorldManager.SetRoomManager(this);
 	  WorldManager.ChangeRoom(DebugStartRoom);
    }

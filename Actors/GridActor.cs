@@ -2,11 +2,22 @@ using Godot;
 
 using ProgJam2023.Rooms;
 using ProgJam2023.World;
+using System;
 
 namespace ProgJam2023.Actors;
 
+public enum GridActorType
+{
+   Player,
+   Enemy,
+   Object,
+}
+
 public partial class GridActor : Node2D
 {
+   [Export]
+   public GridActorType Type { get; set; }
+
    public enum ActorCollisionType
    {
       None,

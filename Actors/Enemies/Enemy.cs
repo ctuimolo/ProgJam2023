@@ -1,10 +1,10 @@
-﻿using Godot;
+using Godot;
 
 namespace ProgJam2023.Actors.Enemies;
 
 public partial class Enemy : GridActor
 {
-   public void TakeTurn()
+   public virtual void TakeTurn()
    {
 
    }
