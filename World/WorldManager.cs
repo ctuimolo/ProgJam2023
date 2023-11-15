@@ -40,7 +40,22 @@ public partial class WorldManager : Node
    public static Player CurrentPlayer  { get; private set; }
    public static State WorldState      { get; private set; }
    public static State PlayerTurnState { get; private set; }
-   public static State EnemyTurnState  { get; private set; }
+   public static State EnemyTurnState()
+   {
+      if (CurrentRoom == null) return State.Open;
+      if (CurrentRoom.Actors == null) return State.Open;
+
+      foreach (GridActor actor in CurrentRoom.Actors.Values) 
+      {
+         if (actor.State != GridActor.ActorState.Idle)
+         {
+            return State.Busy;
+         }
+      }
+      return State.Open;
+   }
+
+   public static Player.Instruction PlayerInstruction = null;
 
    //===========================================================
    // World Collections
@@ -76,7 +91,7 @@ public partial class WorldManager : Node
          Transitioner.ChangeRoom_MovePlayer();
       }
 
-      _playerTurnProcessor = PlayerProcess_Await;
+      _playerTurnProcessor = PlayerProcess_AwaitInstruction;
       PlayerTurnState = State.Open;
    }
 
@@ -127,6 +142,26 @@ public partial class WorldManager : Node
       CurrentPlayer = player;
    }
 
+   public static void SetPlayerInstruction(Player.Instruction instruction)
+   {
+      PlayerInstruction = instruction;
+   }
+
+   private static void ConsumePlayerInstruction()
+   {
+      if (PlayerInstruction != null)
+      {
+         switch(PlayerInstruction.Type)
+         {
+            case Player.InstructionType.Move:
+               TryMoveActor(CurrentPlayer, PlayerInstruction.Direction);
+               break;
+         }
+      }
+
+      PlayerInstruction = null;
+   }
+
    public void InitUI()
    {
       AddChild(Transitioner);
@@ -136,9 +171,8 @@ public partial class WorldManager : Node
    {
       WorldState        = State.Open;
       PlayerTurnState   = State.Open;
-      EnemyTurnState    = State.Open;
 
-      _playerTurnProcessor = PlayerProcess_Await;
+      _playerTurnProcessor = PlayerProcess_AwaitInstruction;
       _enemyTurnProcessor = EnemyProcess_Await;
    }
 
@@ -186,7 +220,13 @@ public partial class WorldManager : Node
 
    private static void EnemyProcess_Await()
    {
-      // ...
+      foreach (Enemy enemy in CurrentRoom.Actors.Values.OfType<Enemy>())
+      {
+         if (enemy.State == GridActor.ActorState.Idle)
+         {
+            enemy.Idle();
+         }
+      }
    }
 
    private static void EnemyProcess_Process()
@@ -198,32 +238,46 @@ public partial class WorldManager : Node
             enemy.TakeTurn();
          }
       }
-
-      EnemyTurnState = State.Open;
    }
 
-   private static void PlayerProcess_Await()
+   private static void PlayerProcess_AwaitInstruction()
    {
       if (CurrentPlayer.ProcessInput())
       {
-         _playerTurnProcessor    = PlayerProcess_Process;
-         _enemyTurnProcessor     = EnemyProcess_Process;
-         PlayerTurnState = State.Busy;
+         PlayerProcess_ProcessInstruction();
+
+         _playerTurnProcessor = PlayerProcess_ProcessInstruction;
       }
    }
 
-   private static void PlayerProcess_Process()
+   private static void PlayerProcess_ProcessInstruction()
+   {
+      if (CurrentPlayer.State == GridActor.ActorState.Idle)
+      {
+         ConsumePlayerInstruction();
+         PlayerTurnState = State.Busy;
+      }
+
+      _playerTurnProcessor = PlayerProcess_Finish;
+      PlayerProcess_Finish();
+
+      _enemyTurnProcessor = EnemyProcess_Process;
+      EnemyProcess_Process();
+   }
+
+   public static void PlayerProcess_Finish()
    {
       if (CurrentPlayer.State == GridActor.ActorState.Idle)
       {
          // Check for doors
-         foreach (Door door in CurrentPlayer.CurrentCell.Actors.OfType<Door>()) 
+         foreach (Door door in CurrentPlayer.CurrentCell.Actors.OfType<Door>())
          {
             ChangeRoom(door.ToRoom, door.ToDoor);
             return;
          }
 
          PlayerTurnState = State.Open;
+         _playerTurnProcessor = PlayerProcess_AwaitInstruction;
       }
    }
 
@@ -247,10 +301,10 @@ public partial class WorldManager : Node
          _playerTurnProcessor.Invoke();
          _enemyTurnProcessor.Invoke();
 
-         if (PlayerTurnState == State.Open && EnemyTurnState == State.Open) 
+         if (PlayerTurnState == State.Open && EnemyTurnState() == State.Open) 
          {
-            _playerTurnProcessor = PlayerProcess_Await;
-            _enemyTurnProcessor = EnemyProcess_Await;
+            _playerTurnProcessor = PlayerProcess_AwaitInstruction;
+            _enemyTurnProcessor  = EnemyProcess_Await;
          }
 
          foreach (GridActor actor in CurrentRoom.Actors.Values)

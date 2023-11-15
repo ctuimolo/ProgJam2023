@@ -9,8 +9,12 @@ public partial class Slime : Enemy
 {
    public override void TakeTurn()
    {
-      GridDirection direction  = (GridDirection)Utils.RNG.RandiRange(1,4);
+      if (_needsToTakeTurn)
+      {
+         GridDirection direction = (GridDirection)Utils.RNG.RandiRange(1, 4);
+         WorldManager.TryMoveActor(this, direction);
 
-      WorldManager.TryMoveActor(this, direction);
+         _needsToTakeTurn = false;
+      }
    }
 }
