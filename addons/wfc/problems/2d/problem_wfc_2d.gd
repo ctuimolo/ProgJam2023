@@ -259,6 +259,7 @@ func split(concurrency_limit: int) -> Array[SubProblem]:
 ############################################################### start
 		# Make sure SubProblem gets the tile constraint mapper
 		sub_problem.tile_constraint_mapper = tile_constraint_mapper
+		sub_problem.prohibited_tile_collection = prohibited_tile_collection
 ############################################################### end
 		
 		var dependencies: PackedInt64Array = []

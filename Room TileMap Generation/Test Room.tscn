@@ -12,7 +12,7 @@
 
 [node name="Test Room" type="Node2D" node_paths=PackedStringArray("tile_map_generator", "instructions", "unflattener")]
 script = ExtResource("1_sd4ww")
-rect = Rect2i(5, 5, 50, 30)
+rect = Rect2i(0, 0, 80, 45)
 tile_map_generator = NodePath("Room TileMap Generator")
 instructions = NodePath("Instruction TileMap")
 north_door_pattern = ExtResource("2_8pu17")
