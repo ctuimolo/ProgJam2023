@@ -42,7 +42,7 @@ public partial class Room : Node2D
       Visible = true;
    }
 
-   public void PutOnCell(Vector2I cellPosition, GridActor actor)
+   public void PutOnCell(Vector2I cellPosition, GridActor actor, bool updatePositionDraw = false)
    {
       if (!CellMap.ContainsKey(cellPosition)) return;
 
@@ -60,8 +60,16 @@ public partial class Room : Node2D
       cell.PutActor(actor);
 
       actor.CurrentCell = cell;
-      actor.NextCell = cellPosition;
-      actor.Position = Map.MapToLocal(cellPosition) - Map.TileSet.TileSize / 2;
+
+      if (updatePositionDraw)
+      {
+         UpdateCellPositionDraw(actor);
+      }
+   }
+
+   public void UpdateCellPositionDraw(GridActor actor)
+   {
+      actor.Position = Map.MapToLocal(actor.CurrentCell.Position()) - Map.TileSet.TileSize / 2;
    }
 
    public void FindAndAddActors()
@@ -76,7 +84,7 @@ public partial class Room : Node2D
 
          Actors.Add(actor.Name, actor);
          Vector2I toCell = Map.LocalToMap(actor.Position);
-         PutOnCell(toCell, actor);
+         PutOnCell(toCell, actor, true);
       }
 
       // Enemy Spawning
@@ -84,7 +92,7 @@ public partial class Room : Node2D
       {
          Enemy enemy = EnemySpawner.GetEnemyScene(instruction.Type).Instantiate<Enemy>();
          AddChild(enemy);
-         PutOnCell(instruction.Cell, enemy);
+         PutOnCell(instruction.Cell, enemy, true);
          Actors.Add(enemy.Name, enemy);
       }
    }
@@ -97,7 +105,7 @@ public partial class Room : Node2D
 
          foreach (string line in lines)
          {
-            string[] arg = line.Split(' ');
+            string[] arg = line.Trim().Trim('\n').Split(' ');
 
             if (arg.Length < 4) continue;
 

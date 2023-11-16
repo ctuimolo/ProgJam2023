@@ -2,7 +2,6 @@ using Godot;
 
 using ProgJam2023.Rooms;
 using ProgJam2023.World;
-using System;
 
 namespace ProgJam2023.Actors;
 
@@ -11,6 +10,7 @@ public enum GridActorType
    Player,
    Enemy,
    Object,
+   Door,
 }
 
 public partial class GridActor : Node2D
@@ -49,7 +49,6 @@ public partial class GridActor : Node2D
    public GridDirection Direction = GridDirection.Down;
 
    public Cell CurrentCell    = null;
-   public Vector2I NextCell   = Vector2I.Zero;
    public GridDirection LastStep;
 
    Label _debugText;

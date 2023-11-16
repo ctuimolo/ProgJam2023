@@ -26,25 +26,21 @@ position = Vector2(32, -32)
 ToRoom = &"North"
 ToDoor = &"DoorS"
 ExitDirection = 2
-Type = 0
 
 [node name="DoorW" parent="." instance=ExtResource("3_8m6wc")]
 position = Vector2(-144, 32)
 ToRoom = &"West"
 ToDoor = &"DoorE"
 ExitDirection = 4
-Type = 0
 
 [node name="DoorE" parent="." instance=ExtResource("3_8m6wc")]
 position = Vector2(96, 0)
 ToRoom = &"East"
 ToDoor = &"DoorW"
 ExitDirection = 3
-Type = 0
 
 [node name="DoorS" parent="." instance=ExtResource("3_8m6wc")]
 position = Vector2(16, 64)
 ToRoom = &"South"
 ToDoor = &"DoorN"
 ExitDirection = 1
-Type = 0

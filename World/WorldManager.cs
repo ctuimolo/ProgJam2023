@@ -122,9 +122,10 @@ public partial class WorldManager : Node
       {
          CurrentRoom.Actors.Remove(CurrentPlayer.Name);
       }
+      CurrentPlayer.InitPlayer();
       CurrentRoom = _roomManager.Rooms[room];
       CurrentRoom.Actors.Add(CurrentPlayer.Name, CurrentPlayer);
-      CurrentRoom.PutOnCell(toCell, CurrentPlayer);
+      CurrentRoom.PutOnCell(toCell, CurrentPlayer, true);
    }
 
    public static void SpawnPlayer_DoorAnimation(StringName door)
@@ -176,20 +177,32 @@ public partial class WorldManager : Node
       _enemyTurnProcessor = EnemyProcess_Await;
    }
 
+   public static bool TestTraversable(GridActor actor, Vector2I cell)
+   {
+      if (!CurrentRoom.CellMap.ContainsKey(cell)) return false;
+      return !CurrentRoom.CellMap[cell].HasCollisions(actor is not Enemy);
+   }
+
+   public static bool TestTraversable(GridActor actor, GridDirection direction)
+   {
+      Vector2I toCell = actor.CurrentCell.Position() + Utils.DirectionToVector(direction);
+      if (!CurrentRoom.CellMap.ContainsKey(toCell)) return false;
+      return !CurrentRoom.CellMap[toCell].HasCollisions(actor is not Enemy);
+   }
+
    public static void TryMoveActor(GridActor actor, GridDirection direction)
    {
       if (actor.State != GridActor.ActorState.Idle) return;
 
       Vector2I toCell = actor.CurrentCell.Position() + Utils.DirectionToVector(direction);
 
-      if (!CurrentRoom.Map.GetUsedCells(0).Contains(toCell)) return;
-
-      if (CurrentRoom.CellMap[toCell].HasCollisions()) return;
+      if (!TestTraversable(actor, toCell)) return;
 
       actor.State = GridActor.ActorState.Busy;
       actor.StepAnimation(direction);
-      actor.NextCell = toCell;
       actor.LastStep = direction;
+
+      CurrentRoom.PutOnCell(toCell, actor, false);
    }
 
    // Called when the node enters the scene tree for the first time.
@@ -244,25 +257,17 @@ public partial class WorldManager : Node
    {
       if (CurrentPlayer.ProcessInput())
       {
-         PlayerProcess_ProcessInstruction();
-
+         PlayerTurnState = State.Busy;
          _playerTurnProcessor = PlayerProcess_ProcessInstruction;
       }
    }
 
    private static void PlayerProcess_ProcessInstruction()
    {
-      if (CurrentPlayer.State == GridActor.ActorState.Idle)
-      {
-         ConsumePlayerInstruction();
-         PlayerTurnState = State.Busy;
-      }
+      ConsumePlayerInstruction();
 
       _playerTurnProcessor = PlayerProcess_Finish;
-      PlayerProcess_Finish();
-
-      _enemyTurnProcessor = EnemyProcess_Process;
-      EnemyProcess_Process();
+      _enemyTurnProcessor  = EnemyProcess_Process;
    }
 
    public static void PlayerProcess_Finish()
@@ -311,10 +316,7 @@ public partial class WorldManager : Node
          {
             if (actor.State == GridActor.ActorState.NeedsUpdate)
             {
-               if (actor.CurrentCell.Position() != actor.NextCell)
-               {
-                  CurrentRoom.PutOnCell(actor.NextCell, actor);
-               }
+               CurrentRoom.UpdateCellPositionDraw(actor);
                actor.State = GridActor.ActorState.Idle;
                actor.IdleAnimation();
             }

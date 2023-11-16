@@ -9,6 +9,6 @@ public partial class RoomTileMap : TileMap
    [Export]
    public StringName DebugName;
 
-   [Export]
+   [Export(PropertyHint.MultilineText)]
    public string EnemySpawnCommands_Debug;
 }

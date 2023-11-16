@@ -12,7 +12,11 @@ public partial class Slime : Enemy
       if (_needsToTakeTurn)
       {
          GridDirection direction = (GridDirection)Utils.RNG.RandiRange(1, 4);
-         WorldManager.TryMoveActor(this, direction);
+
+         if (WorldManager.TestTraversable(this, direction) && (CurrentCell.Position() + Utils.DirectionToVector(direction) != WorldManager.CurrentPlayer.CurrentCell.Position()))
+         {
+            WorldManager.TryMoveActor(this, direction);
+         }
 
          _needsToTakeTurn = false;
       }

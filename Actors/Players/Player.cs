@@ -30,9 +30,10 @@ public partial class Player : GridActor
    private int _directionHoldTime = 6;
 
    // Probably to be called in Godot scene room's _Ready function
-   protected void InitPlayer()
+   public void InitPlayer()
    {
       _animationWalker.SpeedScale = 2.4f;
+      _directionHoldCount = 0;
 
       WorldManager.SetCurrentPlayer(this);
    }
@@ -82,8 +83,12 @@ public partial class Player : GridActor
       {
          if (_directionHoldCount >= _directionHoldTime)
          {
-            SendMoveInstruction(_direction);
-            return true;
+            _directionHoldCount = _directionHoldTime;
+            if (WorldManager.TestTraversable(this, _direction))
+            {
+               SendMoveInstruction(_direction);
+               return true;
+            }
          } else
          {
             _directionHoldCount++;
