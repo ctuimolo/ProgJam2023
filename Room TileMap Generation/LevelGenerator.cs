@@ -29,7 +29,7 @@ public partial class LevelGenerator : Node
 	public override void _Ready()
 	{
 		rng = new RandomNumberGenerator();
-		RoomGenerator.RoomDesigner.Rect = GetRandomRoomSize();
+		RoomGenerator.Drawer.Rect = GetRandomRoomSize();
 		
 		RoomGenerator.GenerationComplete += OnRoomGenerated;
 		RoomGenerator.Generate();

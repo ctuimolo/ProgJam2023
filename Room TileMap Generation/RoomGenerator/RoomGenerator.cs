@@ -7,7 +7,7 @@ public partial class RoomGenerator : Node
 	private ProgJam2023.Rooms.Room Room;
 	
 	[Export]
-	public RoomDesigner RoomDesigner; // make private later
+	public RoomDrawer Drawer;
 	
 	[Export]
 	private RoomTileMapGenerator RoomTileMapGenerator;
@@ -32,8 +32,8 @@ public partial class RoomGenerator : Node
 			throw new InvalidOperationException();
 		}
 		
-		RoomDesigner.DesignRoom();
-		RoomTileMapGenerator.SetRect(RoomDesigner.Rect);
+		Drawer.DrawRoom();
+		RoomTileMapGenerator.SetRect(Drawer.Rect);
 		RoomTileMapGenerator.Collapse();
 	}
 	
@@ -41,7 +41,7 @@ public partial class RoomGenerator : Node
 	{
 		TileMapUnflattener.Call("unflatten");
 		
-		Room.StartingCell = RoomDesigner.StartingCell;
+		Room.StartingCell = Drawer.StartingCell;
 		
 		// Add doors, items, enemies, etc.
 		

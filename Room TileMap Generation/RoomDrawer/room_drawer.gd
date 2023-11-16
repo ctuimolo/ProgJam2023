@@ -1,4 +1,4 @@
-class_name RoomDesigner extends Node2D
+class_name RoomDrawer extends Node2D
 
 @export var rect: Rect2i
 var bounds_min: Vector2i:
@@ -49,7 +49,7 @@ class Door:
 func _ready():
 	rng = RandomNumberGenerator.new()
 
-func design_room():
+func draw_room():
 	# Draw instructions and doors
 	_draw_outer_walls()
 	_initialize_doors()
@@ -77,8 +77,6 @@ func _draw_doors():
 	_draw_door(west_door)
 
 func _draw_door_paths():
-	#_draw_path_between_doors(north_door, south_door)
-	#_draw_path_between_doors(east_door, west_door)
 	_draw_path_door_to_point(north_door, starting_cell)
 	_draw_path_door_to_point(south_door, starting_cell)
 	_draw_path_door_to_point(east_door, starting_cell)

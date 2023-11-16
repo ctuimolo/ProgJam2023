@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class RoomDesigner : Node2D
+public partial class RoomDrawer : Node2D
 {
 	[Export]
 	private Node GDRoomDesigner;
@@ -18,9 +18,9 @@ public partial class RoomDesigner : Node2D
 	
 	public Vector2I StartingCell => (Vector2I)GDRoomDesigner.Get("starting_cell");
 	
-	public void DesignRoom()
+	public void DrawRoom()
 	{
-		GDRoomDesigner.Call("design_room");
+		GDRoomDesigner.Call("draw_room");
 	}
 	
 }
