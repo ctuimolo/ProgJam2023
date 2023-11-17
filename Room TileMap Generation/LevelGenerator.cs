@@ -11,7 +11,14 @@ public partial class LevelGenerator : Node
 	public RoomManager RoomManager;
 	
 	[Export]
-	public RoomGenerator RoomGenerator;
+	public PackedScene RoomGeneratorScene;
+	
+	[Export]
+	public RoomParameters DebugParameters;
+	
+	
+	private int GeneratingRoomsCount;
+	
 	
 	[Export]
 	public Vector2I RoomSizeMin;
@@ -31,17 +38,37 @@ public partial class LevelGenerator : Node
 	public override void _Ready()
 	{
 		rng = new RandomNumberGenerator();
-		RoomGenerator.Drawer.Rect = GetRandomRoomSize();
 		
-		RoomGenerator.GenerationComplete += OnRoomGenerated;
-		RoomGenerator.Generate();
+		GenerateRoom(DebugParameters);
+		//GenerateRoom(DebugParameters);
 	}
 	
-	private void OnRoomGenerated(Room room)
+	private void GenerateRoom(RoomParameters parameters)
 	{
-		RoomGenerator.RemoveChild(room);
-		RoomManager.AddRoom("generated room", room);
-		RoomManager.DebugStartRoom = "generated room";
+		RoomGenerator roomGenerator = (RoomGenerator)RoomGeneratorScene.Instantiate();
+		AddChild(roomGenerator);
+		roomGenerator.GenerationComplete += OnRoomGenerated;
+		roomGenerator.Parameters = new RoomParameters(parameters);
+		roomGenerator.Generate();
+		GeneratingRoomsCount++;
+	}
+	
+	private void OnRoomGenerated(RoomGenerator roomGenerator, Room room)
+	{
+		GeneratingRoomsCount--;
+		roomGenerator.RemoveChild(room);
+		string name = $"generated room {GeneratingRoomsCount}";
+		RoomManager.AddRoom(name, room);
+		RoomManager.DebugStartRoom = name;
+		
+		if(GeneratingRoomsCount == 0)
+		{
+			AllRoomsGenerated();
+		}
+	}
+	
+	private void AllRoomsGenerated()
+	{
 		RoomManager.Initialize();
 	}
 }

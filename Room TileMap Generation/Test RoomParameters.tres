@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="RoomParameters" load_steps=2 format=3 uid="uid://cbcmmdxof6qvo"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomDesigner/RoomParameters.cs" id="1_evvw5"]
+
+[resource]
+script = ExtResource("1_evvw5")
+HasNorthDoor = true
+HasSouthDoor = true
+HasEastDoor = true
+HasWestDoor = true
+Width = 14
+Height = 14
+Proportion = 1

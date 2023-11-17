@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+using ProgJam2023.Rooms;
+
 namespace ProgJam2023.RoomTileMapGeneration;
 
 public partial class RoomGenerator : Node
@@ -9,7 +11,7 @@ public partial class RoomGenerator : Node
 	private ProgJam2023.Rooms.Room Room;
 	
 	[Export]
-	public RoomDrawer Drawer;
+	public RoomDesigner Designer;
 	
 	[Export]
 	private RoomTileMapGenerator RoomTileMapGenerator;
@@ -18,12 +20,17 @@ public partial class RoomGenerator : Node
 	private Node TileMapUnflattener;
 	
 	[Signal]
-	public delegate void GenerationCompleteEventHandler(ProgJam2023.Rooms.Room room);
+	public delegate void GenerationCompleteEventHandler(RoomGenerator roomGenerator, Room room);
 	
-	private bool Generated;
+	public RoomParameters Parameters = null;
+	
+	private RandomNumberGenerator RNG;
+	
+	private bool Generated = false;
 	
 	public override void _Ready()
-	{
+	{	
+		RNG = new RandomNumberGenerator();
 		RoomTileMapGenerator.TilesFinished += OnTilesFinished;
 	}
 	
@@ -34,20 +41,29 @@ public partial class RoomGenerator : Node
 			throw new InvalidOperationException();
 		}
 		
-		Drawer.DrawRoom();
-		RoomTileMapGenerator.SetRect(Drawer.Rect);
+		Parameters.Collapse(RNG);
+		
+		GD.Print("Parameters: ", Parameters);
+		
+		Designer.RNG = RNG;
+		Designer.Parameters = Parameters;
+		Designer.DesignRoom();
+		
+		RoomTileMapGenerator.SetRect(Designer.Rect);
 		RoomTileMapGenerator.Collapse();
 	}
 	
 	private void OnTilesFinished()
 	{
+		Generated = true;
+		
 		RoomTileMapGenerator.TargetTileMap.Hide();
 		TileMapUnflattener.Call("unflatten");
 		
-		Room.StartingCell = Drawer.StartingCell;
+		Room.StartingCell = Designer.StartingCell;
 		
 		// Add doors, items, enemies, etc.
 		
-		EmitSignal(SignalName.GenerationComplete, Room);
+		EmitSignal(SignalName.GenerationComplete, this, Room);
 	}
 }

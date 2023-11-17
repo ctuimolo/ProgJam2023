@@ -9,7 +9,8 @@ func _init():
 	pass
 
 func initialize():
-	assert(!_initialized)
+	if _initialized:
+		return
 	_initialized = true
 	_dictionary = { }
 	for pair in pairs:

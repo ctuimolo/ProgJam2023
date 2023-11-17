@@ -20,7 +20,8 @@ func _init(p_constraint_tag: String = "", p_domain_tag: String = ""):
 
 # Called by TileConstraintMapper to initialize variables
 func initialize(p_tile_constraint_mapper: TileConstraintMapper, p_instruction_tile_set: TileSet, p_target_tile_set: TileSet, p_custom_data_layer: String):
-	assert(!_initialized)
+	if _initialized:
+		return
 	_initialized = true
 	assert(p_instruction_tile_set != null)
 	assert(p_target_tile_set != null)

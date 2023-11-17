@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cjr8dyyjiwu4q"]
+[gd_scene load_steps=16 format=3 uid="uid://cjr8dyyjiwu4q"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomGenerator/RoomGenerator.cs" id="1_4xnqt"]
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="2_apddh"]
 [ext_resource type="PackedScene" uid="uid://fvboup4gn4on" path="res://Room TileMap Generation/Instruction TileMap/Instruction TileMap.tscn" id="3_2bh3g"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Instruction TileMap/InstructionTileMap.cs" id="3_cjp5r"]
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomDrawer/RoomDrawer.cs" id="4_lgo5w"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomDesigner/RoomDesigner.cs" id="5_0lacv"]
 [ext_resource type="Resource" uid="uid://bnqggplsom1wq" path="res://Room TileMap Generation/Door Patterns/DoorPattern north.tres" id="6_hbtwi"]
 [ext_resource type="Resource" uid="uid://bfpe1xrpubu3j" path="res://Room TileMap Generation/Door Patterns/DoorPattern south.tres" id="7_75xp1"]
 [ext_resource type="Resource" uid="uid://cv26dsgq4we" path="res://Room TileMap Generation/Door Patterns/DoorPattern east.tres" id="8_8qjkf"]
@@ -15,10 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://br00tplhetu2k" path="res://Rooms/Room.tscn" id="13_kpi5q"]
 [ext_resource type="PackedScene" uid="uid://dbteu7tmpiv3f" path="res://Rooms/RoomTileMap.tscn" id="14_e34bn"]
 
-[node name="RoomGenerator" type="Node2D" node_paths=PackedStringArray("Room", "Drawer", "RoomTileMapGenerator", "TileMapUnflattener")]
+[node name="RoomGenerator" type="Node2D" node_paths=PackedStringArray("Room", "Designer", "RoomTileMapGenerator", "TileMapUnflattener")]
 script = ExtResource("1_4xnqt")
 Room = NodePath("Room")
-Drawer = NodePath("RoomDrawer")
+Designer = NodePath("RoomDesigner")
 RoomTileMapGenerator = NodePath("RoomTileMapGenerator")
 TileMapUnflattener = NodePath("TileMapUnflattener")
 
@@ -35,14 +36,20 @@ GDInstructionTileMap = NodePath("GDInstructionTileMap")
 
 [node name="GDInstructionTileMap" parent="InstructionTileMap" instance=ExtResource("3_2bh3g")]
 
-[node name="RoomDrawer" type="Node2D" parent="." node_paths=PackedStringArray("TargetTileMap", "Instructions")]
-script = ExtResource("4_lgo5w")
+[node name="RoomDesigner" type="Node2D" parent="." node_paths=PackedStringArray("TargetTileMap", "Instructions", "Drawer")]
+script = ExtResource("5_0lacv")
 TargetTileMap = NodePath("../Target TileMap")
 Instructions = NodePath("../InstructionTileMap")
+Drawer = NodePath("RoomDrawer")
 NorthDoorPattern = ExtResource("6_hbtwi")
 SouthDoorPattern = ExtResource("7_75xp1")
 EastDoorPattern = ExtResource("8_8qjkf")
 WestDoorPattern = ExtResource("9_tmalr")
+
+[node name="RoomDrawer" type="Node2D" parent="RoomDesigner" node_paths=PackedStringArray("TargetTileMap", "Instructions")]
+script = ExtResource("4_lgo5w")
+TargetTileMap = NodePath("../../Target TileMap")
+Instructions = NodePath("../../InstructionTileMap")
 
 [node name="RoomTileMapGenerator" type="Node2D" parent="." node_paths=PackedStringArray("GDRoomTileMapGenerator")]
 script = ExtResource("10_ftagp")
