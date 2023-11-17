@@ -11,6 +11,9 @@ var target_tile_set: TileSet
 var _started: bool
 var _finished: bool
 
+var _rect: Rect2i
+const _MIN_RECT_SIZE: Vector2i = Vector2i(21, 12)
+
 signal tiles_finished()
 
 func _ready():
@@ -38,7 +41,27 @@ func set_instruction_tile_map(p_instruction_tile_map: InstructionTileMap):
 func collapse():
 	assert(!_started && !_finished)
 	_started = true
+	_prepare_wfc_rect()
 	wfc_generator.start()
+
+func _prepare_wfc_rect():
+	var wfc_rect_size = Vector2i(max(_MIN_RECT_SIZE.x, _rect.size.x), max(_MIN_RECT_SIZE.y, _rect.size.y))
+	wfc_generator.rect = Rect2i(_rect.position, wfc_rect_size)
+	_fill_area_outside_rect()
+
+func _fill_area_outside_rect():
+	for x in range(_rect.size.x, _MIN_RECT_SIZE.x):
+		for y in range(_rect.size.y):
+			var cell = Vector2i(x, y) + _rect.position
+			instruction_tile_map.draw("black", cell)
+	for y in range(_rect.size.y, _MIN_RECT_SIZE.y):
+		for x in range(_rect.size.x):
+			var cell = Vector2i(x, y) + _rect.position
+			instruction_tile_map.draw("black", cell)
+	for x in range(_rect.size.x, _MIN_RECT_SIZE.x):
+		for y in range(_rect.size.y, _MIN_RECT_SIZE.y):
+			var cell = Vector2i(x, y) + _rect.position
+			instruction_tile_map.draw("black", cell)
 	
 func add_positive_sample(positive_sample: TileMap):
 	assert(!_started && !_finished)
@@ -48,8 +71,8 @@ func add_negative_sample(negative_sample: TileMap):
 	assert(!_started && !_finished)
 	wfc_generator.negative_tile_map_set.append(negative_sample)
 
-func set_rect(rect: Rect2i):
-	wfc_generator.rect = rect
+func set_rect(p_rect: Rect2i):
+	_rect = p_rect
 	
 func _on_wfc_done():
 	assert(_started && !_finished)
