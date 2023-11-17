@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+namespace ProgJam2023.RoomTileMapGeneration;
+
 public partial class RoomGenerator : Node
 {
 	[Export]
@@ -39,6 +41,7 @@ public partial class RoomGenerator : Node
 	
 	private void OnTilesFinished()
 	{
+		RoomTileMapGenerator.TargetTileMap.Hide();
 		TileMapUnflattener.Call("unflatten");
 		
 		Room.StartingCell = Drawer.StartingCell;

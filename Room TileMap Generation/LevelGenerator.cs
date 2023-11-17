@@ -1,7 +1,9 @@
 using Godot;
 using System;
 
-namespace ProgJam2023.Rooms;
+using ProgJam2023.Rooms;
+
+namespace ProgJam2023.RoomTileMapGeneration;
 
 public partial class LevelGenerator : Node
 {

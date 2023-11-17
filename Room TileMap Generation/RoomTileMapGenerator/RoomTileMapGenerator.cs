@@ -1,10 +1,14 @@
 using Godot;
 using System;
 
+namespace ProgJam2023.RoomTileMapGeneration;
+
 public partial class RoomTileMapGenerator : Node
 {
 	[Export]
 	private Node GDRoomTileMapGenerator;
+	
+	public TileMap TargetTileMap => (TileMap)GDRoomTileMapGenerator.Get("target_tile_map");
 	
 	[Signal]
 	public delegate void TilesFinishedEventHandler();

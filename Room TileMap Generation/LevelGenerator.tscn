@@ -8,8 +8,8 @@
 script = ExtResource("1_dginv")
 RoomManager = NodePath("Demo")
 RoomGenerator = NodePath("RoomGenerator")
-RoomSizeMin = Vector2i(21, 12)
-RoomSizeMax = Vector2i(21, 12)
+RoomSizeMin = Vector2i(10, 10)
+RoomSizeMax = Vector2i(20, 12)
 
 [node name="RoomGenerator" parent="." instance=ExtResource("2_fbram")]
 
