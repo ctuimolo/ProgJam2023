@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+using ProgJam2023.RoomTileMapGeneration;
 using static RandomSelection;
 
 namespace ProgJam2023.RoomDesignParameters;
@@ -60,13 +61,13 @@ public partial class EnemyParameters : Resource
 		Vector2I range = GetCountRange(amount);
 		int count = rng.RandiRange(range.X, range.Y);
 		
-		PackedScene[] enemies = new PackedScene[count];
+		SpawnableEnemy[] enemies = new SpawnableEnemy[count];
 		
 		EnemySet[] sets = PickN<EnemySet>(EnemySets, EnemySetCount, rng);
 		for(int i = 0; i < count; i++)
 		{
 			EnemySet set = Pick<EnemySet>(sets, rng);
-			enemies[i] = Pick<PackedScene>(set.Enemies, rng);
+			enemies[i] = Pick<SpawnableEnemy>(set.Enemies, rng);
 		}
 		
 		collapsed.Enemies = enemies;

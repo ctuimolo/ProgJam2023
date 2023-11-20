@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/RoomLayoutParameters.cs" id="1_d4ho1"]
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/RoomData.cs" id="1_r3cdw"]
-[ext_resource type="Resource" uid="uid://c121yeb4c3b8g" path="res://Room TileMap Generation/RoomParameters/Test EnemySet.tres" id="2_c4ev1"]
+[ext_resource type="Resource" uid="uid://bf4nu38bp1n1" path="res://Room TileMap Generation/Enemies/GreenSlime EnemySet.tres" id="2_minbt"]
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/RoomParameters.cs" id="2_nnuyj"]
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/EnemyParameters.cs" id="3_tlkp0"]
 
@@ -20,7 +20,7 @@ WestRoom = ""
 
 [sub_resource type="Resource" id="Resource_et1f1"]
 script = ExtResource("3_tlkp0")
-EnemySets = Array[Object]([ExtResource("2_c4ev1")])
+EnemySets = Array[Object]([ExtResource("2_minbt")])
 EnemySetCount = 1
 Amount = 7
 

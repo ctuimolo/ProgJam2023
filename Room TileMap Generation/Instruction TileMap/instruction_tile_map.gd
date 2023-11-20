@@ -15,3 +15,9 @@ func draw_array(tile_name: String, cells: Array[Vector2i]):
 	assert(tile != null)
 	for cell in cells:
 		set_cell(0, cell, tile.source_id, tile.atlas_coords, tile.alternative_tile)
+
+func read(cell: Vector2i)->String:
+	var tile = Tile.from_tile_map(self, 0, cell)
+	if tile == null:
+		return ""
+	return instruction_dictionary.get_key(tile.attributes)

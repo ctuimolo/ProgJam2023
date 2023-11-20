@@ -14,6 +14,11 @@ public partial class InstructionTileMap : Node
 		GDInstructionTileMap.Call("draw", tileName, cell);
 	}
 	
+	public string Read(Vector2I cell)
+	{
+		return (string)GDInstructionTileMap.Call("read", cell);
+	}
+	
 	/*
 	public void DrawArray(string tileName, Vector2I[] cells)
 	{

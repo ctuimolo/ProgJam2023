@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 using ProgJam2023.RoomDesignParameters;
 
@@ -22,6 +23,13 @@ public partial class RoomDesigner : Node
 	public Vector2I InsideMax => BoundsMax - new Vector2I(2, 2);
 	
 	public Vector2I StartingCell { get; private set; }
+	
+	public struct EnemySpawn
+	{
+		public SpawnableEnemy Enemy;
+		public Vector2I Cell;
+	}
+	public List<EnemySpawn> EnemySpawns = new List<EnemySpawn>();
 	
 	[Export]
 	public Resource NorthDoorPattern, SouthDoorPattern, EastDoorPattern, WestDoorPattern;
@@ -63,6 +71,8 @@ public partial class RoomDesigner : Node
 		DrawDoors();
 		
 		InitializeStartingCell();
+		
+		InitializeEnemies();
 		
 		DrawPathsToDoors();
 	}
@@ -142,6 +152,44 @@ public partial class RoomDesigner : Node
 			RNG.RandiRange(min.X, max.X),
 			RNG.RandiRange(min.Y, max.Y)
 		);
+	}
+	
+	private void InitializeEnemies()
+	{
+		Vector2I min = InsideMin + Rect.Size / 3;
+		Vector2I max = InsideMax - Rect.Size / 3;
+		foreach(SpawnableEnemy enemy in ParametersCollapsed.Enemies.Enemies)
+		{
+			Vector2I cell = new Vector2I(
+				RNG.RandiRange(min.X, max.X),
+				RNG.RandiRange(min.Y, max.Y)
+			);
+			if(CanSpawnEnemy(cell))
+			{
+				AddEnemy(enemy, cell);
+			}
+		}
+	}
+	private void AddEnemy(SpawnableEnemy enemy, Vector2I cell)
+	{
+		EnemySpawn spawn = new EnemySpawn() {
+			Enemy = enemy,
+			Cell = cell
+		};
+		EnemySpawns.Add(spawn);
+		if(Instructions.Read(cell) == "")
+		{
+			Instructions.Draw("floor", cell);
+		}
+	}
+	private bool CanSpawnEnemy(Vector2I cell)
+	{
+		if(cell == StartingCell)
+		{
+			return false;
+		}
+		string instruction = Instructions.Read(cell);
+		return instruction != "wall" && instruction != "black";
 	}
 	
 	private void DrawPathsToDoors()

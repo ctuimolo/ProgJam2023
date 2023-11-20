@@ -70,8 +70,7 @@ public partial class RoomGenerator : Node
 		Room.Name = Parameters.Data.RoomName;
 		Room.StartingCell = Designer.StartingCell;
 		AddDoors();
-		
-		// Add doors, items, enemies, etc.
+		AddEnemies();
 		
 		EmitSignal(SignalName.GenerationComplete, this, Room);
 	}
@@ -129,4 +128,29 @@ public partial class RoomGenerator : Node
 		}
 		throw new ArgumentException();
 	}
+	
+	private void AddEnemies()
+	{
+		foreach(RoomDesigner.EnemySpawn spawn in Designer.EnemySpawns)
+		{
+			EnemySpawner.Instruction instruction = new EnemySpawner.Instruction() {
+				Type = spawn.Enemy.Type,
+				Cell = spawn.Cell,
+				Name = "Bingus"
+			};
+			Room.AddEnemySpawnInstruction(instruction);
+		}
+	}
+	
+	public struct Instruction
+   {
+      public EnemyType Type;
+      public Vector2I Cell;
+      public StringName Name;
+   }
+   public enum EnemyType
+   {
+      GreenSlime,
+      PlaceHolder,
+   }
 }

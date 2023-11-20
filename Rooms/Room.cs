@@ -96,6 +96,11 @@ public partial class Room : Node2D
          Actors.Add(enemy.Name, enemy);
       }
    }
+   
+   public void AddEnemySpawnInstruction(EnemySpawner.Instruction instruction)
+   {
+      EnemySpawnInstructions.Add(instruction);
+   }
 
    private void ParseDebug_EnemySpawnCommands()
    {

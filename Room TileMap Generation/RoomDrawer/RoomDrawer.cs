@@ -2,6 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
+using ProgJam2023.TileHelper;
+
 namespace ProgJam2023.RoomTileMapGeneration;
 
 public partial class RoomDrawer : Node2D
@@ -17,6 +19,18 @@ public partial class RoomDrawer : Node2D
 	public override void _Ready()
 	{
 		RNG = new RandomNumberGenerator();
+	}
+	
+	public bool CellIsNavigable(Vector2I cell)
+	{
+		Tile tile = Tile.FromTileMap(TargetTileMap, 0, cell);
+		if(tile != null)
+		{
+			return false;
+		}
+		
+		string instruction = Instructions.Read(cell);
+		return instruction != "wall" && instruction != "black";
 	}
 	
 	public void DrawRectOutline(Rect2I rect, string instruction)

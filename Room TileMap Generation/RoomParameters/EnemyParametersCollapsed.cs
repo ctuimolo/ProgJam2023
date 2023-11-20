@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+using ProgJam2023.RoomTileMapGeneration;
+
 namespace ProgJam2023.RoomDesignParameters;
 
 [GlobalClass]
@@ -8,15 +10,15 @@ public partial class EnemyParametersCollapsed : Resource
 {
 	
 	[Export]
-	public PackedScene[] Enemies;
+	public SpawnableEnemy[] Enemies;
 	
 	public EnemyParametersCollapsed()
 	{
-		Enemies = new PackedScene[0];
+		Enemies = new SpawnableEnemy[0];
 	}
 	public EnemyParametersCollapsed(EnemyParametersCollapsed other) : this()
 	{
-		Enemies = new PackedScene[other.Enemies.Length];
+		Enemies = new SpawnableEnemy[other.Enemies.Length];
 		Array.Copy(other.Enemies, Enemies, Enemies.Length);
 	}
 	
