@@ -7,7 +7,12 @@ namespace ProgJam2023.RoomTileMapGeneration;
 public partial class RoomParameters : Resource
 {
 	[Export]
+	public string RoomName;
+	
+	[Export]
 	public bool HasNorthDoor, HasSouthDoor, HasEastDoor, HasWestDoor;
+	[Export]
+	public string NorthRoom, SouthRoom, EastRoom, WestRoom;
 	
 	[Flags]
 	public enum RoomSize {

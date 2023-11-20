@@ -20,27 +20,51 @@ public partial class LevelGenerator : Node
 	private int GeneratingRoomsCount;
 	
 	
-	[Export]
-	public Vector2I RoomSizeMin;
-	[Export]
-	public Vector2I RoomSizeMax;
-	
-	private RandomNumberGenerator rng;
-	
-	private Rect2I GetRandomRoomSize()
-	{
-		int x = rng.RandiRange(RoomSizeMin.X, RoomSizeMax.X);
-		int y = rng.RandiRange(RoomSizeMin.Y, RoomSizeMax.Y);
-		Vector2I size = new Vector2I(x, y);
-		return new Rect2I(-size / 2, size);
-	}
-	
 	public override void _Ready()
 	{
-		rng = new RandomNumberGenerator();
-		
-		GenerateRoom(DebugParameters);
-		//GenerateRoom(DebugParameters);
+		GenerateTestGrid(5, 5);
+		RoomManager.DebugStartRoom = GetRoomName(new Vector2I(2, 2));
+	}
+	private void GenerateTestGrid(int width, int height)
+	{
+		for(int x = 0; x < width; x++)
+		{
+			for(int y = 0; y < height; y++)
+			{
+				Vector2I coords = new Vector2I(x, y);
+				RoomParameters parameters = new RoomParameters(DebugParameters);
+				parameters.RoomName = GetRoomName(coords);
+				parameters.HasNorthDoor = false;
+				parameters.HasSouthDoor = false;
+				parameters.HasEastDoor = false;
+				parameters.HasWestDoor = false;
+				if(y > 0)
+				{
+					parameters.HasNorthDoor = true;
+					parameters.NorthRoom = GetRoomName(coords + new Vector2I(0, -1));
+				}
+				if(y < height - 1)
+				{
+					parameters.HasSouthDoor = true;
+					parameters.SouthRoom = GetRoomName(coords + new Vector2I(0, 1));
+				}
+				if(x > 0)
+				{
+					parameters.HasWestDoor = true;
+					parameters.WestRoom = GetRoomName(coords + new Vector2I(-1, 0));
+				}
+				if(x < width - 1)
+				{
+					parameters.HasEastDoor = true;
+					parameters.EastRoom = GetRoomName(coords + new Vector2I(1, 0));
+				}
+				GenerateRoom(parameters);
+			}
+		}
+	}
+	private string GetRoomName(Vector2I coords)
+	{
+		return $"Room {coords}";
 	}
 	
 	private void GenerateRoom(RoomParameters parameters)
@@ -48,7 +72,7 @@ public partial class LevelGenerator : Node
 		RoomGenerator roomGenerator = (RoomGenerator)RoomGeneratorScene.Instantiate();
 		AddChild(roomGenerator);
 		roomGenerator.GenerationComplete += OnRoomGenerated;
-		roomGenerator.Parameters = new RoomParameters(parameters);
+		roomGenerator.Parameters = parameters;
 		roomGenerator.Generate();
 		GeneratingRoomsCount++;
 	}
@@ -57,9 +81,9 @@ public partial class LevelGenerator : Node
 	{
 		GeneratingRoomsCount--;
 		roomGenerator.RemoveChild(room);
-		string name = $"generated room {GeneratingRoomsCount}";
+		string name = roomGenerator.Parameters.RoomName;
 		RoomManager.AddRoom(name, room);
-		RoomManager.DebugStartRoom = name;
+		//RoomManager.DebugStartRoom = name;
 		
 		if(GeneratingRoomsCount == 0)
 		{
