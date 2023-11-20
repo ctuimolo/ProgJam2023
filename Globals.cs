@@ -14,6 +14,8 @@ public enum GridDirection
 
 public static class Utils
 {
+   public static RandomNumberGenerator RNG = new RandomNumberGenerator();
+
    public static Vector2I DirectionToVector(GridDirection direction)
    {
       switch (direction)

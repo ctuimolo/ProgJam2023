@@ -5,8 +5,19 @@ using ProgJam2023.World;
 
 namespace ProgJam2023.Actors;
 
+public enum GridActorType
+{
+   Player,
+   Enemy,
+   Object,
+   Door,
+}
+
 public partial class GridActor : Node2D
 {
+   [Export]
+   public GridActorType Type { get; set; }
+
    public enum ActorCollisionType
    {
       None,
@@ -38,7 +49,6 @@ public partial class GridActor : Node2D
    public GridDirection Direction = GridDirection.Down;
 
    public Cell CurrentCell    = null;
-   public Vector2I NextCell   = Vector2I.Zero;
    public GridDirection LastStep;
 
    Label _debugText;

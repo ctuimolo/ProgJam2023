@@ -7,8 +7,10 @@
 z_index = 1
 z_as_relative = false
 script = ExtResource("1_prmsw")
+Type = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+z_as_relative = false
 texture = ExtResource("2_0roc3")
 centered = false
 hframes = 8

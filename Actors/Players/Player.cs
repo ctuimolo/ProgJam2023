@@ -5,8 +5,22 @@ using ProgJam2023.Dynamics;
 
 namespace ProgJam2023.Actors.Players;
 
+
+
+
 public partial class Player : GridActor
 {
+   public enum InstructionType
+   {
+      Move,
+   }
+
+   public class Instruction
+   {
+      public InstructionType Type;
+      public GridDirection Direction;
+   }
+
    [Export]
    protected FrameTimer _directionalInputTimer;
 
@@ -16,9 +30,10 @@ public partial class Player : GridActor
    private int _directionHoldTime = 6;
 
    // Probably to be called in Godot scene room's _Ready function
-   protected void InitPlayer()
+   public void InitPlayer()
    {
       _animationWalker.SpeedScale = 2.4f;
+      _directionHoldCount = 0;
 
       WorldManager.SetCurrentPlayer(this);
    }
@@ -34,6 +49,14 @@ public partial class Player : GridActor
    public override void _Process(double delta)
    {
       base._Process(delta);
+   }
+
+   private void SendMoveInstruction(GridDirection direction)
+   {
+      WorldManager.SetPlayerInstruction(new Instruction { 
+         Direction = direction,
+         Type = InstructionType.Move,
+      });
    }
 
    public bool ProcessInput()
@@ -60,8 +83,12 @@ public partial class Player : GridActor
       {
          if (_directionHoldCount >= _directionHoldTime)
          {
-            WorldManager.TryMoveActor(this, _direction);
-            return true;
+            _directionHoldCount = _directionHoldTime;
+            if (WorldManager.TestTraversable(this, _direction))
+            {
+               SendMoveInstruction(_direction);
+               return true;
+            }
          } else
          {
             _directionHoldCount++;

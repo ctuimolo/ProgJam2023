@@ -29,15 +29,15 @@ public partial class RoomManager : Node
 	[Export]
 	private bool InitializeOnReady = true;
 
-   // Called when the node enters the scene tree for the first time.
-   public override void _Ready()
-   {
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
 		Rooms = new Dictionary<StringName, Room>();
 		if(InitializeOnReady)
 		{
 			Initialize();
 		}
-   }
+	}
 	
 	public void Initialize()
 	{
@@ -66,10 +66,11 @@ public partial class RoomManager : Node
 		foreach (Room room in Rooms.Values)
 		{
 			room.InitCells();
-			room.FindAndAddActors(true);
+			room.FindAndAddActors();
 			room.PauseAndHideRoom();
 		}
 
+		WorldManager.SetCurrentPlayer(Player);
 		WorldManager.SetRoomManager(this);
 		WorldManager.ChangeRoom(DebugStartRoom);
 	}
