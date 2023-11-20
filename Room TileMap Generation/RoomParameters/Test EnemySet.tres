@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EnemySet" load_steps=3 format=3 uid="uid://c121yeb4c3b8g"]
+
+[ext_resource type="PackedScene" uid="uid://cokmysdsq0bym" path="res://Actors/Enemies/Slimes/Slime.tscn" id="1_nkre8"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/EnemySet.cs" id="1_sdvrk"]
+
+[resource]
+script = ExtResource("1_sdvrk")
+Enemies = Array[PackedScene]([ExtResource("1_nkre8")])

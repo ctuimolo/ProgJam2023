@@ -3,6 +3,7 @@ using System;
 
 using ProgJam2023;
 using ProgJam2023.Rooms;
+using ProgJam2023.RoomDesignParameters;
 
 namespace ProgJam2023.RoomTileMapGeneration;
 
@@ -27,6 +28,7 @@ public partial class RoomGenerator : Node
 	public delegate void GenerationCompleteEventHandler(RoomGenerator roomGenerator, Room room);
 	
 	public RoomParameters Parameters = null;
+	public RoomParametersCollapsed ParametersCollapsed = null;
 	
 	private RandomNumberGenerator RNG;
 	
@@ -45,12 +47,13 @@ public partial class RoomGenerator : Node
 			throw new InvalidOperationException();
 		}
 		
-		Parameters.Collapse(RNG);
+		ParametersCollapsed = Parameters.GetCollapsed(RNG);
 		
-		GD.Print("Parameters: ", Parameters);
+		GD.Print("ParametersCollapsed: ", ParametersCollapsed);
 		
 		Designer.RNG = RNG;
 		Designer.Parameters = Parameters;
+		Designer.ParametersCollapsed = ParametersCollapsed;
 		Designer.DesignRoom();
 		
 		RoomTileMapGenerator.SetRect(Designer.Rect);
@@ -64,7 +67,7 @@ public partial class RoomGenerator : Node
 		RoomTileMapGenerator.TargetTileMap.Hide();
 		TileMapUnflattener.Call("unflatten");
 		
-		Room.Name = Parameters.RoomName;
+		Room.Name = Parameters.Data.RoomName;
 		Room.StartingCell = Designer.StartingCell;
 		AddDoors();
 		
@@ -75,21 +78,21 @@ public partial class RoomGenerator : Node
 	
 	private void AddDoors()
 	{
-		if(Parameters.HasNorthDoor)
+		if(Parameters.Data.HasNorthDoor)
 		{
-			AddDoor(Designer.NorthDoor, Parameters.NorthRoom);
+			AddDoor(Designer.NorthDoor, Parameters.Data.NorthRoom);
 		}
-		if(Parameters.HasSouthDoor)
+		if(Parameters.Data.HasSouthDoor)
 		{
-			AddDoor(Designer.SouthDoor, Parameters.SouthRoom);
+			AddDoor(Designer.SouthDoor, Parameters.Data.SouthRoom);
 		}
-		if(Parameters.HasEastDoor)
+		if(Parameters.Data.HasEastDoor)
 		{
-			AddDoor(Designer.EastDoor, Parameters.EastRoom);
+			AddDoor(Designer.EastDoor, Parameters.Data.EastRoom);
 		}
-		if(Parameters.HasWestDoor)
+		if(Parameters.Data.HasWestDoor)
 		{
-			AddDoor(Designer.WestDoor, Parameters.WestRoom);
+			AddDoor(Designer.WestDoor, Parameters.Data.WestRoom);
 		}
 	}
 	private void AddDoor(RoomDesigner.Door door, string toRoom)

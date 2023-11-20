@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://d07jg06d2nlt"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/LevelGenerator.cs" id="1_dginv"]
-[ext_resource type="Resource" uid="uid://cbcmmdxof6qvo" path="res://Room TileMap Generation/Test RoomParameters.tres" id="2_a33qh"]
 [ext_resource type="PackedScene" uid="uid://cjr8dyyjiwu4q" path="res://Room TileMap Generation/RoomGenerator/RoomGenerator.tscn" id="2_fbram"]
+[ext_resource type="Resource" uid="uid://cbcmmdxof6qvo" path="res://Room TileMap Generation/RoomParameters/Test RoomParameters.tres" id="3_ahifa"]
 [ext_resource type="PackedScene" uid="uid://dvro0mqd0rfkv" path="res://Rooms/Demo/Demo.tscn" id="3_itpnf"]
 
 [node name="LevelGenerator" type="Node2D" node_paths=PackedStringArray("RoomManager")]
 script = ExtResource("1_dginv")
 RoomManager = NodePath("Demo")
 RoomGeneratorScene = ExtResource("2_fbram")
-DebugParameters = ExtResource("2_a33qh")
+DebugParameters = ExtResource("3_ahifa")
 
 [node name="Demo" parent="." instance=ExtResource("3_itpnf")]
 InitializeOnReady = false

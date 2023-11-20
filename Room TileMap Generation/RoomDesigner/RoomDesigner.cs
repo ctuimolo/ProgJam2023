@@ -1,6 +1,8 @@
 using Godot;
 using System;
 
+using ProgJam2023.RoomDesignParameters;
+
 namespace ProgJam2023.RoomTileMapGeneration;
 
 public partial class RoomDesigner : Node
@@ -48,6 +50,7 @@ public partial class RoomDesigner : Node
 	public RandomNumberGenerator RNG;
 	
 	public RoomParameters Parameters;
+	public RoomParametersCollapsed ParametersCollapsed;
 	
 	public void DesignRoom()
 	{
@@ -67,14 +70,7 @@ public partial class RoomDesigner : Node
 	// Define size of room
 	private void InitializeRect()
 	{
-		int width = Parameters.GetSize(Parameters.Width).X;
-		int height = Parameters.GetSize(Parameters.Height).Y;
-		if(Parameters.IsSquareProportions())
-		{
-			width = Math.Min(width, height);
-			height = width;
-		}
-		Vector2I size = new Vector2I(width, height);
+		Vector2I size = ParametersCollapsed.Layout.Size;
 		Rect = new Rect2I(-size / 2, size);
 	}
 	private void DrawRoomOutline()
@@ -85,7 +81,7 @@ public partial class RoomDesigner : Node
 	// Define door positions
 	private void InitializeDoors()
 	{
-		if(Parameters.HasNorthDoor)
+		if(Parameters.Data.HasNorthDoor)
 		{
 			NorthDoor = new Door(NorthDoorPattern);
 			NorthDoor.Position = new Vector2I(
@@ -94,7 +90,7 @@ public partial class RoomDesigner : Node
 			);
 		}
 		
-		if(Parameters.HasSouthDoor)
+		if(Parameters.Data.HasSouthDoor)
 		{
 			SouthDoor = new Door(SouthDoorPattern);
 			SouthDoor.Position = new Vector2I(
@@ -103,7 +99,7 @@ public partial class RoomDesigner : Node
 			);
 		}
 		
-		if(Parameters.HasEastDoor)
+		if(Parameters.Data.HasEastDoor)
 		{
 			EastDoor = new Door(EastDoorPattern);
 			EastDoor.Position = new Vector2I(
@@ -112,7 +108,7 @@ public partial class RoomDesigner : Node
 			);
 		}
 		
-		if(Parameters.HasWestDoor)
+		if(Parameters.Data.HasWestDoor)
 		{
 			WestDoor = new Door(WestDoorPattern);
 			WestDoor.Position = new Vector2I(

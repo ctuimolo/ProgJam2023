@@ -2,6 +2,7 @@ using Godot;
 using System;
 
 using ProgJam2023.Rooms;
+using ProgJam2023.RoomDesignParameters;
 
 namespace ProgJam2023.RoomTileMapGeneration;
 
@@ -33,30 +34,32 @@ public partial class LevelGenerator : Node
 			{
 				Vector2I coords = new Vector2I(x, y);
 				RoomParameters parameters = new RoomParameters(DebugParameters);
-				parameters.RoomName = GetRoomName(coords);
-				parameters.HasNorthDoor = false;
-				parameters.HasSouthDoor = false;
-				parameters.HasEastDoor = false;
-				parameters.HasWestDoor = false;
+				parameters.Data = new RoomData();
+				RoomData data = parameters.Data;
+				data.RoomName = GetRoomName(coords);
+				data.HasNorthDoor = false;
+				data.HasSouthDoor = false;
+				data.HasEastDoor = false;
+				data.HasWestDoor = false;
 				if(y > 0)
 				{
-					parameters.HasNorthDoor = true;
-					parameters.NorthRoom = GetRoomName(coords + new Vector2I(0, -1));
+					data.HasNorthDoor = true;
+					data.NorthRoom = GetRoomName(coords + new Vector2I(0, -1));
 				}
 				if(y < height - 1)
 				{
-					parameters.HasSouthDoor = true;
-					parameters.SouthRoom = GetRoomName(coords + new Vector2I(0, 1));
+					data.HasSouthDoor = true;
+					data.SouthRoom = GetRoomName(coords + new Vector2I(0, 1));
 				}
 				if(x > 0)
 				{
-					parameters.HasWestDoor = true;
-					parameters.WestRoom = GetRoomName(coords + new Vector2I(-1, 0));
+					data.HasWestDoor = true;
+					data.WestRoom = GetRoomName(coords + new Vector2I(-1, 0));
 				}
 				if(x < width - 1)
 				{
-					parameters.HasEastDoor = true;
-					parameters.EastRoom = GetRoomName(coords + new Vector2I(1, 0));
+					data.HasEastDoor = true;
+					data.EastRoom = GetRoomName(coords + new Vector2I(1, 0));
 				}
 				GenerateRoom(parameters);
 			}
@@ -81,7 +84,7 @@ public partial class LevelGenerator : Node
 	{
 		GeneratingRoomsCount--;
 		roomGenerator.RemoveChild(room);
-		string name = roomGenerator.Parameters.RoomName;
+		string name = roomGenerator.Parameters.Data.RoomName;
 		RoomManager.AddRoom(name, room);
 		//RoomManager.DebugStartRoom = name;
 		
