@@ -19,7 +19,7 @@ public partial class RoomGenerator : Node
 	public RoomDesigner Designer;
 	
 	[Export]
-	private RoomTileMapGenerator RoomTileMapGenerator;
+	private RoomWFCManager RoomWFCManager;
 	
 	[Export]
 	private Node TileMapUnflattener;
@@ -37,7 +37,7 @@ public partial class RoomGenerator : Node
 	public override void _Ready()
 	{	
 		RNG = new RandomNumberGenerator();
-		RoomTileMapGenerator.TilesFinished += OnTilesFinished;
+		RoomWFCManager.TilesFinished += OnTilesFinished;
 	}
 	
 	public void Generate()
@@ -56,15 +56,15 @@ public partial class RoomGenerator : Node
 		Designer.ParametersCollapsed = ParametersCollapsed;
 		Designer.DesignRoom();
 		
-		RoomTileMapGenerator.SetRect(Designer.Rect);
-		RoomTileMapGenerator.Collapse();
+		RoomWFCManager.SetRect(Designer.Rect);
+		RoomWFCManager.Collapse();
 	}
 	
 	private void OnTilesFinished()
 	{
 		Generated = true;
 		
-		RoomTileMapGenerator.TargetTileMap.Hide();
+		RoomWFCManager.TargetTileMap.Hide();
 		TileMapUnflattener.Call("unflatten");
 		
 		Room.Name = Parameters.Data.RoomName;

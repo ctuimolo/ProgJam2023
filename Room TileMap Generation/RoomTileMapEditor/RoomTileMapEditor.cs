@@ -6,7 +6,7 @@ using ProgJam2023.TileHelper;
 
 namespace ProgJam2023.RoomTileMapGeneration;
 
-public partial class RoomDrawer : Node2D
+public partial class RoomTileMapEditor : Node2D
 {
 	
 	[Export]

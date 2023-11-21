@@ -9,8 +9,8 @@ public partial class SpawnableEnemy : Resource
 	[Export]
 	public ProgJam2023.Rooms.EnemySpawner.EnemyType Type;
 	
-	public virtual bool CanSpawn(Vector2I cell, RoomDrawer drawer)
+	public virtual bool CanSpawn(Vector2I cell, RoomTileMapEditor tileMapEditor)
 	{
-		return drawer.CellIsNavigable(cell);
+		return tileMapEditor.CellIsNavigable(cell);
 	}
 }

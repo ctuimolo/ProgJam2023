@@ -5,24 +5,24 @@
 [ext_resource type="TileSet" uid="uid://bqwolbpfeeybb" path="res://Assets/Tilesets/DemoTileset2.tres" id="2_apddh"]
 [ext_resource type="PackedScene" uid="uid://fvboup4gn4on" path="res://Room TileMap Generation/Instruction TileMap/Instruction TileMap.tscn" id="3_2bh3g"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Instruction TileMap/InstructionTileMap.cs" id="3_cjp5r"]
-[ext_resource type="Script" path="res://Room TileMap Generation/RoomDrawer/RoomDrawer.cs" id="4_lgo5w"]
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomDesigner/RoomDesigner.cs" id="5_0lacv"]
 [ext_resource type="Resource" uid="uid://bnqggplsom1wq" path="res://Room TileMap Generation/Door Patterns/DoorPattern north.tres" id="6_hbtwi"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomTileMapEditor/RoomTileMapEditor.cs" id="6_tvfdc"]
 [ext_resource type="Resource" uid="uid://bfpe1xrpubu3j" path="res://Room TileMap Generation/Door Patterns/DoorPattern south.tres" id="7_75xp1"]
 [ext_resource type="Resource" uid="uid://cv26dsgq4we" path="res://Room TileMap Generation/Door Patterns/DoorPattern east.tres" id="8_8qjkf"]
 [ext_resource type="Resource" uid="uid://cp081cy65vqfh" path="res://Room TileMap Generation/Door Patterns/DoorPattern west.tres" id="9_tmalr"]
-[ext_resource type="Script" path="res://Room TileMap Generation/RoomTileMapGenerator/RoomTileMapGenerator.cs" id="10_ftagp"]
-[ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/RoomTileMapGenerator/GDRoomTileMapGenerator.tscn" id="11_fo4ao"]
 [ext_resource type="Script" path="res://Room TileMap Generation/tile_map_unflattener.gd" id="12_mfh4x"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomWFCManager/RoomWFCManager.cs" id="12_spuls"]
 [ext_resource type="PackedScene" uid="uid://br00tplhetu2k" path="res://Rooms/Room.tscn" id="13_kpi5q"]
+[ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/RoomWFCManager/GDRoomWFCManager.tscn" id="13_uc635"]
 [ext_resource type="PackedScene" uid="uid://dbteu7tmpiv3f" path="res://Rooms/RoomTileMap.tscn" id="14_e34bn"]
 
-[node name="RoomGenerator" type="Node2D" node_paths=PackedStringArray("Room", "Designer", "RoomTileMapGenerator", "TileMapUnflattener")]
+[node name="RoomGenerator" type="Node2D" node_paths=PackedStringArray("Room", "Designer", "RoomWFCManager", "TileMapUnflattener")]
 script = ExtResource("1_4xnqt")
 Room = NodePath("Room")
 DoorScene = ExtResource("2_3deqd")
 Designer = NodePath("RoomDesigner")
-RoomTileMapGenerator = NodePath("RoomTileMapGenerator")
+RoomWFCManager = NodePath("RoomWFCManager")
 TileMapUnflattener = NodePath("TileMapUnflattener")
 
 [node name="Target TileMap" type="TileMap" parent="."]
@@ -38,26 +38,26 @@ GDInstructionTileMap = NodePath("GDInstructionTileMap")
 
 [node name="GDInstructionTileMap" parent="InstructionTileMap" instance=ExtResource("3_2bh3g")]
 
-[node name="RoomDesigner" type="Node2D" parent="." node_paths=PackedStringArray("TargetTileMap", "Instructions", "Drawer")]
+[node name="RoomTileMapEditor" type="Node2D" parent="." node_paths=PackedStringArray("TargetTileMap", "Instructions")]
+script = ExtResource("6_tvfdc")
+TargetTileMap = NodePath("../Target TileMap")
+Instructions = NodePath("../InstructionTileMap")
+
+[node name="RoomDesigner" type="Node2D" parent="." node_paths=PackedStringArray("TargetTileMap", "Instructions", "TileMapEditor")]
 script = ExtResource("5_0lacv")
 TargetTileMap = NodePath("../Target TileMap")
 Instructions = NodePath("../InstructionTileMap")
-Drawer = NodePath("RoomDrawer")
+TileMapEditor = NodePath("../RoomTileMapEditor")
 NorthDoorPattern = ExtResource("6_hbtwi")
 SouthDoorPattern = ExtResource("7_75xp1")
 EastDoorPattern = ExtResource("8_8qjkf")
 WestDoorPattern = ExtResource("9_tmalr")
 
-[node name="RoomDrawer" type="Node2D" parent="RoomDesigner" node_paths=PackedStringArray("TargetTileMap", "Instructions")]
-script = ExtResource("4_lgo5w")
-TargetTileMap = NodePath("../../Target TileMap")
-Instructions = NodePath("../../InstructionTileMap")
+[node name="RoomWFCManager" type="Node2D" parent="." node_paths=PackedStringArray("GDRoomWFCManager")]
+script = ExtResource("12_spuls")
+GDRoomWFCManager = NodePath("GDRoomWFCManager")
 
-[node name="RoomTileMapGenerator" type="Node2D" parent="." node_paths=PackedStringArray("GDRoomTileMapGenerator")]
-script = ExtResource("10_ftagp")
-GDRoomTileMapGenerator = NodePath("GDRoomTileMapGenerator")
-
-[node name="GDRoomTileMapGenerator" parent="RoomTileMapGenerator" node_paths=PackedStringArray("target_tile_map", "instruction_tile_map") instance=ExtResource("11_fo4ao")]
+[node name="GDRoomWFCManager" parent="RoomWFCManager" node_paths=PackedStringArray("target_tile_map", "instruction_tile_map") instance=ExtResource("13_uc635")]
 target_tile_map = NodePath("../../Target TileMap")
 instruction_tile_map = NodePath("../../InstructionTileMap/GDInstructionTileMap")
 
@@ -71,4 +71,4 @@ Map = NodePath("RoomTileMap")
 
 [node name="RoomTileMap" parent="Room" instance=ExtResource("14_e34bn")]
 
-[connection signal="tiles_finished" from="RoomTileMapGenerator/GDRoomTileMapGenerator" to="RoomTileMapGenerator" method="OnTilesFinished"]
+[connection signal="tiles_finished" from="RoomWFCManager/GDRoomWFCManager" to="RoomWFCManager" method="OnTilesFinished"]

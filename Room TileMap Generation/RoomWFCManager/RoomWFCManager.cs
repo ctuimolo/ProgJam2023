@@ -3,24 +3,24 @@ using System;
 
 namespace ProgJam2023.RoomTileMapGeneration;
 
-public partial class RoomTileMapGenerator : Node
+public partial class RoomWFCManager : Node
 {
 	[Export]
-	private Node GDRoomTileMapGenerator;
+	private Node GDRoomWFCManager;
 	
-	public TileMap TargetTileMap => (TileMap)GDRoomTileMapGenerator.Get("target_tile_map");
+	public TileMap TargetTileMap => (TileMap)GDRoomWFCManager.Get("target_tile_map");
 	
 	[Signal]
 	public delegate void TilesFinishedEventHandler();
 	
 	public void Collapse()
 	{
-		GDRoomTileMapGenerator.Call("collapse");
+		GDRoomWFCManager.Call("collapse");
 	}
 	
 	public void SetRect(Rect2I rect)
 	{
-		GDRoomTileMapGenerator.Call("set_rect", rect);
+		GDRoomWFCManager.Call("set_rect", rect);
 	}
 	
 	private void OnTilesFinished()

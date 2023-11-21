@@ -14,7 +14,7 @@ public partial class RoomDesigner : Node
 	public InstructionTileMap Instructions;
 	
 	[Export]
-	public RoomDrawer Drawer;
+	public RoomTileMapEditor TileMapEditor;
 	
 	public Rect2I Rect { get; set; }
 	public Vector2I BoundsMin => Rect.Position;
@@ -62,7 +62,7 @@ public partial class RoomDesigner : Node
 	
 	public void DesignRoom()
 	{
-		Drawer.RNG = RNG;
+		TileMapEditor.RNG = RNG;
 		
 		InitializeRect();
 		DrawRoomOutline();
@@ -85,7 +85,7 @@ public partial class RoomDesigner : Node
 	}
 	private void DrawRoomOutline()
 	{
-		Drawer.DrawRectOutline(BoundsMin, BoundsMax, "black");
+		TileMapEditor.DrawRectOutline(BoundsMin, BoundsMax, "black");
 	}
 	
 	// Define door positions
@@ -140,7 +140,7 @@ public partial class RoomDesigner : Node
 		{
 			return;
 		}
-		Drawer.DrawDoor(door);
+		TileMapEditor.DrawDoor(door);
 	}
 	
 	// Define starting cell coords
@@ -205,7 +205,7 @@ public partial class RoomDesigner : Node
 		{
 			return;
 		}
-		Drawer.DrawPathDoorToPoint(door, StartingCell);
+		TileMapEditor.DrawPathDoorToPoint(door, StartingCell);
 	}
 	
 }
