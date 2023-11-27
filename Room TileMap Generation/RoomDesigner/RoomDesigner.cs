@@ -85,7 +85,7 @@ public partial class RoomDesigner : Node
 	}
 	private void DrawRoomOutline()
 	{
-		TileMapEditor.DrawInstructionRectOutline("black", BoundsMin, BoundsMax, true);
+		TileMapEditor.DrawInstructionRectOutline(BoundsMin, BoundsMax, "black", "RoomOutline");
 	}
 	
 	// Define door positions
@@ -140,7 +140,7 @@ public partial class RoomDesigner : Node
 		{
 			return;
 		}
-		TileMapEditor.DrawDoor(door);
+		TileMapEditor.DrawDoor(door, "Door");
 	}
 	
 	// Define starting cell coords
@@ -164,7 +164,7 @@ public partial class RoomDesigner : Node
 				RNG.RandiRange(min.X, max.X),
 				RNG.RandiRange(min.Y, max.Y)
 			);
-			if(CanSpawnEnemy(cell))
+			if(enemy.CanSpawn(cell, TileMapEditor))
 			{
 				AddEnemy(enemy, cell);
 			}
@@ -172,24 +172,12 @@ public partial class RoomDesigner : Node
 	}
 	private void AddEnemy(SpawnableEnemy enemy, Vector2I cell)
 	{
+		enemy.PrepareSpawnArea(cell, TileMapEditor);
 		EnemySpawn spawn = new EnemySpawn() {
 			Enemy = enemy,
 			Cell = cell
 		};
 		EnemySpawns.Add(spawn);
-		if(Instructions.Read(cell) == "")
-		{
-			Instructions.Draw("floor", cell);
-		}
-	}
-	private bool CanSpawnEnemy(Vector2I cell)
-	{
-		if(cell == StartingCell)
-		{
-			return false;
-		}
-		string instruction = Instructions.Read(cell);
-		return instruction != "wall" && instruction != "black";
 	}
 	
 	private void DrawPathsToDoors()

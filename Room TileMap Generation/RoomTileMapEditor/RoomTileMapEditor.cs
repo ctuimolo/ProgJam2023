@@ -25,25 +25,23 @@ public partial class RoomTileMapEditor : Node2D
 	}
 	
 	// Draw a tile on a cell
-	public void DrawTile(Tile tile, Vector2I cell, bool claim) => DrawTile(tile.Attributes, cell, claim);
-	public void DrawTile(TileAttributes attributes, Vector2I cell, bool claim)
+	public void DrawTile(Vector2I cell, Tile tile, StringName claimID) => DrawTile(cell, tile.Attributes, claimID);
+	public void DrawTile(Vector2I cell, TileAttributes attributes, StringName claimID)
 	{
-		if(ClaimedCellCollection.CellIsClaimed(cell)) throw new ArgumentException();
-		if(claim)
+		if(claimID != null)
 		{
-			ClaimedCellCollection.ClaimCell(cell);
+			ClaimedCellCollection.ClaimCell(cell, claimID);
 		}
 		SetCell(cell, attributes);
 	}
 	
 	// Draw one tile over several cells
-	public void DrawTiles(Tile tile, IEnumerable<Vector2I> cells, bool claim) => DrawTiles(tile.Attributes, cells, claim);
-	public void DrawTiles(TileAttributes attributes, IEnumerable<Vector2I> cells, bool claim)
+	public void DrawTiles(IEnumerable<Vector2I> cells, Tile tile, StringName claimID) => DrawTiles(cells, tile.Attributes, claimID);
+	public void DrawTiles(IEnumerable<Vector2I> cells, TileAttributes attributes, StringName claimID)
 	{
-		if(ClaimedCellCollection.ContainsClaimedCells(cells)) throw new ArgumentException();
-		if(claim)
+		if(claimID != null)
 		{
-			ClaimedCellCollection.ClaimCells(cells);
+			ClaimedCellCollection.ClaimCells(cells, claimID);
 		}
 		foreach(Vector2I cell in cells)
 		{
@@ -52,50 +50,35 @@ public partial class RoomTileMapEditor : Node2D
 	}
 	
 	// Draw several tiles over several cells
-	public void DrawTiles(IEnumerable<Tile> tiles, IEnumerable<Vector2I> cells, bool claim)
+	public void DrawTiles(IEnumerable<Vector2I> cells, IEnumerable<Tile> tiles, StringName claimID)
 	{
+		List<Vector2I> cellsList = new List<Vector2I>(cells);
 		List<TileAttributes> tilesList = new List<TileAttributes>();
-		List<Vector2I> cellsList = new List<Vector2I>();
 		foreach(Tile tile in tiles)
 		{
 			tilesList.Add(tile.Attributes);
 		}
-		foreach(Vector2I cell in cells)
-		{
-			cellsList.Add(cell);
-		}
-		DrawTiles(tilesList, cellsList, claim);
+		DrawTiles(cellsList, tilesList, claimID);
 	}
-	public void DrawTiles(IEnumerable<TileAttributes> tiles, IEnumerable<Vector2I> cells, bool claim)
+	public void DrawTiles(IEnumerable<Vector2I> cells, IEnumerable<TileAttributes> tiles, StringName claimID)
 	{
-		List<TileAttributes> tilesList = new List<TileAttributes>();
-		List<Vector2I> cellsList = new List<Vector2I>();
-		foreach(TileAttributes tileAttributes in tiles)
-		{
-			tilesList.Add(tileAttributes);
-		}
-		foreach(Vector2I cell in cells)
-		{
-			cellsList.Add(cell);
-		}
-		DrawTiles(tilesList, cellsList, claim);
+		DrawTiles(new List<Vector2I>(cells), new List<TileAttributes>(tiles), claimID);
 	}
-	public void DrawTiles(IList<Tile> tiles, IList<Vector2I> cells, bool claim)
+	public void DrawTiles(IList<Vector2I> cells, IList<Tile> tiles, StringName claimID)
 	{
 		List<TileAttributes> tileAttributesList = new List<TileAttributes>();
 		foreach(Tile tile in tiles)
 		{
 			tileAttributesList.Add(tile.Attributes);
 		}
-		DrawTiles(tileAttributesList, cells, claim);
+		DrawTiles(cells, tileAttributesList, claimID);
 	}
-	public void DrawTiles(IList<TileAttributes> tiles, IList<Vector2I> cells, bool claim)
+	public void DrawTiles(IList<Vector2I> cells, IList<TileAttributes> tiles, StringName claimID)
 	{
 		if(tiles.Count != cells.Count) throw new ArgumentException();
-		if(ClaimedCellCollection.ContainsClaimedCells(cells)) throw new ArgumentException();
-		if(claim)
+		if(claimID != null)
 		{
-			ClaimedCellCollection.ClaimCells(cells);
+			ClaimedCellCollection.ClaimCells(cells, claimID);
 		}
 		for(int i = 0; i < cells.Count; i++)
 		{
@@ -103,59 +86,45 @@ public partial class RoomTileMapEditor : Node2D
 		}
 	}
 	
-	public void DrawPattern(TileMapPattern pattern, Vector2I drawPoint, bool claim)
+	public void DrawPattern(Vector2I drawPoint, TileMapPattern pattern, StringName claimID)
 	{
-		if(ClaimedCellCollection.PatternAreaContainsClaimedCells(drawPoint, pattern)) throw new ArgumentException();
-		if(claim)
+		if(claimID != null)
 		{
-			ClaimedCellCollection.ClaimPatternArea(drawPoint, pattern);
+			ClaimedCellCollection.ClaimCells(drawPoint, pattern, claimID);
 		}
 		TargetTileMap.SetPattern(0, drawPoint, pattern);
 	}
 	
 	
-	public void DrawInstruction(string instruction, Vector2I cell, bool claim)
+	public void DrawInstruction(Vector2I cell, string instruction, StringName claimID)
 	{
-		if(ClaimedCellCollection.CellIsClaimed(cell)) throw new ArgumentException();
-		if(claim)
+		if(claimID != null)
 		{
-			ClaimedCellCollection.ClaimCell(cell);
+			ClaimedCellCollection.ClaimCell(cell, claimID);
 		}
 		Instructions.Draw(instruction, cell);
 	}
-	public void DrawInstructions(string instruction, IEnumerable<Vector2I> cells, bool claim)
+	public void DrawInstructions(IEnumerable<Vector2I> cells, string instruction, StringName claimID)
 	{
-		if(ClaimedCellCollection.ContainsClaimedCells(cells)) throw new ArgumentException();
-		if(claim)
+		if(claimID != null)
 		{
-			ClaimedCellCollection.ClaimCells(cells);
+			ClaimedCellCollection.ClaimCells(cells, claimID);
 		}
 		foreach(Vector2I cell in cells)
 		{
 			Instructions.Draw(instruction, cell);
 		}
 	}
-	public void DrawInstructions(IEnumerable<string> instructions, IEnumerable<Vector2I> cells, bool claim)
+	public void DrawInstructions(IEnumerable<Vector2I> cells, IEnumerable<string> instructions, StringName claimID)
 	{
-		List<string> instructionsList = new List<string>();
-		List<Vector2I> cellsList = new List<Vector2I>();
-		foreach(string instruction in instructions)
-		{
-			instructionsList.Add(instruction);
-		}
-		foreach(Vector2I cell in cells)
-		{
-			cellsList.Add(cell);
-		}
-		DrawInstructions(instructionsList, cellsList, claim);
+		DrawInstructions(new List<Vector2I>(cells), new List<string>(instructions), claimID);
 	}
-	public void DrawInstructions(IList<string> instructions, IList<Vector2I> cells, bool claim)
+	public void DrawInstructions(IList<Vector2I> cells, IList<string> instructions, StringName claimID)
 	{
 		if(instructions.Count != cells.Count) throw new ArgumentException();
-		if(ClaimedCellCollection.ContainsClaimedCells(cells)) throw new ArgumentException();
-		if(claim)
+		if(claimID != null)
 		{
-			ClaimedCellCollection.ClaimCells(cells);
+			ClaimedCellCollection.ClaimCells(cells, claimID);
 		}
 		for(int i = 0; i < cells.Count; i++)
 		{
@@ -170,19 +139,18 @@ public partial class RoomTileMapEditor : Node2D
 		{
 			return false;
 		}
-		
 		string instruction = Instructions.Read(cell);
 		return instruction != "wall" && instruction != "black";
 	}
 	
-	public void DrawInstructionRectOutline(string instruction, Rect2I rect, bool claim)
+	public void DrawInstructionRectOutline(Rect2I rect, string instruction, StringName claimID)
 	{
-		DrawInstructionRectOutline(instruction, rect.Position, rect.End, claim);
+		DrawInstructionRectOutline(rect.Position, rect.End, instruction, claimID);
 	}
-	public void DrawInstructionRectOutline(string instruction, Vector2I min, Vector2I max, bool claim)
+	public void DrawInstructionRectOutline(Vector2I min, Vector2I max, string instruction, StringName claimID)
 	{
 		List<Vector2I> cells = GetRectOutlineCells(min, max);
-		DrawInstructions(instruction, cells, claim);
+		DrawInstructions(cells, instruction, claimID);
 	}
 	
 	public List<Vector2I> GetRectOutlineCells(Rect2I rect)
@@ -206,12 +174,12 @@ public partial class RoomTileMapEditor : Node2D
 		return cells;
 	}
 	
-	//////////////////////////////////////////////////////////////
-	
-	public void DrawDoor(RoomDesigner.Door door)
+	public void DrawDoor(RoomDesigner.Door door, StringName claimID)
 	{
-		TargetTileMap.SetPattern(0, door.Position - door.PatternCenter, door.TileMapPattern);
+		DrawPattern(door.Position - door.PatternCenter, door.TileMapPattern, claimID);
 	}
+	
+	//////////////////////////////////////////////////////////////
 	
 	public void DrawPathBetweenDoors(RoomDesigner.Door doorA, RoomDesigner.Door doorB)
 	{

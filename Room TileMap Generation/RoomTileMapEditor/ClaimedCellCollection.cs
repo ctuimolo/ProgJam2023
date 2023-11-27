@@ -4,51 +4,103 @@ using System.Collections.Generic;
 
 public partial class ClaimedCellCollection : RefCounted
 {
-	private HashSet<Vector2I> ClaimedCells = new HashSet<Vector2I>();
+	private Dictionary<Vector2I, StringName> ClaimedCells = new Dictionary<Vector2I, StringName>();
 	
 	public ClaimedCellCollection() { }
 	
-	public void ClaimCell(Vector2I cell)
+	public void ClaimCell(Vector2I cell, StringName id)
 	{
-		if(ClaimedCells.Contains(cell))
-		{
-			throw new ArgumentException($"Cell {cell} is already claimed");
-		}
-		ClaimedCells.Add(cell);
+		if(id == null) throw new ArgumentException();
+		ClaimedCells[cell] = id;
 	}
-	public void ClaimCells(IEnumerable<Vector2I> cells)
+	public void ClaimCells(IEnumerable<Vector2I> cells, StringName id)
 	{
+		if(id == null) throw new ArgumentException();
 		foreach(Vector2I cell in cells)
 		{
-			if(ClaimedCells.Contains(cell))
+			ClaimedCells[cell] = id;
+		}
+	}
+	public void ClaimCells(IEnumerable<Vector2I> cells, IEnumerable<StringName> ids)
+	{
+		ClaimCells(new List<Vector2I>(cells), new List<StringName>(ids));
+	}
+	public void ClaimCells(IList<Vector2I> cells, IList<StringName> ids)
+	{
+		if(cells.Count != ids.Count) throw new ArgumentException();
+		if(ids.Contains(null)) throw new ArgumentException();
+		for(int i = 0; i < cells.Count; i++)
+		{
+			ClaimedCells[cells[i]] = ids[i];
+		}
+	}
+	
+	public bool TryGetClaimID(Vector2I cell, out StringName claimID)
+	{
+		return ClaimedCells.TryGetValue(cell, out claimID);
+	}
+	// Get claim ID for cell if claimed, else return null
+	public StringName GetClaimID(Vector2I cell)
+	{
+		if(ClaimedCells.TryGetValue(cell, out StringName claimID))
+		{
+			return claimID;
+		}
+		return null;
+	}
+	// Get a list of claim IDs parallel to given cells
+	// Elements in the returned array parallel to unclaimed cells are null
+	public List<StringName> GetCellClaimIDs(IEnumerable<Vector2I> cells)
+	{
+		List<StringName> claimIDs = new List<StringName>();
+		foreach(Vector2I cell in cells)
+		{
+			claimIDs.Add(GetClaimID(cell));
+		}
+		return claimIDs;
+	}
+	// Get a set of all claim IDs found from the cells
+	public HashSet<StringName> GetClaimIDSet(IEnumerable<Vector2I> cells)
+	{
+		HashSet<StringName> claimIDs = new HashSet<StringName>();
+		foreach(Vector2I cell in cells)
+		{
+			if(ClaimedCells.TryGetValue(cell, out StringName claimID))
 			{
-				throw new ArgumentException($"Cell {cell} is already claimed");
+				claimIDs.Add(claimID);
 			}
 		}
-		foreach(Vector2I cell in cells)
-		{
-			ClaimedCells.Add(cell);
-		}
+		return claimIDs;
 	}
-	public void ClaimPatternArea(Vector2I drawPosition, TileMapPattern pattern)
+	
+	// Check if any cell in the collection has the specified claim ID
+	public bool ContainsClaimID(IEnumerable<Vector2I> cells, StringName claimID)
 	{
-		List<Vector2I> cells = new List<Vector2I>();
-		foreach(Vector2I cell in pattern.GetUsedCells())
+		return ContainsClaimIDs(cells, new StringName[] { claimID });
+	}
+	// Check if nay cell in the collection has any of the specified claim IDs
+	public bool ContainsClaimIDs(IEnumerable<Vector2I> cells, IEnumerable<StringName> claimIDs)
+	{
+		HashSet<StringName> cellIDs = GetClaimIDSet(cells);
+		foreach(StringName claimID in claimIDs)
 		{
-			cells.Add(cell + drawPosition);
+			if(cellIDs.Contains(claimID))
+			{
+				return true;
+			}
 		}
-		ClaimCells(cells);
+		return false;
 	}
 	
 	public bool CellIsClaimed(Vector2I cell)
 	{
-		return ClaimedCells.Contains(cell);
+		return ClaimedCells.ContainsKey(cell);
 	}
 	public bool ContainsClaimedCells(IEnumerable<Vector2I> cells)
 	{
 		foreach(Vector2I cell in cells)
 		{
-			if(ClaimedCells.Contains(cell))
+			if(ClaimedCells.ContainsKey(cell))
 			{
 				return true;
 			}
@@ -60,7 +112,7 @@ public partial class ClaimedCellCollection : RefCounted
 		List<Vector2I> claimed = new List<Vector2I>();
 		foreach(Vector2I cell in cells)
 		{
-			if(ClaimedCells.Contains(cell))
+			if(ClaimedCells.ContainsKey(cell))
 			{
 				claimed.Add(cell);
 			}
@@ -68,26 +120,38 @@ public partial class ClaimedCellCollection : RefCounted
 		return claimed;
 	}
 	
-	public bool PatternAreaContainsClaimedCells(Vector2I drawPoint, TileMapPattern pattern)
+	
+	public void ClaimCells(Vector2I drawPoint, TileMapPattern pattern, StringName id)
 	{
-		foreach(Vector2I cell in pattern.GetUsedCells())
-		{
-			if(ClaimedCells.Contains(cell + drawPoint))
-			{
-				return true;
-			}
-		}
-		return false;
+		ClaimCells(GetPatternCells(drawPoint, pattern), id);
 	}
-	public List<Vector2I> GetClaimedCellsInPatternArea(Vector2I drawPoint, TileMapPattern pattern)
+	public bool ContainsClaimedCells(Vector2I drawPoint, TileMapPattern pattern)
+	{
+		return ContainsClaimedCells(GetPatternCells(drawPoint, pattern));
+	}
+	public List<Vector2I> GetClaimedCells(Vector2I drawPoint, TileMapPattern pattern)
+	{
+		return GetClaimedCells(GetPatternCells(drawPoint, pattern));
+	}
+	public HashSet<StringName> GetClaimIDSet(Vector2I drawPoint, TileMapPattern pattern)
+	{
+		return GetClaimIDSet(GetPatternCells(drawPoint, pattern));
+	}
+	public bool ContainsClaimID(Vector2I drawPoint, TileMapPattern pattern, StringName claimID)
+	{
+		return ContainsClaimID(GetPatternCells(drawPoint, pattern), claimID);
+	}
+	public bool ContainsClaimIDs(Vector2I drawPoint, TileMapPattern pattern, IEnumerable<StringName> claimIDs)
+	{
+		return ContainsClaimIDs(GetPatternCells(drawPoint, pattern), claimIDs);
+	}
+	
+	private static List<Vector2I> GetPatternCells(Vector2I drawPoint, TileMapPattern pattern)
 	{
 		List<Vector2I> cells = new List<Vector2I>();
 		foreach(Vector2I cell in pattern.GetUsedCells())
 		{
-			if(ClaimedCells.Contains(cell + drawPoint))
-			{
-				cells.Add(cell + drawPoint);
-			}
+			cells.Add(cell + drawPoint);
 		}
 		return cells;
 	}
