@@ -85,7 +85,7 @@ public partial class RoomDesigner : Node
 	}
 	private void DrawRoomOutline()
 	{
-		TileMapEditor.DrawRectOutline(BoundsMin, BoundsMax, "black");
+		TileMapEditor.DrawInstructionRectOutline("black", BoundsMin, BoundsMax, true);
 	}
 	
 	// Define door positions

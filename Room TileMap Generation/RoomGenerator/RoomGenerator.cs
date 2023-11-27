@@ -35,7 +35,7 @@ public partial class RoomGenerator : Node
 	private bool Generated = false;
 	
 	public override void _Ready()
-	{	
+	{
 		RNG = new RandomNumberGenerator();
 		RoomWFCManager.TilesFinished += OnTilesFinished;
 	}
