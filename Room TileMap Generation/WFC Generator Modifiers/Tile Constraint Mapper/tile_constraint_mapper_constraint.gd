@@ -42,6 +42,6 @@ func get_domain_bitset()->WFCBitSet:
 	_domain_bitset = tile_constraint_mapper.get_empty_bitset()
 	for tile in domain_set.get_tiles():
 		var tile_id = tile_constraint_mapper.get_tile_id(tile.attributes)
-		if tile_id > 0:
+		if tile_id > -1:
 			_domain_bitset.set_bit(tile_id)
 	return _domain_bitset
