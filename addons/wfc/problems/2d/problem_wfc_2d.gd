@@ -204,7 +204,7 @@ func split(concurrency_limit: int) -> Array[SubProblem]:
 		for i in range(partitions.size() - 1):
 			rects.append(Rect2i(
 				partitions[i],
-				rect.position.x,
+				rect.position.y, # changed from rect.position.x
 				partitions[i + 1] - partitions[i],
 				rect.size.y
 			))

@@ -6,7 +6,7 @@ var min: Vector2i:
 var max: Vector2i:
 	get: return rect.end - Vector2i(1, 1)
 
-@export var tile_map_generator: RoomTileMapGenerator
+@export var tile_map_generator: RoomWFCManager
 @export var instructions: InstructionTileMap
 
 @export var north_door_pattern: DoorPattern
