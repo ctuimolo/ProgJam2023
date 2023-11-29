@@ -1,0 +1,49 @@
+[gd_scene load_steps=12 format=3 uid="uid://dlblxua2g3nhm"]
+
+[ext_resource type="PackedScene" uid="uid://cjr8dyyjiwu4q" path="res://Room TileMap Generation/RoomGenerator/RoomGenerator.tscn" id="1_7hcxy"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Path Building/PathBuildingTest.cs" id="1_wm4au"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/RoomData.cs" id="2_x184j"]
+[ext_resource type="Resource" uid="uid://bf4nu38bp1n1" path="res://Room TileMap Generation/Enemies/GreenSlime EnemySet.tres" id="3_fjeoh"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/EnemyParameters.cs" id="3_p3y6l"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/RoomLayoutParameters.cs" id="4_e3vee"]
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomParameters/RoomParameters.cs" id="5_h7aj6"]
+
+[sub_resource type="Resource" id="Resource_vpmt8"]
+script = ExtResource("2_x184j")
+RoomName = ""
+HasNorthDoor = true
+HasSouthDoor = true
+HasEastDoor = true
+HasWestDoor = true
+NorthRoom = ""
+SouthRoom = ""
+EastRoom = ""
+WestRoom = ""
+
+[sub_resource type="Resource" id="Resource_1c1tb"]
+script = ExtResource("3_p3y6l")
+EnemySets = Array[Object]([ExtResource("3_fjeoh")])
+EnemySetCount = 1
+Amount = 1
+
+[sub_resource type="Resource" id="Resource_va2ni"]
+script = ExtResource("4_e3vee")
+Width = 14
+Height = 14
+Proportion = 3
+
+[sub_resource type="Resource" id="Resource_vv8gj"]
+script = ExtResource("5_h7aj6")
+Data = SubResource("Resource_vpmt8")
+Layout = SubResource("Resource_va2ni")
+Enemies = SubResource("Resource_1c1tb")
+
+[node name="PathBuildingTest" type="Node2D" node_paths=PackedStringArray("RoomGenerator")]
+script = ExtResource("1_wm4au")
+Parameters = SubResource("Resource_vv8gj")
+RoomGenerator = NodePath("RoomGenerator")
+
+[node name="RoomGenerator" parent="." instance=ExtResource("1_7hcxy")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)

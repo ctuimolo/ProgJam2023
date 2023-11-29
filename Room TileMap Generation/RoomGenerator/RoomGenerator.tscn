@@ -32,7 +32,6 @@ tile_set = ExtResource("2_apddh")
 format = 2
 
 [node name="InstructionTileMap" type="Node2D" parent="." node_paths=PackedStringArray("GDInstructionTileMap")]
-visible = false
 script = ExtResource("3_cjp5r")
 GDInstructionTileMap = NodePath("GDInstructionTileMap")
 

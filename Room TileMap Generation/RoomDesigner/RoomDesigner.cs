@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 
 using ProgJam2023.RoomDesignParameters;
+using ProgJam2023.RoomTileMapGeneration.Paths;
 
 namespace ProgJam2023.RoomTileMapGeneration;
 
@@ -15,6 +16,8 @@ public partial class RoomDesigner : Node
 	
 	[Export]
 	public RoomTileMapEditor TileMapEditor;
+	
+	public RoomPathDrawer PathDrawer;
 	
 	public Rect2I Rect { get; set; }
 	public Vector2I BoundsMin => Rect.Position;
@@ -67,14 +70,21 @@ public partial class RoomDesigner : Node
 		InitializeRect();
 		DrawRoomOutline();
 		
+		InitializePathDrawer();
+		
 		InitializeDoors();
 		DrawDoors();
 		
 		InitializeStartingCell();
 		
-		InitializeEnemies();
-		
 		DrawPathsToDoors();
+		
+		InitializeEnemies();
+	}
+	
+	private void InitializePathDrawer()
+	{
+		PathDrawer = new RoomPathDrawer(TileMapEditor, Rect, "PathFloor", "PathWall");
 	}
 	
 	// Define size of room
@@ -152,6 +162,7 @@ public partial class RoomDesigner : Node
 			RNG.RandiRange(min.X, max.X),
 			RNG.RandiRange(min.Y, max.Y)
 		);
+		TileMapEditor.DrawInstruction(StartingCell, "floor", "StartingCell");
 	}
 	
 	private void InitializeEnemies()
@@ -193,7 +204,10 @@ public partial class RoomDesigner : Node
 		{
 			return;
 		}
-		TileMapEditor.DrawPathDoorToPoint(door, StartingCell);
+		Vector2I doorExitCell = door.EnterTile;
+		TileMapEditor.DrawInstruction(doorExitCell, "floor", "Door");
+		doorExitCell -= door.EnterDirection;
+		PathDrawer.DrawPath(doorExitCell, StartingCell, 1, false, PathCombineMode.Union);
 	}
 	
 }

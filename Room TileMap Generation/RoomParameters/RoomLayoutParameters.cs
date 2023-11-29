@@ -13,6 +13,7 @@ public partial class RoomLayoutParameters : Resource
 		Medium = 4,
 		Large = 8,
 		ExtraLarge = 16,
+		Huge = 32,
 		AnySmall = ExtraSmall | Small,
 		AnyMedium = Small | Medium | Large,
 		AnyLarge = Large | ExtraLarge
@@ -33,6 +34,8 @@ public partial class RoomLayoutParameters : Resource
 				return new Vector2I(22, 14);
 			case RoomSize.ExtraLarge:
 				return new Vector2I(26, 16);
+			case RoomSize.Huge:
+				return new Vector2I(80, 45);
 			default:
 				throw new ArgumentException();
 		}

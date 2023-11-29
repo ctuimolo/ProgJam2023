@@ -5,7 +5,8 @@
 [ext_resource type="Resource" uid="uid://dgiehd8kvjgdi" path="res://Room TileMap Generation/Instruction TileMap/Instruction TileDictionary.tres" id="2_lldp2"]
 
 [node name="Instruction TileMap" type="TileMap"]
-modulate = Color(1, 1, 1, 0.501961)
+visible = false
+modulate = Color(1, 1, 1, 0.156863)
 z_index = 100
 tile_set = ExtResource("1_hfwr1")
 format = 2
