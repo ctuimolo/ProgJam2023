@@ -14,9 +14,14 @@ func get_tiles()->Array:
 	var all_tiles: Array[Tile] = TileSetHelper.new().get_all_tiles_in_set(tile_set)
 	var tagged: Array[Tile] = []
 	for tile in all_tiles:
-		var tag = tile.data.get_custom_data(custom_data_layer)
-		if included_tags.has(tag):
-			tagged.append(tile)
+		var tag_data: String = tile.data.get_custom_data(custom_data_layer)
+		if tag_data == null:
+			continue
+		var tags: PackedStringArray = tag_data.split(',')
+		for tag in tags:
+			if included_tags.has(tag):
+				tagged.append(tile)
+				break
 	return tagged
 
 func belongs_to_set(tile: Tile)->bool:
