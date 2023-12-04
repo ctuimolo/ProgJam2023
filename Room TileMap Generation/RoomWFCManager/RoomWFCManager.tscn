@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://xgwukt6cx0my"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/RoomWFCManager/RoomWFCManager.cs" id="1_fqhep"]
+[ext_resource type="PackedScene" uid="uid://bmwpkfnbtcpji" path="res://Room TileMap Generation/RoomWFCManager/GDRoomWFCManager.tscn" id="2_6xc11"]
+
+[node name="RoomWFCManager" type="Node2D" node_paths=PackedStringArray("GDRoomWFCManager")]
+script = ExtResource("1_fqhep")
+GDRoomWFCManager = NodePath("GDRoomWFCManager")
+
+[node name="GDRoomWFCManager" parent="." instance=ExtResource("2_6xc11")]
+
+[connection signal="generation_error" from="GDRoomWFCManager" to="." method="OnGenerationError"]
+[connection signal="tiles_finished" from="GDRoomWFCManager" to="." method="OnTilesFinished"]

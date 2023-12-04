@@ -19,6 +19,11 @@ public partial class RoomTileMapEditor : Node2D
 	// Remove after path generation is moved somewhere else
 	public RandomNumberGenerator RNG;
 	
+	public void Reset()
+	{
+		ClaimedCellCollection.Clear();
+	}
+	
 	private void SetCell(Vector2I cell, TileAttributes attributes)
 	{
 		TargetTileMap.SetCell(0, cell, attributes.SourceID, attributes.AtlasCoords, attributes.AlternativeTile);
@@ -179,8 +184,7 @@ public partial class RoomTileMapEditor : Node2D
 		DrawPattern(door.Position - door.PatternCenter, door.TileMapPattern, claimID);
 	}
 	
-	//////////////////////////////////////////////////////////////
-	
+	/*
 	public void DrawPathBetweenDoors(RoomDesigner.Door doorA, RoomDesigner.Door doorB)
 	{
 		Vector2I a = doorA.EnterTile;
@@ -210,5 +214,5 @@ public partial class RoomTileMapEditor : Node2D
 			Instructions.Draw("floor", cell);
 		}
 	}
-	
+	*/
 }

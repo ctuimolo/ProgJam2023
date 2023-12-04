@@ -58,6 +58,10 @@ public partial class RoomPathDrawer : RefCounted
 		{
 			GD.Print($"Path error: {a} -> {b}");
 		}
+		else
+		{
+			//path.PrintPoints();
+		}
 		TileMapEditor.DrawInstructions(path.Floors, "floor", FloorID);
 		TileMapEditor.DrawInstructions(path.Walls, "wall", WallID);
 	}

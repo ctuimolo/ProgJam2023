@@ -7,7 +7,7 @@ public partial class InstructionTileMap : Node
 {
 	
 	[Export]
-	private Node GDInstructionTileMap;
+	public Node GDInstructionTileMap;
 	
 	public void Draw(string tileName, Vector2I cell)
 	{
@@ -17,6 +17,11 @@ public partial class InstructionTileMap : Node
 	public string Read(Vector2I cell)
 	{
 		return (string)GDInstructionTileMap.Call("read", cell);
+	}
+	
+	public void Clear()
+	{
+		GDInstructionTileMap.Call("clear");
 	}
 	
 	/*

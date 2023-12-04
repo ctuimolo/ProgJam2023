@@ -13,6 +13,9 @@ public partial class RoomWFCManager : Node
 	[Signal]
 	public delegate void TilesFinishedEventHandler();
 	
+	[Signal]
+	public delegate void GenerationErrorEventHandler();
+	
 	public void Collapse()
 	{
 		GDRoomWFCManager.Call("collapse");
@@ -23,8 +26,22 @@ public partial class RoomWFCManager : Node
 		GDRoomWFCManager.Call("set_rect", rect);
 	}
 	
+	public void SetTargetTileMap(TileMap tileMap)
+	{
+		GDRoomWFCManager.Call("set_target_tile_map", tileMap);
+	}
+	public void SetInstructionTileMap(InstructionTileMap instructionTileMap)
+	{
+		GDRoomWFCManager.Call("set_instruction_tile_map", instructionTileMap.GDInstructionTileMap);
+	}
+	
 	private void OnTilesFinished()
 	{
 		EmitSignal(SignalName.TilesFinished);
+	}
+	
+	private void OnGenerationError()
+	{
+		EmitSignal(SignalName.GenerationError);
 	}
 }

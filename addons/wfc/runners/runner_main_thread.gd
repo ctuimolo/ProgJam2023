@@ -26,6 +26,10 @@ func update():
 		if solver.current_state == null or solver.current_state.is_all_solved():
 			sub_problem_solved.emit(problem, solver.current_state)
 			all_solved.emit()
+############################################################### start
+			if solver.has_generation_error:
+				has_generation_error = true
+############################################################### end
 			return
 
 		if (Time.get_ticks_msec() - start_ticks) >= runner_settings.max_ms_per_frame:

@@ -4,6 +4,10 @@ class_name WFCSolverRunner
 
 var solver_settings: WFCSolverSettings = WFCSolverSettings.new()
 
+############################################################### start
+var has_generation_error: bool = false
+############################################################### end
+
 func start(_problem: WFCProblem):
 	assert(false)
 

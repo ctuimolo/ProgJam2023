@@ -51,4 +51,20 @@ public class CellPath
 			}
 		}
 	}
+	
+	public void PrintPoints()
+	{
+		System.Text.StringBuilder stringBuilder = new System.Text.StringBuilder();
+		stringBuilder.Append("[ ");
+		for(int i = 0; i < Points.Count; i++)
+		{
+			stringBuilder.Append(Points[i]);
+			if(i < Points.Count - 1)
+			{
+				stringBuilder.Append(", ");
+			}
+		}
+		stringBuilder.Append(" ]");
+		GD.Print(stringBuilder.ToString());
+	}
 }

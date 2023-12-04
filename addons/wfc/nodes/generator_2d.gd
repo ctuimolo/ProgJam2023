@@ -57,7 +57,7 @@ var render_intermediate_results: bool = false
 @export_category("Debug mode")
 var print_rules: bool = false
 
-signal done
+signal done(generation_error: bool)
 
 
 var _runner: WFCSolverRunner = null
@@ -193,7 +193,9 @@ func start():
 	
 	_runner.start(problem)
 
-	_runner.all_solved.connect(func(): done.emit())
+############################################################### start
+	_runner.all_solved.connect(_on_all_solved)
+############################################################### end
 	_runner.sub_problem_solved.connect(_on_solved)
 	_runner.partial_solution.connect(_on_partial_solution)
 
@@ -206,6 +208,11 @@ func _on_partial_solution(problem: WFC2DProblem, state: WFCSolverState):
 		return
 	
 	_on_solved(problem, state)
+
+############################################################### start
+func _on_all_solved():
+	done.emit(_runner.has_generation_error)
+############################################################### end
 
 func _ready():
 	if start_on_ready:

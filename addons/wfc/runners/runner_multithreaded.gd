@@ -42,7 +42,7 @@ class _Task extends RefCounted:
 		return false
 
 	func ensure_stopped():
-		if thread != null:
+		if thread != null && thread.is_started(): ### added check for started
 			thread.wait_to_finish()
 	
 	func get_total_cells() -> int:
@@ -114,6 +114,10 @@ func update():
 			task.thread.wait_to_finish()
 			sub_problem_solved.emit(task.problem, task.solver.current_state)
 			completed += 1
+############################################################### start
+			if task.solver.has_generation_error:
+				has_generation_error = true
+############################################################### end
 		else:
 			partial_solution.emit(task.problem, task.solver.current_state)
 			running += 1

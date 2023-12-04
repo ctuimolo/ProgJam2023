@@ -63,6 +63,18 @@ public partial class RoomDesigner : Node
 	public RoomParameters Parameters;
 	public RoomParametersCollapsed ParametersCollapsed;
 	
+	public void Reset()
+	{
+		Rect = new Rect2I(0, 0, 0, 0);
+		StartingCell = new Vector2I(0, 0);
+		EnemySpawns.Clear();
+		NorthDoor = null;
+		SouthDoor = null;
+		EastDoor = null;
+		WestDoor = null;
+		TileMapEditor.Reset();
+	}
+	
 	public void DesignRoom()
 	{
 		TileMapEditor.RNG = RNG;

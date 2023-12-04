@@ -15,14 +15,15 @@ var _rect: Rect2i
 const _MIN_RECT_SIZE: Vector2i = Vector2i(21, 12)
 
 signal tiles_finished()
+signal generation_error()
 
 func _ready():
 	wfc_generator.done.connect(_on_wfc_done)
 	# Make sure all child components have reference to the TileMaps
-	set_target(target_tile_map)
+	set_target_tile_map(target_tile_map)
 	set_instruction_tile_map(instruction_tile_map)
 
-func set_target(p_target_tile_map: TileMap):
+func set_target_tile_map(p_target_tile_map: TileMap):
 	target_tile_map = p_target_tile_map
 	wfc_generator.target_node = target_tile_map
 	if target_tile_map != null:
@@ -74,7 +75,10 @@ func add_negative_sample(negative_sample: TileMap):
 func set_rect(p_rect: Rect2i):
 	_rect = p_rect
 	
-func _on_wfc_done():
+func _on_wfc_done(error: bool):
 	assert(_started && !_finished)
 	_finished = true
-	tiles_finished.emit()
+	if error:
+		generation_error.emit()
+	else:
+		tiles_finished.emit()

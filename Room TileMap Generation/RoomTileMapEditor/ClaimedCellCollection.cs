@@ -8,6 +8,11 @@ public partial class ClaimedCellCollection : RefCounted
 	
 	public ClaimedCellCollection() { }
 	
+	public void Clear()
+	{
+		ClaimedCells.Clear();
+	}
+	
 	public void ClaimCell(Vector2I cell, StringName id)
 	{
 		if(id == null) throw new ArgumentException();

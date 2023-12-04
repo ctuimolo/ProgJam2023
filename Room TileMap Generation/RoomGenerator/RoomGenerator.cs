@@ -13,12 +13,20 @@ public partial class RoomGenerator : Node
 	private ProgJam2023.Rooms.Room Room;
 	
 	[Export]
+	private TileMap TargetTileMap;
+	
+	[Export]
+	private InstructionTileMap InstructionTileMap;
+	
+	[Export]
 	private PackedScene DoorScene;
 	
 	[Export]
 	public RoomDesigner Designer;
 	
 	[Export]
+	private PackedScene RoomWFCManagerScene;
+	
 	private RoomWFCManager RoomWFCManager;
 	
 	[Export]
@@ -34,10 +42,12 @@ public partial class RoomGenerator : Node
 	
 	private bool Generated = false;
 	
+	private int GenerationAttempts = 0;
+	private const int MAX_GENERATION_ATTEMPTS = 100;
+	
 	public override void _Ready()
 	{
 		RNG = new RandomNumberGenerator();
-		RoomWFCManager.TilesFinished += OnTilesFinished;
 	}
 	
 	public void Generate()
@@ -56,12 +66,27 @@ public partial class RoomGenerator : Node
 		Designer.ParametersCollapsed = ParametersCollapsed;
 		Designer.DesignRoom();
 		
+		RoomWFCManager = GetRoomWFCManager();
+		
 		RoomWFCManager.SetRect(Designer.Rect);
 		RoomWFCManager.Collapse();
 	}
 	
+	private RoomWFCManager GetRoomWFCManager()
+	{
+		RoomWFCManager result = (RoomWFCManager)RoomWFCManagerScene.Instantiate();
+		result.SetTargetTileMap(TargetTileMap);
+		result.SetInstructionTileMap(InstructionTileMap);
+		result.TilesFinished += OnTilesFinished;
+		result.GenerationError += OnGenerationError;
+		AddChild(result);
+		return result;
+	}
+	
+	// Tiles finished generating without error
 	private void OnTilesFinished()
 	{
+		
 		Generated = true;
 		
 		RoomWFCManager.TargetTileMap.Hide();
@@ -72,7 +97,29 @@ public partial class RoomGenerator : Node
 		AddDoors();
 		AddEnemies();
 		
+		GD.Print($"Room '{Room.Name}' generated after {GenerationAttempts} failed attempts");
+		
 		EmitSignal(SignalName.GenerationComplete, this, Room);
+	}
+	
+	// Tiles finished generating with error
+	private void OnGenerationError()
+	{
+		GenerationAttempts++;
+		if(GenerationAttempts > MAX_GENERATION_ATTEMPTS)
+		{
+			// fall back on default room
+			throw new Exception();
+		}
+		
+		// Reset everything
+		RoomWFCManager.QueueFree();
+		TargetTileMap.Clear();
+		InstructionTileMap.Clear();
+		Designer.Reset();
+		
+		// Try to generate again
+		Generate();
 	}
 	
 	private void AddDoors()

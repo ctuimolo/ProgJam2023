@@ -7,6 +7,10 @@ var settings: WFCSolverSettings
 
 var backtracking_count: int = 0
 
+############################################################### start
+var has_generation_error: bool = false
+############################################################### end
+
 func _make_initial_state(num_cells: int, initial_domain: WFCBitSet) -> WFCSolverState:
 	var state = WFCSolverState.new()
 
@@ -41,7 +45,6 @@ func _init(problem_: WFCProblem, settings_: WFCSolverSettings = WFCSolverSetting
 
 ############################################################### start
 	# Propagate constraints after defining the initial state
-	# I'm not sure if this needs to be added
 	if _propagate_constraints():
 		print("Error with initial constraints!")
 ############################################################### end
@@ -101,7 +104,11 @@ func solve_step() -> bool:
 			
 			current_state = best_state
 			backtracking_enabled = false
-			
+
+############################################################### start
+			has_generation_error = true
+############################################################### end
+
 			return false
 
 		backtracking_count += 1
@@ -116,6 +123,9 @@ func solve_step() -> bool:
 
 				current_state = best_state
 				backtracking_enabled = false
+############################################################### start
+				has_generation_error = true
+############################################################### end
 
 		return false
 
