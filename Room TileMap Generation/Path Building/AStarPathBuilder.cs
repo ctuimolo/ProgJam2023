@@ -21,7 +21,11 @@ public partial class AStarPathBuilder : RefCounted
 	
 	public CellPath GetPath(Vector2I a, Vector2I b, PathPointTemplate template, PathCombineMode mode)
 	{
-		CellEvaluator evaluator = new CellEvaluator(TileMapEditor, template, mode, PathCombiner);
+		return GetPath(a, false, b, false, template, mode);
+	}
+	public CellPath GetPath(Vector2I a, bool aOpen, Vector2I b, bool bOpen, PathPointTemplate template, PathCombineMode mode)
+	{
+		CellEvaluator evaluator = new CellEvaluator(this, template, mode);
 		GraphBuilder.BuildGraph(evaluator);
 		int aID = GraphBuilder.GetID(a);
 		int bID = GraphBuilder.GetID(b);
@@ -32,24 +36,77 @@ public partial class AStarPathBuilder : RefCounted
 			pointsList.Add((Vector2I)point);
 		}
 		CellPath path = new CellPath(pointsList, template);
+		if(points.Length > 2)
+		{
+			Vector2I min = PathShapeHelper.FindMin(template.Walls);
+			Vector2I max = PathShapeHelper.FindMax(template.Walls);
+			if(aOpen)
+			{
+				Vector2I a1 = new Vector2I((int)points[1].X, (int)points[1].Y);
+				OpenPathEnd(path, a, a1 - a, template);
+			}
+			if(bOpen)
+			{
+				Vector2I b1 = new Vector2I((int)points[points.Length - 2].X, (int)points[points.Length - 2].Y);
+				OpenPathEnd(path, b, b1 - b, template);
+			}
+		}
 		PathCombiner.RemoveNonOverwriteCells(path, mode, TileMapEditor);
 		return path;
 	}
 	
+	// Remove walls for an end point of a path
+	private void OpenPathEnd(CellPath path, Vector2I end, Vector2I direction, PathPointTemplate template)
+	{
+		Vector2 center = PathShapeHelper.FindCenter(template.Walls);
+		
+		Vector2I min = new Vector2I(int.MinValue, int.MinValue);
+		Vector2I max = new Vector2I(int.MaxValue, int.MaxValue);
+		if(direction == new Vector2I(0, 1))
+		{
+			min.Y = (int)Math.Floor(center.Y);
+		}
+		else if(direction == new Vector2I(0, -1))
+		{
+			max.Y = (int)Math.Ceiling(center.Y);
+		}
+		else if(direction == new Vector2I(1, 0))
+		{
+			min.X = (int)Math.Floor(center.X);
+		}
+		else if(direction == new Vector2I(-1, 0))
+		{
+			max.X = (int)Math.Ceiling(center.X);
+		}
+		else
+		{
+			throw new ArgumentException();
+		}
+		
+		foreach(Vector2I cell in template.Walls)
+		{
+			if(cell.X < min.X || cell.X > max.X || cell.Y < min.Y || cell.Y > max.Y)
+			{
+				path.Walls.Remove(cell + end);
+			}
+		}
+	}
+	
 	private class CellEvaluator : ICellEvaluator
 	{
-		public RoomTileMapEditor TileMapEditor;
+		public AStarPathBuilder PathBuilder;
 		public PathPointTemplate Template;
 		public PathCombineMode Mode;
 		
-		private PathCombiner PathCombiner;
+		public RoomTileMapEditor TileMapEditor => PathBuilder.TileMapEditor;
+		private PathCombiner PathCombiner => PathBuilder.PathCombiner;
 		
-		public CellEvaluator(RoomTileMapEditor tileMapEditor, PathPointTemplate template, PathCombineMode mode, PathCombiner pathCombiner)
+		
+		public CellEvaluator(AStarPathBuilder pathBuilder, PathPointTemplate template, PathCombineMode mode)
 		{
-			TileMapEditor = tileMapEditor;
+			PathBuilder = pathBuilder;
 			Template = template;
 			Mode = mode;
-			PathCombiner = pathCombiner;
 		}
 		
 		private StringName GetClaimID(Vector2I cell) => TileMapEditor.ClaimedCellCollection.GetClaimID(cell);

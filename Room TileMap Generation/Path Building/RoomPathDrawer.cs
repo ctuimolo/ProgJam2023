@@ -51,9 +51,9 @@ public partial class RoomPathDrawer : RefCounted
 		PathBuilder = new AStarPathBuilder(AStar, GraphBuilder, TileMapEditor, PathCombiner);
 	}
 	
-	public void DrawPath(Vector2I a, Vector2I b, PathPointTemplate template, PathCombineMode mode)
+	public void DrawPath(Vector2I a, bool openA, Vector2I b, bool openB, PathPointTemplate template, PathCombineMode mode)
 	{
-		CellPath path = PathBuilder.GetPath(a, b, template, mode);
+		CellPath path = PathBuilder.GetPath(a, openA, b, openB, template, mode);
 		if(path.Points.Count == 0 && a != b)
 		{
 			GD.Print($"Path error: {a} -> {b}");
@@ -65,11 +65,19 @@ public partial class RoomPathDrawer : RefCounted
 		TileMapEditor.DrawInstructions(path.Floors, "floor", FloorID);
 		TileMapEditor.DrawInstructions(path.Walls, "wall", WallID);
 	}
+	public void DrawPath(Vector2I a, Vector2I b, PathPointTemplate template, PathCombineMode mode)
+	{
+		DrawPath(a, false, b, false, template, mode);
+	}
 	
-	public void DrawPath(Vector2I a, Vector2I b, int thickness, bool walled, PathCombineMode mode)
+	public void DrawPath(Vector2I a, bool openA, Vector2I b, bool openB, int thickness, bool walled, PathCombineMode mode)
 	{
 		PathPointTemplate template = new PathPointTemplate(thickness, walled);
-		DrawPath(a, b, template, mode);
+		DrawPath(a, openA, b, openB, template, mode);
+	}
+	public void DrawPath(Vector2I a, Vector2I b, int thickness, bool walled, PathCombineMode mode)
+	{
+		DrawPath(a, false, b, false, thickness, walled, mode);
 	}
 	
 }
