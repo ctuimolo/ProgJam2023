@@ -1,0 +1,1572 @@
+[gd_resource type="Resource" script_class="TileTerrainDataCollection" load_steps=317 format=3 uid="uid://cbmgmpv5enxm"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile_terrain_data_collection.gd" id="1_ugbpr"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile_terrain_data.gd" id="2_a6ufd"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile_attributes.gd" id="3_4qj35"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile.gd" id="4_wdcev"]
+
+[sub_resource type="Resource" id="Resource_7acwg"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_10lgk"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_7acwg")
+
+[sub_resource type="Resource" id="Resource_431y7"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_10lgk")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_yoyrq"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_nj6tm"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_yoyrq")
+
+[sub_resource type="Resource" id="Resource_0ytj1"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_nj6tm")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_8te4t"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_48fcr"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_8te4t")
+
+[sub_resource type="Resource" id="Resource_hcqie"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_48fcr")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_6vp5k"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_rc3nx"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_6vp5k")
+
+[sub_resource type="Resource" id="Resource_e5c1l"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_rc3nx")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_8tw40"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_tnm3t"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_8tw40")
+
+[sub_resource type="Resource" id="Resource_j212t"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_tnm3t")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_bb4p0"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_6nysg"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_bb4p0")
+
+[sub_resource type="Resource" id="Resource_pi7y1"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_6nysg")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_jpjrw"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_n23h5"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_jpjrw")
+
+[sub_resource type="Resource" id="Resource_rvw6d"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_n23h5")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_32shf"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(0, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_p0qk2"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_32shf")
+
+[sub_resource type="Resource" id="Resource_tvwer"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_p0qk2")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_0muh8"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_c8x7u"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_0muh8")
+
+[sub_resource type="Resource" id="Resource_iohwc"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_c8x7u")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_4lrry"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_eck4q"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_4lrry")
+
+[sub_resource type="Resource" id="Resource_si4nr"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_eck4q")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_lal3p"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_fixtg"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_lal3p")
+
+[sub_resource type="Resource" id="Resource_pf7rs"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_fixtg")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_n0gtj"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_m6n5s"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_n0gtj")
+
+[sub_resource type="Resource" id="Resource_3hv16"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_m6n5s")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_321ol"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_vf8kg"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_321ol")
+
+[sub_resource type="Resource" id="Resource_kt4lt"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_vf8kg")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_pcrxk"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_4xflg"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_pcrxk")
+
+[sub_resource type="Resource" id="Resource_t17qn"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_4xflg")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_j2q0t"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_c5xlx"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_j2q0t")
+
+[sub_resource type="Resource" id="Resource_irhse"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_c5xlx")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_rfoxh"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(1, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_hud2t"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_rfoxh")
+
+[sub_resource type="Resource" id="Resource_mip0x"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_hud2t")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_g5v3p"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_q8orm"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_g5v3p")
+
+[sub_resource type="Resource" id="Resource_6cruu"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_q8orm")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_nvbxi"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_rbv1i"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_nvbxi")
+
+[sub_resource type="Resource" id="Resource_harcy"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_rbv1i")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_muvuo"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_a2q4t"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_muvuo")
+
+[sub_resource type="Resource" id="Resource_6fi65"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_a2q4t")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_kfqse"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_8yr2u"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_kfqse")
+
+[sub_resource type="Resource" id="Resource_w12le"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_8yr2u")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_8xn3h"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_01kt6"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_8xn3h")
+
+[sub_resource type="Resource" id="Resource_lo34o"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_01kt6")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_0fghv"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_tdyyy"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_0fghv")
+
+[sub_resource type="Resource" id="Resource_xk1eo"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_tdyyy")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_vdvnu"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_8dfkj"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_vdvnu")
+
+[sub_resource type="Resource" id="Resource_du8e4"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_8dfkj")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_mrxbr"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(2, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_rbhwb"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_mrxbr")
+
+[sub_resource type="Resource" id="Resource_8tkh8"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_rbhwb")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_r5lxn"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_p8o2k"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_r5lxn")
+
+[sub_resource type="Resource" id="Resource_tfltb"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_p8o2k")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_lb6c1"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_d1ma2"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_lb6c1")
+
+[sub_resource type="Resource" id="Resource_mb5ct"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_d1ma2")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_hs4ut"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_wdb0k"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_hs4ut")
+
+[sub_resource type="Resource" id="Resource_l8eyd"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_wdb0k")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_yhsvs"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_fmera"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_yhsvs")
+
+[sub_resource type="Resource" id="Resource_nrgd6"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_fmera")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_g4gk8"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_q0ca0"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_g4gk8")
+
+[sub_resource type="Resource" id="Resource_g1gon"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_q0ca0")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_8yjfh"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_mglm1"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_8yjfh")
+
+[sub_resource type="Resource" id="Resource_72k4g"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_mglm1")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_q4v6e"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_iw4bo"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_q4v6e")
+
+[sub_resource type="Resource" id="Resource_6n1te"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_iw4bo")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_n5dd8"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(3, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_emvyb"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_n5dd8")
+
+[sub_resource type="Resource" id="Resource_haaof"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_emvyb")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_vv41a"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_y6n62"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_vv41a")
+
+[sub_resource type="Resource" id="Resource_7qxvf"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_y6n62")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_45ne7"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_ckb6k"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_45ne7")
+
+[sub_resource type="Resource" id="Resource_n1ccy"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_ckb6k")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_kjs6o"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_80g4s"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_kjs6o")
+
+[sub_resource type="Resource" id="Resource_ih6gm"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_80g4s")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_cs5cr"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_d1ie8"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_cs5cr")
+
+[sub_resource type="Resource" id="Resource_6mi4g"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_d1ie8")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_45641"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_gmkln"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_45641")
+
+[sub_resource type="Resource" id="Resource_dqun4"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_gmkln")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_eyone"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_67w8g"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_eyone")
+
+[sub_resource type="Resource" id="Resource_kg61s"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_67w8g")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_csrf4"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_wkj2g"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_csrf4")
+
+[sub_resource type="Resource" id="Resource_iuho3"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_wkj2g")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_hgpmr"]
+script = ExtResource("3_4qj35")
+source_id = 0
+atlas_coords = Vector2i(4, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_c4t3o"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_hgpmr")
+
+[sub_resource type="Resource" id="Resource_wcx3y"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_c4t3o")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_drdvv"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_wod0x"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_drdvv")
+
+[sub_resource type="Resource" id="Resource_2qnnd"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_wod0x")
+peering_bits = Array[int]([0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_5enpm"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_q64wm"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_5enpm")
+
+[sub_resource type="Resource" id="Resource_t1xes"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_q64wm")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_6qiqa"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_rrudf"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_6qiqa")
+
+[sub_resource type="Resource" id="Resource_vqe2i"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_rrudf")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_5vh1c"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_wv1jq"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_5vh1c")
+
+[sub_resource type="Resource" id="Resource_t7mgj"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_wv1jq")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_mymyl"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_ldn6e"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_mymyl")
+
+[sub_resource type="Resource" id="Resource_ma7j6"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_ldn6e")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_7x2ar"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_xdo7p"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_7x2ar")
+
+[sub_resource type="Resource" id="Resource_dfykm"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_xdo7p")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_xcjc1"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_ns7jt"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_xcjc1")
+
+[sub_resource type="Resource" id="Resource_1deaf"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_ns7jt")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_gbv5k"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(0, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_3oct8"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_gbv5k")
+
+[sub_resource type="Resource" id="Resource_ydqqi"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_3oct8")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_5q74t"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_phl7g"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_5q74t")
+
+[sub_resource type="Resource" id="Resource_1bq8u"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_phl7g")
+peering_bits = Array[int]([0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_mufts"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_b0qq2"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_mufts")
+
+[sub_resource type="Resource" id="Resource_ko2nd"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_b0qq2")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_3eux4"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_u41fc"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_3eux4")
+
+[sub_resource type="Resource" id="Resource_37m2o"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_u41fc")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_osc36"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_injyc"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_osc36")
+
+[sub_resource type="Resource" id="Resource_cwyhg"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_injyc")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_04cl2"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_oj8qo"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_04cl2")
+
+[sub_resource type="Resource" id="Resource_0v2eu"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_oj8qo")
+peering_bits = Array[int]([-1, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_kdmt8"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_hxdp7"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_kdmt8")
+
+[sub_resource type="Resource" id="Resource_oewj4"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_hxdp7")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_ob3eq"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_sm3yi"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_ob3eq")
+
+[sub_resource type="Resource" id="Resource_8r0j2"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_sm3yi")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_ydimj"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(1, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_15bqg"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_ydimj")
+
+[sub_resource type="Resource" id="Resource_ti4ko"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_15bqg")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_d1p2s"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_2h1u6"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_d1p2s")
+
+[sub_resource type="Resource" id="Resource_s5mbp"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_2h1u6")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, 0, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_212ou"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_u8k3g"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_212ou")
+
+[sub_resource type="Resource" id="Resource_6ohyb"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_u8k3g")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_j6ujo"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_qgd3m"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_j6ujo")
+
+[sub_resource type="Resource" id="Resource_0qi1b"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_qgd3m")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_7dcdx"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_hwyxu"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_7dcdx")
+
+[sub_resource type="Resource" id="Resource_7m74g"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_hwyxu")
+peering_bits = Array[int]([0, -1, -1, 0, 0, -1, -1, 0, 0, -1, -1, -1, 0, -1, -1, 0])
+
+[sub_resource type="Resource" id="Resource_x13gc"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_qc76m"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_x13gc")
+
+[sub_resource type="Resource" id="Resource_5al0n"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_qc76m")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_vg6d8"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_ot4tl"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_vg6d8")
+
+[sub_resource type="Resource" id="Resource_xot5p"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_ot4tl")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_awraf"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_hrlwh"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_awraf")
+
+[sub_resource type="Resource" id="Resource_lhyvq"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_hrlwh")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_if01u"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(2, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_g65gs"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_if01u")
+
+[sub_resource type="Resource" id="Resource_yio57"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_g65gs")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_3eigb"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_no2dl"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_3eigb")
+
+[sub_resource type="Resource" id="Resource_wumpg"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_no2dl")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_hlyog"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_msixh"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_hlyog")
+
+[sub_resource type="Resource" id="Resource_78ay6"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_msixh")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_rhg0m"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_wsr78"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_rhg0m")
+
+[sub_resource type="Resource" id="Resource_13a8s"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_wsr78")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_7jjf8"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_pflab"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_7jjf8")
+
+[sub_resource type="Resource" id="Resource_qpjg2"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_pflab")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_oinar"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_6rv6c"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_oinar")
+
+[sub_resource type="Resource" id="Resource_sm4c3"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_6rv6c")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_dnew3"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_mbx37"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_dnew3")
+
+[sub_resource type="Resource" id="Resource_7hlbi"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_mbx37")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_jt5r2"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_3yv40"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_jt5r2")
+
+[sub_resource type="Resource" id="Resource_n8muf"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_3yv40")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_j67k3"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(3, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_tykt3"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_j67k3")
+
+[sub_resource type="Resource" id="Resource_tag44"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_tykt3")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_lr3kq"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_awkd3"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_lr3kq")
+
+[sub_resource type="Resource" id="Resource_hljra"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_awkd3")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_re6ol"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_6f6ki"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_re6ol")
+
+[sub_resource type="Resource" id="Resource_nb7od"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_6f6ki")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_a23v5"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_dslxx"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_a23v5")
+
+[sub_resource type="Resource" id="Resource_bpdae"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_dslxx")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_omteb"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_kk8lb"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_omteb")
+
+[sub_resource type="Resource" id="Resource_36vit"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_kk8lb")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_suvuu"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_vyfro"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_suvuu")
+
+[sub_resource type="Resource" id="Resource_k8c0m"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_vyfro")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_1sb72"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_w1ib6"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_1sb72")
+
+[sub_resource type="Resource" id="Resource_ulubf"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_w1ib6")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_pbca6"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_i0dq8"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_pbca6")
+
+[sub_resource type="Resource" id="Resource_cdubp"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_i0dq8")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_2rmxo"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(4, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_h8ylt"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_2rmxo")
+
+[sub_resource type="Resource" id="Resource_wvbq0"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_h8ylt")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_or2ce"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_u1nn7"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_or2ce")
+
+[sub_resource type="Resource" id="Resource_bpvf5"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_u1nn7")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_u3sek"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_s7x0g"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_u3sek")
+
+[sub_resource type="Resource" id="Resource_4adh8"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_s7x0g")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_o384a"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_21opq"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_o384a")
+
+[sub_resource type="Resource" id="Resource_v8vvd"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_21opq")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_i3a41"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_h6hix"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_i3a41")
+
+[sub_resource type="Resource" id="Resource_iv4t2"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_h6hix")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_n2apr"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_iaavp"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_n2apr")
+
+[sub_resource type="Resource" id="Resource_cjwxb"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_iaavp")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_748g8"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_n70m8"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_748g8")
+
+[sub_resource type="Resource" id="Resource_q2eip"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_n70m8")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_rhrqn"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_u3yi2"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_rhrqn")
+
+[sub_resource type="Resource" id="Resource_vg74e"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_u3yi2")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_5gqag"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(5, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_cye2t"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_5gqag")
+
+[sub_resource type="Resource" id="Resource_vh0su"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_cye2t")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_yxp40"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_bemk3"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_yxp40")
+
+[sub_resource type="Resource" id="Resource_4mxgn"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_bemk3")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_0d6f4"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_8tbpo"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_0d6f4")
+
+[sub_resource type="Resource" id="Resource_tefe7"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_8tbpo")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_cb41m"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_ssdd7"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_cb41m")
+
+[sub_resource type="Resource" id="Resource_4mogg"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_ssdd7")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_qded4"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_qxe8l"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_qded4")
+
+[sub_resource type="Resource" id="Resource_rvk5h"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_qxe8l")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_iay2x"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_1x62r"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_iay2x")
+
+[sub_resource type="Resource" id="Resource_7j0bx"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_1x62r")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_ds6n7"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_7uglk"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_ds6n7")
+
+[sub_resource type="Resource" id="Resource_t0ohg"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_7uglk")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_h8ckg"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_uplt6"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_h8ckg")
+
+[sub_resource type="Resource" id="Resource_j4jju"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_uplt6")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_rrwph"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(6, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_0oebn"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_rrwph")
+
+[sub_resource type="Resource" id="Resource_oicr5"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_0oebn")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_3gxar"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 0)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_bee6f"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_3gxar")
+
+[sub_resource type="Resource" id="Resource_ayokx"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_bee6f")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_4wi4a"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 1)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_11msq"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_4wi4a")
+
+[sub_resource type="Resource" id="Resource_ems24"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_11msq")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_rmsvy"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 2)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_nnycc"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_rmsvy")
+
+[sub_resource type="Resource" id="Resource_37n2h"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_nnycc")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_iirme"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 3)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_10gqq"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_iirme")
+
+[sub_resource type="Resource" id="Resource_h0pdj"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_10gqq")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_y0lrl"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 4)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_nowge"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_y0lrl")
+
+[sub_resource type="Resource" id="Resource_ckd62"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_nowge")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_kpx5a"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 5)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_0k4c5"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_kpx5a")
+
+[sub_resource type="Resource" id="Resource_cvo5d"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_0k4c5")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_on508"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 6)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_5fum1"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_on508")
+
+[sub_resource type="Resource" id="Resource_3e5g1"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_5fum1")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[sub_resource type="Resource" id="Resource_3314l"]
+script = ExtResource("3_4qj35")
+source_id = 1
+atlas_coords = Vector2i(7, 7)
+alternative_tile = 0
+
+[sub_resource type="Resource" id="Resource_x6mki"]
+script = ExtResource("4_wdcev")
+attributes = SubResource("Resource_3314l")
+
+[sub_resource type="Resource" id="Resource_sxdm5"]
+script = ExtResource("2_a6ufd")
+tile = SubResource("Resource_x6mki")
+peering_bits = Array[int]([-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1])
+
+[resource]
+script = ExtResource("1_ugbpr")
+terrain_data = Array[ExtResource("2_a6ufd")]([SubResource("Resource_431y7"), SubResource("Resource_0ytj1"), SubResource("Resource_hcqie"), SubResource("Resource_e5c1l"), SubResource("Resource_j212t"), SubResource("Resource_pi7y1"), SubResource("Resource_rvw6d"), SubResource("Resource_tvwer"), SubResource("Resource_iohwc"), SubResource("Resource_si4nr"), SubResource("Resource_pf7rs"), SubResource("Resource_3hv16"), SubResource("Resource_kt4lt"), SubResource("Resource_t17qn"), SubResource("Resource_irhse"), SubResource("Resource_mip0x"), SubResource("Resource_6cruu"), SubResource("Resource_harcy"), SubResource("Resource_6fi65"), SubResource("Resource_w12le"), SubResource("Resource_lo34o"), SubResource("Resource_xk1eo"), SubResource("Resource_du8e4"), SubResource("Resource_8tkh8"), SubResource("Resource_tfltb"), SubResource("Resource_mb5ct"), SubResource("Resource_l8eyd"), SubResource("Resource_nrgd6"), SubResource("Resource_g1gon"), SubResource("Resource_72k4g"), SubResource("Resource_6n1te"), SubResource("Resource_haaof"), SubResource("Resource_7qxvf"), SubResource("Resource_n1ccy"), SubResource("Resource_ih6gm"), SubResource("Resource_6mi4g"), SubResource("Resource_dqun4"), SubResource("Resource_kg61s"), SubResource("Resource_iuho3"), SubResource("Resource_wcx3y"), SubResource("Resource_2qnnd"), SubResource("Resource_t1xes"), SubResource("Resource_vqe2i"), SubResource("Resource_t7mgj"), SubResource("Resource_ma7j6"), SubResource("Resource_dfykm"), SubResource("Resource_1deaf"), SubResource("Resource_ydqqi"), SubResource("Resource_1bq8u"), SubResource("Resource_ko2nd"), SubResource("Resource_37m2o"), SubResource("Resource_cwyhg"), SubResource("Resource_0v2eu"), SubResource("Resource_oewj4"), SubResource("Resource_8r0j2"), SubResource("Resource_ti4ko"), SubResource("Resource_s5mbp"), SubResource("Resource_6ohyb"), SubResource("Resource_0qi1b"), SubResource("Resource_7m74g"), SubResource("Resource_5al0n"), SubResource("Resource_xot5p"), SubResource("Resource_lhyvq"), SubResource("Resource_yio57"), SubResource("Resource_wumpg"), SubResource("Resource_78ay6"), SubResource("Resource_13a8s"), SubResource("Resource_qpjg2"), SubResource("Resource_sm4c3"), SubResource("Resource_7hlbi"), SubResource("Resource_n8muf"), SubResource("Resource_tag44"), SubResource("Resource_hljra"), SubResource("Resource_nb7od"), SubResource("Resource_bpdae"), SubResource("Resource_36vit"), SubResource("Resource_k8c0m"), SubResource("Resource_ulubf"), SubResource("Resource_cdubp"), SubResource("Resource_wvbq0"), SubResource("Resource_bpvf5"), SubResource("Resource_4adh8"), SubResource("Resource_v8vvd"), SubResource("Resource_iv4t2"), SubResource("Resource_cjwxb"), SubResource("Resource_q2eip"), SubResource("Resource_vg74e"), SubResource("Resource_vh0su"), SubResource("Resource_4mxgn"), SubResource("Resource_tefe7"), SubResource("Resource_4mogg"), SubResource("Resource_rvk5h"), SubResource("Resource_7j0bx"), SubResource("Resource_t0ohg"), SubResource("Resource_j4jju"), SubResource("Resource_oicr5"), SubResource("Resource_ayokx"), SubResource("Resource_ems24"), SubResource("Resource_37n2h"), SubResource("Resource_h0pdj"), SubResource("Resource_ckd62"), SubResource("Resource_cvo5d"), SubResource("Resource_3e5g1"), SubResource("Resource_sxdm5")])
+terrain = 0
+terrain_index = 0
