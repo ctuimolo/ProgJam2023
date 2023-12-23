@@ -149,8 +149,9 @@ func start():
 			interchangeable_tiles_rules_sharer.wfc_rules = rules
 			interchangeable_tiles_rules_sharer.share_interchangeable_tile_rules(true)
 ############################################################### end
-
-		if rules.complete_matrices and negative_sample != null and not negative_sample.is_empty():
+		
+		# removed "rules.complete_matrices" condition
+		if negative_sample != null and not negative_sample.is_empty():
 			var negative_sample_node: Node = get_node(negative_sample)
 			
 			if negative_sample_node != null:
@@ -179,7 +180,7 @@ func start():
 	var problem: WFC2DProblem = _create_problem(problem_settings, target_node)
 	
 ############################################################### start
-	# Add contraint mapper if provided
+	# Add constraint mapper if provided
 	problem.tile_constraint_mapper = tile_constraint_mapper
 	if tile_constraint_mapper != null:
 		tile_constraint_mapper.problem = problem
