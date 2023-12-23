@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bmwpkfnbtcpji"]
+[gd_scene load_steps=20 format=3 uid="uid://bmwpkfnbtcpji"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomWFCManager/room_wfc_manager.gd" id="1_nfyyp"]
 [ext_resource type="Script" path="res://addons/wfc/nodes/generator_2d.gd" id="2_e352u"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Room TileMap Generation/WFC Generator Modifiers/prohibited_tile_collection.gd" id="6_rliic"]
 [ext_resource type="Script" path="res://Room TileMap Generation/WFC Generator Modifiers/interchangeable_tile_rules_sharer.gd" id="7_brist"]
 [ext_resource type="PackedScene" uid="uid://cecsurlqb2rmc" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 positive.tscn" id="8_ucvqm"]
+[ext_resource type="Script" path="res://Room TileMap Generation/WFC Generator Modifiers/tile_subset_whitelist.gd" id="8_x32w5"]
 [ext_resource type="PackedScene" uid="uid://bll5wel2w85bu" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 negative.tscn" id="9_qsvxk"]
 [ext_resource type="PackedScene" uid="uid://bemh80sf3vqln" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 positive extra walls.tscn" id="10_itb52"]
 [ext_resource type="PackedScene" uid="uid://ef6rsjoijcvu" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 positive generated extra wall combinations.tscn" id="12_ukho5"]
@@ -45,14 +46,15 @@ script = ExtResource("5_meyog")
 constraint_tag = "black"
 domain_tag = "black"
 
-[node name="GDRoomWFCManager" type="Node2D" node_paths=PackedStringArray("wfc_generator", "constraint_mapper", "prohibited_tiles", "interchangeable_tile_rules_sharer")]
+[node name="GDRoomWFCManager" type="Node2D" node_paths=PackedStringArray("wfc_generator", "constraint_mapper", "prohibited_tiles", "tile_subset_whitelist", "interchangeable_tile_rules_sharer")]
 script = ExtResource("1_nfyyp")
 wfc_generator = NodePath("WFC Generator")
 constraint_mapper = NodePath("Tile Constraint Mapper")
 prohibited_tiles = NodePath("Prohibited Tiles")
+tile_subset_whitelist = NodePath("Tile Subset Whitelist")
 interchangeable_tile_rules_sharer = NodePath("Interchangeable Tile Rules Sharer")
 
-[node name="WFC Generator" type="Node" parent="." node_paths=PackedStringArray("positive_tile_map_set", "tile_constraint_mapper", "prohibited_tile_collection", "interchangeable_tiles_rules_sharer")]
+[node name="WFC Generator" type="Node" parent="." node_paths=PackedStringArray("positive_tile_map_set", "tile_constraint_mapper", "prohibited_tile_collection", "tile_subset_whitelist", "interchangeable_tiles_rules_sharer")]
 script = ExtResource("2_e352u")
 rect = Rect2i(0, 0, 100, 50)
 rules = SubResource("Resource_t5yub")
@@ -62,6 +64,7 @@ solver_settings = SubResource("Resource_vfcab")
 positive_tile_map_set = [NodePath("../Samples/DemoTileset2 positive extra walls"), NodePath("../Samples/DemoTileset2 positive generated extra wall combinations")]
 tile_constraint_mapper = NodePath("../Tile Constraint Mapper")
 prohibited_tile_collection = NodePath("../Prohibited Tiles")
+tile_subset_whitelist = NodePath("../Tile Subset Whitelist")
 interchangeable_tiles_rules_sharer = NodePath("../Interchangeable Tile Rules Sharer")
 render_intermediate_results = true
 
@@ -72,6 +75,11 @@ constraints = Array[ExtResource("5_meyog")]([SubResource("Resource_42s41"), SubR
 [node name="Prohibited Tiles" type="Node" parent="."]
 script = ExtResource("6_rliic")
 custom_data_layer_name = "cannot_generate"
+
+[node name="Tile Subset Whitelist" type="Node" parent="."]
+script = ExtResource("8_x32w5")
+whitelist = Array[StringName]([&"extra"])
+custom_data_layer_name = "subset"
 
 [node name="Interchangeable Tile Rules Sharer" type="Node" parent="."]
 script = ExtResource("7_brist")

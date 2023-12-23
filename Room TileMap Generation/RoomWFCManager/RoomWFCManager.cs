@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace ProgJam2023.RoomTileMapGeneration;
 
@@ -24,6 +25,12 @@ public partial class RoomWFCManager : Node
 	public void SetRect(Rect2I rect)
 	{
 		GDRoomWFCManager.Call("set_rect", rect);
+	}
+	
+	public void SetTileSubsetWhitelist(StringName[] whitelist)
+	{
+		Godot.Collections.Array godot_array = Variant.From(whitelist).AsGodotArray();
+		GDRoomWFCManager.Call("set_tile_subset_whitelist", godot_array);
 	}
 	
 	public void SetTargetTileMap(TileMap tileMap)

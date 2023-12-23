@@ -6,6 +6,7 @@ var target_tile_set: TileSet
 @export var wfc_generator: WFC2DGenerator
 @export var constraint_mapper: TileConstraintMapper
 @export var prohibited_tiles: ProhibitedTileCollection
+@export var tile_subset_whitelist: TileSubsetWhitelist
 @export var interchangeable_tile_rules_sharer: InterchangeableTileRulesSharer
 
 var _started: bool
@@ -74,6 +75,12 @@ func add_negative_sample(negative_sample: TileMap):
 
 func set_rect(p_rect: Rect2i):
 	_rect = p_rect
+
+func set_tile_subset_whitelist(array: Array):
+	var stringname_array: Array[StringName] = []
+	for item in array:
+		stringname_array.append(item as StringName)
+	tile_subset_whitelist.whitelist = stringname_array
 	
 func _on_wfc_done(error: bool):
 	assert(_started && !_finished)

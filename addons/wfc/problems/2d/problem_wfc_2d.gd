@@ -5,6 +5,7 @@ class_name WFC2DProblem
 ############################################################### start
 var tile_constraint_mapper: TileConstraintMapper
 var prohibited_tile_collection: ProhibitedTileCollection
+var tile_subset_whitelist: TileSubsetWhitelist
 ############################################################### end
 
 class WFC2DProblemSettings extends Resource:
@@ -84,6 +85,9 @@ func populate_initial_state(state: WFCSolverState):
 				if prohibited_tile_collection != null:
 					var constrained_domain: WFCBitSet = prohibited_tile_collection.get_bitset()
 					domain.intersect_in_place(constrained_domain)
+				if tile_subset_whitelist != null:
+					var whitelisted_domain: WFCBitSet = tile_subset_whitelist.get_bitset()
+					domain.intersect_in_place(whitelisted_domain)
 				state.set_domain(coord_to_id(pos), domain)
 ############################################################### end
 
@@ -260,6 +264,7 @@ func split(concurrency_limit: int) -> Array[SubProblem]:
 		# Make sure SubProblem gets the tile constraint mapper
 		sub_problem.tile_constraint_mapper = tile_constraint_mapper
 		sub_problem.prohibited_tile_collection = prohibited_tile_collection
+		sub_problem.tile_subset_whitelist = tile_subset_whitelist
 ############################################################### end
 		
 		var dependencies: PackedInt64Array = []

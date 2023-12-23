@@ -33,6 +33,7 @@ var solver_settings: WFCSolverSettings = WFCSolverSettings.new()
 @export_category("Extras")
 @export var tile_constraint_mapper: TileConstraintMapper = null
 @export var prohibited_tile_collection: ProhibitedTileCollection = null
+@export var tile_subset_whitelist: TileSubsetWhitelist = null
 @export var interchangeable_tiles_rules_sharer: InterchangeableTileRulesSharer = null
 ############################################################### end
 
@@ -188,6 +189,9 @@ func start():
 	problem.prohibited_tile_collection = prohibited_tile_collection
 	if prohibited_tile_collection != null:
 		prohibited_tile_collection.problem = problem
+	problem.tile_subset_whitelist = tile_subset_whitelist
+	if tile_subset_whitelist != null:
+		tile_subset_whitelist.problem = problem
 ############################################################### end
 
 	_runner = _create_runner()
