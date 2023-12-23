@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="TileTerrainDataCollection" load_steps=317 format=3 uid="uid://cbmgmpv5enxm"]
 
-[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile_terrain_data_collection.gd" id="1_ugbpr"]
-[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile_terrain_data.gd" id="2_a6ufd"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/Terrain/tile_terrain_data_collection.gd" id="1_ugbpr"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/Terrain/tile_terrain_data.gd" id="2_a6ufd"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile_attributes.gd" id="3_4qj35"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Tile Helper/tile.gd" id="4_wdcev"]
 

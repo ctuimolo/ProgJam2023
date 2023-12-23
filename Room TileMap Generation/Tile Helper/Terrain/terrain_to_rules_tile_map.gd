@@ -7,6 +7,8 @@ class_name TerrainToRulesTileMap extends Node
 
 @export var row_length: int = 100
 
+@export var allow_corner_matching: bool = false
+
 @export var populate: bool = false
 @export var clear: bool = false
 
@@ -64,13 +66,13 @@ func get_pairs(direction: TileSet.CellNeighbor)->Array[Pair]:
 func _check_tiles_match(data1: TileTerrainData, data2: TileTerrainData, direction: TileSet.CellNeighbor)->bool:
 	match direction:
 		TileSet.CELL_NEIGHBOR_TOP_SIDE:
-			return data1.top_side_peers_with(data2)
+			return data1.top_side_peers_with(data2, allow_corner_matching)
 		TileSet.CELL_NEIGHBOR_RIGHT_SIDE:
-			return data1.right_side_peers_with(data2)
+			return data1.right_side_peers_with(data2, allow_corner_matching)
 		TileSet.CELL_NEIGHBOR_BOTTOM_SIDE:
-			return data1.bottom_side_peers_with(data2)
+			return data1.bottom_side_peers_with(data2, allow_corner_matching)
 		TileSet.CELL_NEIGHBOR_LEFT_SIDE:
-			return data1.left_side_peers_with(data2)
+			return data1.left_side_peers_with(data2, allow_corner_matching)
 		_:
 			assert(false)
 			return false

@@ -43,25 +43,47 @@ const TOP_LEFT: int = 11
 const TOP: int = 12
 const TOP_RIGHT: int = 15
 
-func top_side_peers_with(other: TileTerrainData)->bool:
+func top_side_peers_with(other: TileTerrainData, allow_corner_matching: bool = true)->bool:
 	var result: bool = true
 	result = result && _compare_bits(peering_bits[TOP_LEFT], other.peering_bits[BOTTOM_LEFT], true)
 	result = result && _compare_bits(peering_bits[TOP], other.peering_bits[BOTTOM], false)
 	result = result && _compare_bits(peering_bits[TOP_RIGHT], other.peering_bits[BOTTOM_RIGHT], true)
+	if !allow_corner_matching:
+		result = result && !_check_top_corners(other)
 	return result
 
-func right_side_peers_with(other: TileTerrainData)->bool:
+func _check_top_corners(other: TileTerrainData)->bool:
+	if peering_bits[TOP_LEFT] == -1 && other.peering_bits[BOTTOM_LEFT] == -1:
+		if peering_bits[LEFT] != -1 && other.peering_bits[LEFT] != -1:
+			return true
+	if peering_bits[TOP_RIGHT] == -1 && other.peering_bits[BOTTOM_RIGHT] == -1:
+		if peering_bits[RIGHT] != -1 && other.peering_bits[RIGHT] != -1:
+			return true
+	return false
+
+func right_side_peers_with(other: TileTerrainData, allow_corner_matching: bool = true)->bool:
 	var result: bool = true
 	result = result && _compare_bits(peering_bits[TOP_RIGHT], other.peering_bits[TOP_LEFT], true)
 	result = result && _compare_bits(peering_bits[RIGHT], other.peering_bits[LEFT], false)
 	result = result && _compare_bits(peering_bits[BOTTOM_RIGHT], other.peering_bits[BOTTOM_LEFT], true)
+	if !allow_corner_matching:
+		result = result && !_check_right_corners(other)
 	return result
 
-func bottom_side_peers_with(other: TileTerrainData)->bool:
-	return other.top_side_peers_with(self)
+func _check_right_corners(other: TileTerrainData)->bool:
+	if peering_bits[TOP_RIGHT] == -1 && other.peering_bits[TOP_LEFT] == -1:
+		if peering_bits[TOP] != -1 && other.peering_bits[TOP] != -1:
+			return true
+	if peering_bits[BOTTOM_RIGHT] == -1 && other.peering_bits[BOTTOM_LEFT] == -1:
+		if peering_bits[BOTTOM] != -1 && other.peering_bits[BOTTOM] != -1:
+			return true
+	return false
 
-func left_side_peers_with(other: TileTerrainData)->bool:
-	return other.right_side_peers_with(self)
+func bottom_side_peers_with(other: TileTerrainData, allow_corner_matching: bool = true)->bool:
+	return other.top_side_peers_with(self, allow_corner_matching)
+
+func left_side_peers_with(other: TileTerrainData, allow_corner_matching: bool = true)->bool:
+	return other.right_side_peers_with(self, allow_corner_matching)
 
 func _compare_bits(bit1: int, bit2: int, can_be_negative_one: bool)->bool:
 	return bit1 == bit2 && (bit1 != -1 || can_be_negative_one)
