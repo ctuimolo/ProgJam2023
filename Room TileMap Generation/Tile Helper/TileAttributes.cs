@@ -3,7 +3,7 @@ using System;
 
 namespace ProgJam2023.TileHelper;
 
-public partial class TileAttributes : Node
+public partial class TileAttributes : Resource
 {
 	
 	[Export]
