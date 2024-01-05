@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bmwpkfnbtcpji"]
+[gd_scene load_steps=21 format=3 uid="uid://bmwpkfnbtcpji"]
 
 [ext_resource type="Script" path="res://Room TileMap Generation/RoomWFCManager/room_wfc_manager.gd" id="1_nfyyp"]
 [ext_resource type="Script" path="res://addons/wfc/nodes/generator_2d.gd" id="2_e352u"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bll5wel2w85bu" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 negative.tscn" id="9_qsvxk"]
 [ext_resource type="PackedScene" uid="uid://bemh80sf3vqln" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 positive extra walls.tscn" id="10_itb52"]
 [ext_resource type="PackedScene" uid="uid://ef6rsjoijcvu" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 positive generated extra wall combinations.tscn" id="12_ukho5"]
+[ext_resource type="PackedScene" uid="uid://6xundexxjf31" path="res://Room TileMap Generation/WFC Rule TileMaps/DemoTileset2 negative extra walls.tscn" id="14_1sl7o"]
 
 [sub_resource type="Resource" id="Resource_t5yub"]
 script = ExtResource("3_u0fli")
@@ -54,7 +55,7 @@ prohibited_tiles = NodePath("Prohibited Tiles")
 tile_subset_whitelist = NodePath("Tile Subset Whitelist")
 interchangeable_tile_rules_sharer = NodePath("Interchangeable Tile Rules Sharer")
 
-[node name="WFC Generator" type="Node" parent="." node_paths=PackedStringArray("positive_tile_map_set", "tile_constraint_mapper", "prohibited_tile_collection", "tile_subset_whitelist", "interchangeable_tiles_rules_sharer")]
+[node name="WFC Generator" type="Node" parent="." node_paths=PackedStringArray("positive_tile_map_set", "negative_tile_map_set", "tile_constraint_mapper", "prohibited_tile_collection", "tile_subset_whitelist", "interchangeable_tiles_rules_sharer")]
 script = ExtResource("2_e352u")
 rect = Rect2i(0, 0, 100, 50)
 rules = SubResource("Resource_t5yub")
@@ -62,6 +63,7 @@ positive_sample = NodePath("../Samples/DemoTileset2 positive")
 negative_sample = NodePath("../Samples/DemoTileset2 negative")
 solver_settings = SubResource("Resource_vfcab")
 positive_tile_map_set = [NodePath("../Samples/DemoTileset2 positive extra walls"), NodePath("../Samples/DemoTileset2 positive generated extra wall combinations")]
+negative_tile_map_set = [NodePath("../Samples/DemoTileset2 negative extra walls")]
 tile_constraint_mapper = NodePath("../Tile Constraint Mapper")
 prohibited_tile_collection = NodePath("../Prohibited Tiles")
 tile_subset_whitelist = NodePath("../Tile Subset Whitelist")
@@ -96,6 +98,9 @@ visible = false
 visible = false
 
 [node name="DemoTileset2 positive generated extra wall combinations" parent="Samples" instance=ExtResource("12_ukho5")]
+visible = false
+
+[node name="DemoTileset2 negative extra walls" parent="Samples" instance=ExtResource("14_1sl7o")]
 visible = false
 
 [node name="ColorRect" type="ColorRect" parent="."]
