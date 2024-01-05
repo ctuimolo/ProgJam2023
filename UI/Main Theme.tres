@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://boq6h6q3c15tb"]
+
+[ext_resource type="FontFile" uid="uid://dxco81uqnypcx" path="res://UI/Fonts/Pixelify_Sans/PixelifySans-VariableFont_wght.ttf" id="1_4u5m5"]
+
+[resource]
+default_font = ExtResource("1_4u5m5")
+default_font_size = 24
+Button/fonts/font = ExtResource("1_4u5m5")
+MainMenuButton/base_type = &"Button"
+MainMenuButton/font_sizes/font_size = 40
