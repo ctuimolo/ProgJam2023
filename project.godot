@@ -17,10 +17,6 @@ run/max_fps=60
 boot_splash/bg_color=Color(0, 0, 0, 1)
 config/icon="res://icon.svg"
 
-[autoload]
-
-WorldManager="*res://World/WorldManager.cs"
-
 [display]
 
 window/size/viewport_width=1280
@@ -34,6 +30,10 @@ project/assembly_name="ProgJam2023"
 [filesystem]
 
 import/blender/enabled=false
+
+[gui]
+
+theme/custom="res://UI/Main Theme.tres"
 
 [input]
 
