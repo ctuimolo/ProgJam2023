@@ -1,0 +1,37 @@
+[gd_scene load_steps=9 format=3 uid="uid://wk6nnwtas631"]
+
+[ext_resource type="Script" path="res://PlayScene/PlayScene.cs" id="1_0vi7q"]
+[ext_resource type="Script" path="res://World/WorldManager.cs" id="1_hqmhu"]
+[ext_resource type="Script" path="res://Room TileMap Generation/LevelGenerator.cs" id="2_5hq5c"]
+[ext_resource type="PackedScene" uid="uid://cjr8dyyjiwu4q" path="res://Room TileMap Generation/RoomGenerator/RoomGenerator.tscn" id="3_6smxg"]
+[ext_resource type="Resource" uid="uid://cbcmmdxof6qvo" path="res://Room TileMap Generation/RoomParameters/Test RoomParameters.tres" id="4_xk34m"]
+[ext_resource type="Script" path="res://Rooms/RoomManager.cs" id="5_2plai"]
+[ext_resource type="PackedScene" uid="uid://br00tplhetu2k" path="res://Rooms/Room.tscn" id="6_s8jr0"]
+[ext_resource type="PackedScene" uid="uid://d1sqmqpy5ad7m" path="res://Actors/Players/Player.tscn" id="7_sdllj"]
+
+[node name="PlayScene" type="Node2D" node_paths=PackedStringArray("WorldManager", "LevelGenerator", "RoomManager")]
+script = ExtResource("1_0vi7q")
+WorldManager = NodePath("WorldManager")
+LevelGenerator = NodePath("LevelGenerator")
+RoomManager = NodePath("RoomManager")
+
+[node name="WorldManager" type="Node" parent="."]
+script = ExtResource("1_hqmhu")
+
+[node name="LevelGenerator" type="Node2D" parent="." node_paths=PackedStringArray("RoomManager")]
+script = ExtResource("2_5hq5c")
+RoomManager = NodePath("../RoomManager")
+RoomGeneratorScene = ExtResource("3_6smxg")
+DebugParameters = ExtResource("4_xk34m")
+
+[node name="RoomManager" type="Node2D" parent="." node_paths=PackedStringArray("Player")]
+script = ExtResource("5_2plai")
+Player = NodePath("Player")
+RoomScene = ExtResource("6_s8jr0")
+DebugRoomTileMaps = Array[PackedScene]([])
+InitializeOnReady = false
+
+[node name="Player" parent="RoomManager" instance=ExtResource("7_sdllj")]
+
+[node name="Camera2D" type="Camera2D" parent="RoomManager"]
+zoom = Vector2(4, 4)

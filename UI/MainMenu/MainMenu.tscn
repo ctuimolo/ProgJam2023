@@ -1,0 +1,78 @@
+[gd_scene load_steps=3 format=3 uid="uid://cso3r0c3seorq"]
+
+[ext_resource type="Script" path="res://UI/MainMenu/MainMenu.cs" id="1_ucyyj"]
+[ext_resource type="PackedScene" uid="uid://cokmysdsq0bym" path="res://Actors/Enemies/Slimes/Slime.tscn" id="2_72kmq"]
+
+[node name="MainMenu" type="CanvasLayer" node_paths=PackedStringArray("PlayButton", "QuitButton")]
+script = ExtResource("1_ucyyj")
+PlayButton = NodePath("Control/Button Container/Play Button")
+QuitButton = NodePath("Control/Button Container/Quit Button")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Title Container" type="Control" parent="Control"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -336.0
+offset_top = 45.0
+offset_right = 336.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Placeholder Title" type="Label" parent="Control/Title Container"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 80
+text = "MY COOL GAME"
+
+[node name="Button Container" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -225.0
+offset_top = 479.0
+offset_right = 225.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="Play Button" type="Button" parent="Control/Button Container"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_type_variation = &"MainMenuButton"
+text = "Play Game"
+
+[node name="Quit Button" type="Button" parent="Control/Button Container"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_type_variation = &"MainMenuButton"
+text = "Quit"
+
+[node name="Slime" parent="." instance=ExtResource("2_72kmq")]
+position = Vector2(569, 338)
+scale = Vector2(9.125, 9.125)
