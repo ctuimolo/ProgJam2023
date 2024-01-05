@@ -17,15 +17,36 @@ public partial class LevelGenerator : Node
 	[Export]
 	public RoomParameters DebugParameters;
 	
+	[Export]
+	public bool GenerateOnReady = false;
+	
+	public bool GenerationComplete = false;
+	
 	
 	private int GeneratingRoomsCount;
+	
+	[Signal]
+	public delegate void LevelGeneratedEventHandler();
 	
 	
 	public override void _Ready()
 	{
+		if(GenerateOnReady)
+		{
+			GenerateLevel();
+		}
+	}
+	
+	public void GenerateLevel()
+	{
+		if(GenerationComplete)
+		{
+			throw new InvalidOperationException();
+		}
 		GenerateTestGrid(5, 5);
 		RoomManager.DebugStartRoom = GetRoomName(new Vector2I(2, 2));
 	}
+	
 	private void GenerateTestGrid(int width, int height)
 	{
 		for(int x = 0; x < width; x++)
@@ -90,12 +111,15 @@ public partial class LevelGenerator : Node
 		
 		if(GeneratingRoomsCount == 0)
 		{
-			AllRoomsGenerated();
+			OnAllRoomsGenerated();
 		}
 	}
 	
-	private void AllRoomsGenerated()
+	private void OnAllRoomsGenerated()
 	{
+		GenerationComplete = true;
 		RoomManager.Initialize();
+		
+		EmitSignal(SignalName.LevelGenerated);
 	}
 }
