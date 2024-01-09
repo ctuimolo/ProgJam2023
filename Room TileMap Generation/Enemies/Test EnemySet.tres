@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EnemySet" load_steps=3 format=3 uid="uid://c38mixw34dfic"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/Enemies/EnemySet.cs" id="2_2pcbv"]
+[ext_resource type="Resource" uid="uid://dpc13sbgles2p" path="res://Room TileMap Generation/Enemies/Spider SpawnableEnemy.tres" id="2_te230"]
+
+[resource]
+script = ExtResource("2_2pcbv")
+Enemies = Array[Object]([ExtResource("2_te230")])

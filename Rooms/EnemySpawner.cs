@@ -1,4 +1,4 @@
-﻿using Godot;
+using Godot;
 
 using System.Collections.Generic;
 
@@ -15,12 +15,14 @@ public static class EnemySpawner
    public enum EnemyType
    {
       GreenSlime,
+      Spider,
       PlaceHolder,
    }
 
    private static Dictionary<EnemyType, string> _library = new Dictionary<EnemyType, string>()
    {
       { EnemyType.GreenSlime, "res://Actors/Enemies/Slimes/Slime.tscn" },
+      { EnemyType.Spider, "res://Actors/Enemies/Spiders/Spider.tscn" },
    };
 
    public static PackedScene GetEnemyScene(EnemyType type)
