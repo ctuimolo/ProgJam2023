@@ -48,6 +48,8 @@ public partial class GridActor : Node2D
 
    public GridDirection Direction = GridDirection.Down;
 
+   public Room CurrentRoom    = null;
+
    public Cell CurrentCell    = null;
    public GridDirection LastStep;
 
