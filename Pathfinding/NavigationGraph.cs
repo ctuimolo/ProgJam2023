@@ -28,6 +28,11 @@ public class NavigationGraph
 	
 	public Path GetPath(Cell start, Cell end)
 	{
+		//GD.Print($"{start.Position()} {HasCell(start)} | {end.Position()} {HasCell(end)}");
+		if(!HasCell(start) || !HasCell(end))
+		{
+			return null;
+		}
 		int startID = CellToID[start];
 		int endID = CellToID[end];
 		long[] idPath = AStar.GetIdPath(startID, endID);

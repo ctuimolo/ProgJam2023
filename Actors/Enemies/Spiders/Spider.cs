@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 using ProgJam2023.World;
 using ProgJam2023.Rooms;
@@ -14,6 +15,7 @@ public partial class Spider : Enemy
 	private BasicPathfinder Pathfinder;
 	
 	private Path CurrentPath;
+	// Currently not used because path is remade each frame
 	private int PathIndex;
 	
 	public override void _Ready()
@@ -92,10 +94,28 @@ public partial class Spider : Enemy
 	
 	private void MoveAnimation(Cell lastCell, Cell newCell)
 	{
-		///////////////////////////////
-		CurrentRoom.UpdateCellPositionDraw(this);
-		State = GridActor.ActorState.Idle;
+		Vector2I direction = newCell.Position() - lastCell.Position();
+		
+		if(!MoveDirectionToAnimationName.TryGetValue(direction, out String name))
+		{
+			GD.Print($"no animation for {direction}");
+			name = "walk_down";
+		}
+		_animationPlayer.Play(name);
+		_animationWalker.Play(name);
+		
+		_animationWalker.Queue("idle");
 	}
+	
+	Dictionary<Vector2I, String> MoveDirectionToAnimationName = new Dictionary<Vector2I, String>() {
+		[new Vector2I(0, -1)] = "walk_up",
+		[new Vector2I(1, -1)] = "walk_up_right",
+		[new Vector2I(1, 0)] = "walk_right",
+		[new Vector2I(1, 1)] = "walk_down_right",
+		[new Vector2I(-1, 1)] = "walk_down_left",
+		[new Vector2I(-1, 0)] = "walk_left",
+		[new Vector2I(-1, -1)] = "walk_up_left",
+	};
 	
 	public override bool IsMobile() => true;
 }
