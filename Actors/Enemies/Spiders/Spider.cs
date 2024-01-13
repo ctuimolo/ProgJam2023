@@ -108,12 +108,13 @@ public partial class Spider : Enemy
 	}
 	
 	Dictionary<Vector2I, String> MoveDirectionToAnimationName = new Dictionary<Vector2I, String>() {
-		[new Vector2I(0, -1)] = "walk_up",
-		[new Vector2I(1, -1)] = "walk_up_right",
-		[new Vector2I(1, 0)] = "walk_right",
-		[new Vector2I(1, 1)] = "walk_down_right",
-		[new Vector2I(-1, 1)] = "walk_down_left",
-		[new Vector2I(-1, 0)] = "walk_left",
+		[new Vector2I( 0, -1)] = "walk_up",
+		[new Vector2I( 1, -1)] = "walk_up_right",
+		[new Vector2I( 1,  0)] = "walk_right",
+		[new Vector2I( 1,  1)] = "walk_down_right",
+		[new Vector2I( 0,  1)] = "walk_down",
+		[new Vector2I(-1,  1)] = "walk_down_left",
+		[new Vector2I(-1,  0)] = "walk_left",
 		[new Vector2I(-1, -1)] = "walk_up_left",
 	};
 	
