@@ -16,6 +16,7 @@ public static class EnemySpawner
    {
       GreenSlime,
       Spider,
+      Bat,
       PlaceHolder,
    }
 
@@ -23,6 +24,7 @@ public static class EnemySpawner
    {
       { EnemyType.GreenSlime, "res://Actors/Enemies/Slimes/Slime.tscn" },
       { EnemyType.Spider, "res://Actors/Enemies/Spiders/Spider.tscn" },
+      { EnemyType.Bat, "res://Actors/Enemies/Bats/Bat.tscn" },
    };
 
    public static PackedScene GetEnemyScene(EnemyType type)
