@@ -28,7 +28,7 @@ public partial class Room : Node2D
    {
       foreach (Vector2I cell in Map.GetUsedCells(0))
       {
-         CellMap[cell] = new Cell(cell);
+         CellMap[cell] = new Cell(cell, this);
       }
    }
 

@@ -189,6 +189,14 @@ public partial class WorldManager : Node
       if (!CurrentRoom.CellMap.ContainsKey(toCell)) return false;
       return !CurrentRoom.CellMap[toCell].HasCollisions(actor is not Enemy);
    }
+   public static bool TestTraversable(GridActor actor, Cell cell)
+   {
+      if(!CurrentRoom.CellMap.TryGetValue(cell.Position(), out Cell roomCell) || cell != roomCell)
+      {
+         return false;
+      }
+      return !cell.HasCollisions(actor is not Enemy);
+   }
 
    public static bool TryMoveActor(GridActor actor, GridDirection direction)
    {
