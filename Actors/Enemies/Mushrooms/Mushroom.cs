@@ -44,7 +44,6 @@ public partial class Mushroom : Enemy
 	{
 		_animationPlayer.Play("attack");
 		_animationPlayer.Queue("idle");
-		GD.Print("attack");
 		///////// Animate spores effect
 		///////// Damage Player and Enemies in nearby area
 	}

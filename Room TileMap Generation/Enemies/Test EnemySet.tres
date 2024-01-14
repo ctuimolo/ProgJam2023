@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EnemySet" load_steps=7 format=3 uid="uid://c38mixw34dfic"]
+[gd_resource type="Resource" script_class="EnemySet" load_steps=8 format=3 uid="uid://c38mixw34dfic"]
 
 [ext_resource type="Resource" uid="uid://k0313gv2jhst" path="res://Room TileMap Generation/Enemies/GreenSlime SpawnableEnemy.tres" id="1_sbr6s"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Enemies/EnemySet.cs" id="2_2pcbv"]
@@ -6,7 +6,8 @@
 [ext_resource type="Resource" uid="uid://dpc13sbgles2p" path="res://Room TileMap Generation/Enemies/Spider SpawnableEnemy.tres" id="2_te230"]
 [ext_resource type="Resource" uid="uid://bh26bbiptshnp" path="res://Room TileMap Generation/Enemies/Rat SpawnableEnemy.tres" id="4_o023h"]
 [ext_resource type="Resource" uid="uid://b8au3clw3exu5" path="res://Room TileMap Generation/Enemies/Mushroom SpawnableEnemy.tres" id="5_8sio2"]
+[ext_resource type="Resource" uid="uid://cgrrjharphdxd" path="res://Room TileMap Generation/Enemies/Moldman SpawnableEnemy.tres" id="6_i2pan"]
 
 [resource]
 script = ExtResource("2_2pcbv")
-Enemies = Array[Object]([ExtResource("4_o023h"), ExtResource("2_3kl5g"), ExtResource("1_sbr6s"), ExtResource("2_te230"), ExtResource("5_8sio2")])
+Enemies = Array[Object]([ExtResource("4_o023h"), ExtResource("2_3kl5g"), ExtResource("1_sbr6s"), ExtResource("2_te230"), ExtResource("5_8sio2"), ExtResource("6_i2pan")])
