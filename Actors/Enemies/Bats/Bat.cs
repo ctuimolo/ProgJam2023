@@ -109,7 +109,7 @@ public partial class Bat : Enemy
 		else
 		{
 			//GD.Print("Can't follow path");
-			GridDirection randomDirection = GetRandomMoveDirection();
+			GridDirection randomDirection = Utils.GetRandomMoveDirection(this);
 			if(randomDirection != GridDirection.None)
 			{
 				WorldManager.TryMoveActor(this, randomDirection);
@@ -135,7 +135,7 @@ public partial class Bat : Enemy
 		if(quadrants.Count == 0) return null;
 		
 		// Randomly select valid quadrant
-		Vector2I quadrant = quadrants[RandomRange(quadrants.Count)];
+		Vector2I quadrant = quadrants[Utils.RandomRange(quadrants.Count)];
 		//GD.Print($"Quadrant: {quadrant}");
 		// Get path cycle as offsets from CurrentCell
 		Vector2I[] offsets = new Vector2I[] {
@@ -146,7 +146,7 @@ public partial class Bat : Enemy
 		};
 		
 		// Randomize clockwise/counter-clockwise
-		if(RandomRange(2) == 0)
+		if(Utils.RandomRange(2) == 0)
 		{
 			Vector2I temp = offsets[1];
 			offsets[1] = offsets[3];
@@ -154,7 +154,7 @@ public partial class Bat : Enemy
 		}
 		
 		// Build path
-		int pathLength = RandomRange(SpiralLengthMin, SpiralLengthMax);
+		int pathLength = Utils.RandomRange(SpiralLengthMin, SpiralLengthMax);
 		List<Cell> path = new List<Cell>();
 		for(int i = 0; i < pathLength; i++)
 		{
@@ -186,40 +186,6 @@ public partial class Bat : Enemy
 	{
 		return WorldManager.TestTraversable(this, cell);
 	}
-	
-	private GridDirection GetRandomMoveDirection()
-	{
-		List<GridDirection> directions = new List<GridDirection>();
-		if(WorldManager.TestTraversable(this, GridDirection.Up))
-		{
-			directions.Add(GridDirection.Up);
-		}
-		if(WorldManager.TestTraversable(this, GridDirection.Down))
-		{
-			directions.Add(GridDirection.Down);
-		}
-		if(WorldManager.TestTraversable(this, GridDirection.Left))
-		{
-			directions.Add(GridDirection.Left);
-		}
-		if(WorldManager.TestTraversable(this, GridDirection.Right))
-		{
-			directions.Add(GridDirection.Right);
-		}
-		
-		if(directions.Count == 0)
-		{
-			return GridDirection.None;
-		}
-		return directions[RandomRange(directions.Count)];
-	}
-	
-	private int RandomRange(int min, int max)
-	{
-		if(min == max) return min;
-		return (int)((GD.Randi() % (max - min)) + min);
-	}
-	private int RandomRange(int max) => RandomRange(0, max);
 	
 	public override bool IsMobile() => true;
 }
