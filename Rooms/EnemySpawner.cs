@@ -20,6 +20,7 @@ public static class EnemySpawner
       Rat,
       Mushroom,
       Moldman,
+      Snail,
       PlaceHolder,
    }
 
@@ -31,6 +32,7 @@ public static class EnemySpawner
       { EnemyType.Rat, "res://Actors/Enemies/Rats/Rat.tscn" },
       { EnemyType.Mushroom, "res://Actors/Enemies/Mushrooms/Mushroom.tscn" },
       { EnemyType.Moldman, "res://Actors/Enemies/Moldmen/Moldman.tscn" },
+      { EnemyType.Snail, "res://Actors/Enemies/Snails/Snail.tscn" },
    };
 
    public static PackedScene GetEnemyScene(EnemyType type)
