@@ -17,6 +17,9 @@ public partial class RoomDesigner : Node
 	[Export]
 	public RoomTileMapEditor TileMapEditor;
 	
+	[Export]
+	public int EnemySpawnAttempts = 10;
+	
 	public RoomPathDrawer PathDrawer;
 	
 	public Rect2I Rect { get; set; }
@@ -183,15 +186,25 @@ public partial class RoomDesigner : Node
 		Vector2I max = InsideMax - Rect.Size / 3;
 		foreach(SpawnableEnemy enemy in ParametersCollapsed.Enemies.Enemies)
 		{
-			Vector2I cell = new Vector2I(
-				RNG.RandiRange(min.X, max.X),
-				RNG.RandiRange(min.Y, max.Y)
-			);
-			if(enemy.CanSpawn(cell, TileMapEditor))
+			bool success = false;
+			for(int i = 0; i < EnemySpawnAttempts && !success; i++)
 			{
-				AddEnemy(enemy, cell);
+				success = TrySpawnEnemy(enemy, min, max);
 			}
 		}
+	}
+	private bool TrySpawnEnemy(SpawnableEnemy enemy, Vector2I min, Vector2I max)
+	{
+		Vector2I cell = new Vector2I(
+			RNG.RandiRange(min.X, max.X),
+			RNG.RandiRange(min.Y, max.Y)
+		);
+		if(!enemy.CanSpawn(cell, TileMapEditor))
+		{
+			return false;
+		}
+		AddEnemy(enemy, cell);
+		return true;
 	}
 	private void AddEnemy(SpawnableEnemy enemy, Vector2I cell)
 	{

@@ -34,7 +34,7 @@ public partial class EnemyParameters : Resource
 			case EnemyAmount.Few:
 				return new Vector2I(1, 3);
 			case EnemyAmount.Many:
-				return new Vector2I(3, 5);
+				return new Vector2I(4, 6);
 			default:
 				throw new ArgumentException();
 		}
