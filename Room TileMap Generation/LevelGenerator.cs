@@ -17,15 +17,43 @@ public partial class LevelGenerator : Node
 	[Export]
 	public RoomParameters DebugParameters;
 	
+	[Export]
+	public PackedScene EnemyTestRoom;
+	[Export]
+	public bool LoadEnemyTestRoom = false;
+	
+	[Export]
+	public PackedScene RoomScene;
+	
 	
 	private int GeneratingRoomsCount;
 	
 	
 	public override void _Ready()
 	{
+		if(LoadEnemyTestRoom)
+		{
+			LoadTestRoom("Enemy TestRoom", EnemyTestRoom);
+			return;
+		}
+		
 		GenerateTestGrid(5, 5);
 		RoomManager.DebugStartRoom = GetRoomName(new Vector2I(2, 2));
 	}
+	
+	private void LoadTestRoom(String name, PackedScene scene)
+	{
+		Room room = RoomScene.Instantiate<Room>();
+		RoomTileMap tileMap = scene.Instantiate<RoomTileMap>();
+		room.AddChild(tileMap);
+		room.Map = tileMap;
+		
+		RoomManager.AddRoom(name, room);
+		RoomManager.DebugStartRoom = name;
+		
+		RoomManager.Initialize();
+	}
+	
 	private void GenerateTestGrid(int width, int height)
 	{
 		for(int x = 0; x < width; x++)
