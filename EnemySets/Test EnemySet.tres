@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemySet" load_steps=9 format=3 uid="uid://c38mixw34dfic"]
+
+[ext_resource type="Resource" uid="uid://ct41w0bskw507" path="res://Actors/Enemies/Snails/Snail SpawnableEnemy.tres" id="1_5xeh5"]
+[ext_resource type="Resource" uid="uid://k0313gv2jhst" path="res://Actors/Enemies/Slimes/GreenSlime SpawnableEnemy.tres" id="1_sbr6s"]
+[ext_resource type="Script" path="res://Room TileMap Generation/Enemies/EnemySet.cs" id="2_2pcbv"]
+[ext_resource type="Resource" uid="uid://ihybegaweyqh" path="res://Actors/Enemies/Bats/Bat SpawnableEnemy.tres" id="2_3kl5g"]
+[ext_resource type="Resource" uid="uid://dpc13sbgles2p" path="res://Actors/Enemies/Spiders/Spider SpawnableEnemy.tres" id="2_te230"]
+[ext_resource type="Resource" uid="uid://bh26bbiptshnp" path="res://Actors/Enemies/Rats/Rat SpawnableEnemy.tres" id="4_o023h"]
+[ext_resource type="Resource" uid="uid://b8au3clw3exu5" path="res://Actors/Enemies/Mushrooms/Mushroom SpawnableEnemy.tres" id="5_8sio2"]
+[ext_resource type="Resource" uid="uid://cgrrjharphdxd" path="res://Actors/Enemies/Moldmen/Moldman SpawnableEnemy.tres" id="6_i2pan"]
+
+[resource]
+script = ExtResource("2_2pcbv")
+Enemies = Array[Object]([ExtResource("4_o023h"), ExtResource("2_3kl5g"), ExtResource("1_sbr6s"), ExtResource("2_te230"), ExtResource("5_8sio2"), ExtResource("6_i2pan"), ExtResource("1_5xeh5")])
