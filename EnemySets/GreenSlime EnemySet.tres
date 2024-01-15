@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="EnemySet" load_steps=3 format=3 uid="uid://bf4nu38bp1n1"]
 
-[ext_resource type="Resource" uid="uid://k0313gv2jhst" path="res://Room TileMap Generation/Enemies/GreenSlime SpawnableEnemy.tres" id="1_8lsjs"]
+[ext_resource type="Resource" uid="uid://k0313gv2jhst" path="res://Actors/Enemies/Slimes/GreenSlime SpawnableEnemy.tres" id="1_8lsjs"]
 [ext_resource type="Script" path="res://Room TileMap Generation/Enemies/EnemySet.cs" id="1_fe54b"]
 
 [resource]

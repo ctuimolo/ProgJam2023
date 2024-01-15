@@ -14,4 +14,5 @@ public partial class Enemy : GridActor
    {
       _needsToTakeTurn = true;
    }
+   public virtual bool IsMobile() => false;
 }

@@ -10,12 +10,16 @@ namespace ProgJam2023.Rooms
       public int X;
       public int Y;
 
+      public Room Room;
+
       public List<GridActor> Actors { get; private set;}
 
-      public Cell(Vector2I location)
+      public Cell(Vector2I location, Room room)
       {
          X = location.X; 
          Y = location.Y;
+
+         Room = room;
 
          Actors = new List<GridActor>();
       }
