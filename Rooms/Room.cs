@@ -28,7 +28,7 @@ public partial class Room : Node2D
    {
       foreach (Vector2I cell in Map.GetUsedCells(0))
       {
-         CellMap[cell] = new Cell(cell);
+         CellMap[cell] = new Cell(cell, this);
       }
    }
 
@@ -85,6 +85,8 @@ public partial class Room : Node2D
          Actors.Add(actor.Name, actor);
          Vector2I toCell = Map.LocalToMap(actor.Position);
          PutOnCell(toCell, actor, true);
+
+         actor.CurrentRoom = this;
       }
 
       // Enemy Spawning
@@ -94,6 +96,8 @@ public partial class Room : Node2D
          AddChild(enemy);
          PutOnCell(instruction.Cell, enemy, true);
          Actors.Add(enemy.Name, enemy);
+
+         enemy.CurrentRoom = this;
       }
    }
    

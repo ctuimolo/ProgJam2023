@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="EnemySet" load_steps=6 format=3 uid="uid://dltoraqst67fs"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/Enemies/EnemySet.cs" id="1_ehal5"]
+[ext_resource type="Resource" uid="uid://bh26bbiptshnp" path="res://Actors/Enemies/Rats/Rat SpawnableEnemy.tres" id="1_scatp"]
+[ext_resource type="Resource" uid="uid://ihybegaweyqh" path="res://Actors/Enemies/Bats/Bat SpawnableEnemy.tres" id="2_eygyq"]
+[ext_resource type="Resource" uid="uid://k0313gv2jhst" path="res://Actors/Enemies/Slimes/GreenSlime SpawnableEnemy.tres" id="3_fesj2"]
+[ext_resource type="Resource" uid="uid://dpc13sbgles2p" path="res://Actors/Enemies/Spiders/Spider SpawnableEnemy.tres" id="4_cq08n"]
+
+[resource]
+script = ExtResource("1_ehal5")
+Enemies = Array[Object]([ExtResource("1_scatp"), ExtResource("2_eygyq"), ExtResource("3_fesj2"), ExtResource("4_cq08n")])

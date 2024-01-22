@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SpawnableEnemy" load_steps=2 format=3 uid="uid://bh26bbiptshnp"]
+
+[ext_resource type="Script" path="res://Room TileMap Generation/Enemies/SpawnableEnemy.cs" id="1_sk537"]
+
+[resource]
+script = ExtResource("1_sk537")
+Type = 3

@@ -18,6 +18,14 @@ public partial class LevelGenerator : Node
 	public RoomParameters DebugParameters;
 	
 	[Export]
+	public PackedScene EnemyTestRoom;
+	[Export]
+	public bool LoadEnemyTestRoom = false;
+	
+	[Export]
+	public PackedScene RoomScene;
+
+	[Export]
 	public bool GenerateOnReady = false;
 	
 	public bool GenerationComplete = false;
@@ -31,6 +39,12 @@ public partial class LevelGenerator : Node
 	
 	public override void _Ready()
 	{
+		if(LoadEnemyTestRoom)
+		{
+			LoadTestRoom("Enemy TestRoom", EnemyTestRoom);
+			return;
+		}
+		
 		if(GenerateOnReady)
 		{
 			GenerateLevel();
@@ -47,6 +61,19 @@ public partial class LevelGenerator : Node
 		RoomManager.DebugStartRoom = GetRoomName(new Vector2I(2, 2));
 	}
 	
+	private void LoadTestRoom(String name, PackedScene scene)
+	{
+		Room room = RoomScene.Instantiate<Room>();
+		RoomTileMap tileMap = scene.Instantiate<RoomTileMap>();
+		room.AddChild(tileMap);
+		room.Map = tileMap;
+		
+		RoomManager.AddRoom(name, room);
+		RoomManager.DebugStartRoom = name;
+		
+		RoomManager.Initialize();
+	}
+
 	private void GenerateTestGrid(int width, int height)
 	{
 		for(int x = 0; x < width; x++)

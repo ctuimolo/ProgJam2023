@@ -189,20 +189,44 @@ public partial class WorldManager : Node
       if (!CurrentRoom.CellMap.ContainsKey(toCell)) return false;
       return !CurrentRoom.CellMap[toCell].HasCollisions(actor is not Enemy);
    }
-
-   public static void TryMoveActor(GridActor actor, GridDirection direction)
+   public static bool TestTraversable(GridActor actor, Cell cell)
    {
-      if (actor.State != GridActor.ActorState.Idle) return;
+      if(!CurrentRoom.CellMap.TryGetValue(cell.Position(), out Cell roomCell) || cell != roomCell)
+      {
+         return false;
+      }
+      return !cell.HasCollisions(actor is not Enemy);
+   }
+
+   public static bool TryMoveActor(GridActor actor, GridDirection direction)
+   {
+      if (actor.State != GridActor.ActorState.Idle) return false;
 
       Vector2I toCell = actor.CurrentCell.Position() + Utils.DirectionToVector(direction);
 
-      if (!TestTraversable(actor, toCell)) return;
+      if (!TestTraversable(actor, toCell)) return false;
 
       actor.State = GridActor.ActorState.Busy;
       actor.StepAnimation(direction);
       actor.LastStep = direction;
 
       CurrentRoom.PutOnCell(toCell, actor, false);
+
+      return true;
+   }
+
+   public static bool TryMoveActorToCell(GridActor actor, Cell cell)
+   {
+      if (actor.State != GridActor.ActorState.Idle) return false;
+      if (!TestTraversable(actor, cell.Position())) return false;
+
+      actor.State = GridActor.ActorState.Busy;
+      //actor.StepAnimation(direction);
+      //actor.LastStep = direction;
+
+      CurrentRoom.PutOnCell(cell.Position(), actor, false);
+
+      return true;
    }
 
    // Called when the node enters the scene tree for the first time.

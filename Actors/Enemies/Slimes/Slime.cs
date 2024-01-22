@@ -21,4 +21,5 @@ public partial class Slime : Enemy
          _needsToTakeTurn = false;
       }
    }
+   public override bool IsMobile() => true;
 }
